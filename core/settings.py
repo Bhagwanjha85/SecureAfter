@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from decouple import config
 import logging
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -93,6 +94,15 @@ DATABASES = {
     }
 }
 
+# Database configuration for Render (PostgreSQL)
+DATABASE_URL = config('DATABASE_URL', default=None)
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', 'OPTIONS': {'min_length': 12}},
@@ -129,6 +139,11 @@ CSRF_COOKIE_SECURE = False  # HTTP in development, HTTPS in production
 CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SAMESITE = 'Strict'
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='http://127.0.0.1:8000,http://localhost:8000', cast=lambda v: [s.strip() for s in v.split(',')] if v else [])
+
+# Add Render.com URL to CSRF trusted origins
+RENDER_EXTERNAL_HOSTNAME = config('RENDER_EXTERNAL_HOSTNAME', default=None)
+if RENDER_EXTERNAL_HOSTNAME:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_EXTERNAL_HOSTNAME}')
 
 # Security Headers
 SECURE_BROWSER_XSS_FILTER = True

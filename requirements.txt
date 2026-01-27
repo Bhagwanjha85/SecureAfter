@@ -13,3 +13,4 @@ django-csp==3.7
 bleach==6.1.0
 python-slugify==8.0.1
 gunicorn
+dj-database-url
