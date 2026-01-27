@@ -78,6 +78,51 @@
         overflow-x: hidden;
       }
 
+.main-content {
+  width: 100%;
+  flex: 1;
+}
+
+/* Global page spacing */
+.page-wrapper {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  margin-bottom: 40px;
+}
+
+/* Full-width sections support */
+.full-width {
+  width: 100%;
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Mobile spacing */
+@media (max-width: 768px) {
+  .page-wrapper {
+    padding: 0 1rem;
+  }
+}
+
+/* Mobile footer fix */
+@media (max-width: 768px) {
+  body {
+    overflow-y: auto !important;
+  }
+
+  .hero-section,
+  .benefits-section,
+  .testimonials-section,
+  .cta-section,
+  .contact-container {
+    overflow: visible !important;
+    
+  }
+}
+
+
       /* Fixed Header Container */
       .fixed-header {
         position: fixed;
@@ -398,12 +443,6 @@
         background: #dc2626;
       }
 
-      .container {
-        max-width: 1400px;
-        margin: 2rem auto;
-        padding: 0 1.5rem;
-      }
-
       .card {
         background: white;
         border-radius: 16px;
@@ -434,6 +473,9 @@
         gap: 0.75rem;
         border-left: 4px solid;
       }
+
+
+      
 
       @keyframes slideIn {
         from {
@@ -616,9 +658,6 @@
           max-width: none;
         }
 
-        .container {
-          padding: 0 1rem;
-        }
       }
 
       @media (max-width: 480px) {
@@ -726,6 +765,12 @@
           transform: translateY(0);
         }
       }
+
+
+
+
+
+
     </style>
   </head>
 
@@ -878,7 +923,11 @@
     {% endif %}
 
     <!-- Main Content -->
-    <div class="container">{% block content %}{% endblock %}</div>
+<main class="main-content">
+  <div class="page-wrapper">
+    {% block content %}{% endblock %}
+  </div>
+</main>
 
     <!-- Footer -->
     {% include 'footer.html' %}
