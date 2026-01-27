@@ -1,0 +1,284 @@
+{% extends 'base.html' %} {% block title %}Verify Nominee Email - SecureAfter
+{% endblock %} {% block content %}
+<style>
+  .auth-container {
+    max-width: 500px;
+    margin: clamp(2rem, 8vh, 4rem) auto;
+    padding: 0 1rem;
+  }
+
+  .auth-card {
+    background: white;
+    border-radius: 16px;
+    padding: clamp(1.5rem, 5vw, 3rem);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+
+  .auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .auth-header h1 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .auth-header p {
+    color: #6b7280;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    margin: 0.5rem 0;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #374151;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: clamp(0.6rem, 1.5vw, 0.75rem);
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    transition: border-color 0.3s;
+    min-height: 44px;
+    letter-spacing: 5px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: clamp(0.75rem, 2vw, 1rem);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    margin-top: 1rem;
+    min-height: 48px;
+  }
+
+  .alert {
+    margin-bottom: 1.5rem;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+  }
+
+  .otp-info {
+    background: #f3f4f6;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    color: #6b7280;
+  }
+
+  .progress-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+  }
+
+  .progress-step {
+    text-align: center;
+    flex: 1;
+    position: relative;
+  }
+
+  .progress-step::before {
+    content: "";
+    position: absolute;
+    width: calc(100% - 30px);
+    height: 2px;
+    background: #e5e7eb;
+    top: 20px;
+    left: 30px;
+  }
+
+  .progress-step:last-child::before {
+    display: none;
+  }
+
+  .progress-circle {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #9ca3af;
+    line-height: 32px;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+  }
+
+  .progress-step.active .progress-circle {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .progress-step.completed .progress-circle {
+    background: #10b981;
+    color: white;
+  }
+
+  .progress-label {
+    margin-top: 0.5rem;
+    font-weight: 500;
+    color: #6b7280;
+  }
+
+  .progress-step.active .progress-label {
+    color: var(--primary-color);
+  }
+
+  .resend-section {
+    text-align: center;
+    margin-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1rem;
+  }
+
+  .resend-section p {
+    color: #6b7280;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .resend-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    font-weight: 600;
+  }
+
+  .resend-btn:hover {
+    text-decoration: none;
+  }
+
+  @media (max-width: 480px) {
+    .auth-container {
+      margin: 1rem 0.5rem;
+    }
+
+    .auth-card {
+      border-radius: 12px;
+    }
+
+    .progress-step::before {
+      width: calc(100% - 24px);
+    }
+  }
+</style>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="progress-bar">
+      <div class="progress-step completed">
+        <div class="progress-circle">✓</div>
+        <div class="progress-label">Email OTP</div>
+      </div>
+      <div class="progress-step active">
+        <div class="progress-circle">2</div>
+        <div class="progress-label">Phone OTP</div>
+      </div>
+    </div>
+
+    <div class="auth-header">
+      <h1>📧 Verify Nominee Email</h1>
+      <p>Email verification code sent to:</p>
+      <p><strong>{{ email }}</strong></p>
+    </div>
+
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="otp-info">
+      <strong>📬 Check your email:</strong>
+      <p style="margin: 0.5rem 0 0 0">
+        A 6-digit code has been sent to verify the nominee's email address.
+        Please enter it below.
+      </p>
+    </div>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="otp_code">Verification Code</label>
+        <input
+          type="text"
+          id="otp_code"
+          name="otp_code"
+          class="form-control"
+          maxlength="6"
+          inputmode="numeric"
+          placeholder="000000"
+          required
+          pattern="[0-9]{6}"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-submit">
+        Verify Email
+      </button>
+    </form>
+
+    <div class="resend-section">
+      <p>Didn't receive the code?</p>
+      <form
+        method="POST"
+        action="{% url 'vault:resend_nominee_email_otp' %}"
+        style="display: inline"
+      >
+        {% csrf_token %}
+        <button type="submit" class="resend-btn">Resend Code</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Auto-focus and format OTP input
+  const otpInput = document.getElementById("otp_code");
+  if (otpInput) {
+    otpInput.addEventListener("keypress", function (e) {
+      if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+      }
+    });
+
+    otpInput.addEventListener("input", function (e) {
+      this.value = this.value.replace(/[^0-9]/g, "");
+      if (this.value.length === 6) {
+        // Auto-submit when 6 digits entered
+        // Uncomment to enable auto-submit
+        // this.form.submit();
+      }
+    });
+
+    // Focus on load
+    otpInput.focus();
+  }
+</script>
+{% endblock %}

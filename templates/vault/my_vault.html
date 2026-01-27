@@ -1,0 +1,575 @@
+{% extends 'base.html' %}
+
+{% block title %}My Vault - SecureAfter{% endblock %}
+
+{% block content %}
+<style>
+  /* Modern Vault Styles */
+  :root {
+    --vault-primary: var(--primary-color);
+    --vault-secondary: var(--secondary-color);
+    --card-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+  }
+
+  .vault-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0e0e0f 50%, #8b5cf6 100%);
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+
+  .vault-header-content {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .vault-title {
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+    color: white;
+    margin: 0 0 0.5rem 0;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .vault-title i {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    opacity: 0.9;
+  }
+
+  .vault-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(0.95rem, 2vw, 1.125rem);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .vault-upload-btn {
+    position: relative;
+    z-index: 2;
+    background: white;
+    color: var(--primary-color);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    white-space: nowrap;
+  }
+
+  .vault-upload-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .vault-upload-btn i {
+    font-size: 1.125rem;
+  }
+
+  /* Category Filters */
+  .category-section {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border-color);
+  }
+
+  .filter-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-header i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+  }
+
+  .filter-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0;
+  }
+
+  .category-filters {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--border-color);
+    background: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.95rem;
+    font-weight: 600;
+    min-height: 44px;
+    white-space: nowrap;
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+  }
+
+  .filter-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--primary-color), #6366f1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .filter-btn span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .filter-btn.active {
+    background: linear-gradient(135deg, var(--primary-color), #6366f1);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  }
+
+  .filter-btn.active::before {
+    opacity: 1;
+  }
+
+  /* Documents Grid */
+  .documents-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border-color);
+  }
+
+  .documents-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  .documents-header i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+  }
+
+  .documents-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0;
+  }
+
+  .documents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .document-card {
+    background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .document-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), #6366f1);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .document-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--card-hover);
+    border-color: var(--primary-color);
+  }
+
+  .document-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .document-icon-wrapper {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 1.25rem;
+    background: var(--secondary-color);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .document-card:hover .document-icon-wrapper {
+    transform: scale(1.1) rotate(-5deg);
+    background: linear-gradient(135deg, var(--primary-color), #6366f1);
+  }
+
+  .document-icon {
+    font-size: 2.25rem;
+    transition: all 0.3s ease;
+  }
+
+  /* Icon Colors */
+  .icon-id { color: #3b82f6; }
+  .icon-medical { color: #10b981; }
+  .icon-insurance { color: #8b5cf6; }
+  .icon-property { color: #f59e0b; }
+  .icon-financial { color: #ef4444; }
+  .icon-legal { color: #6366f1; }
+  .icon-other { color: #6b7280; }
+
+  .document-card:hover .document-icon {
+    color: white;
+  }
+
+  .document-title {
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+    font-size: 1.125rem;
+    word-break: break-word;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .document-meta {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+  }
+
+  .document-meta div {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .document-meta div:last-child {
+    margin-bottom: 0;
+  }
+
+  .document-meta i {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    width: 16px;
+  }
+
+  .document-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .document-actions a {
+    flex: 1;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    min-height: 44px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .document-actions .btn-secondary {
+    background: var(--light-bg);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+  }
+
+  .document-actions .btn-secondary:hover {
+    background: var(--secondary-color);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .document-actions .btn-primary:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+    border-radius: 16px;
+    border: 2px dashed var(--border-color);
+  }
+
+  .empty-state-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+  }
+
+  .empty-state h3 {
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .empty-state p {
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+  }
+
+  .empty-state .btn-primary {
+    display: inline-flex;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  }
+
+  .empty-state .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .vault-header {
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+    }
+
+    .vault-header-content {
+      text-align: center;
+    }
+
+    .vault-title {
+      justify-content: center;
+    }
+
+    .vault-upload-btn {
+      width: 100%;
+      justify-content: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .category-section,
+    .documents-container {
+      padding: 1.5rem;
+    }
+
+    .documents-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.25rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .vault-header {
+      padding: 1.5rem 1rem;
+    }
+
+    .category-section,
+    .documents-container {
+      padding: 1.25rem;
+      border-radius: 16px;
+    }
+
+    .documents-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .filter-btn {
+      flex: 1 1 auto;
+      justify-content: center;
+      min-width: 100px;
+    }
+
+    .document-card {
+      padding: 1.5rem;
+    }
+
+    .document-icon-wrapper {
+      width: 64px;
+      height: 64px;
+    }
+
+    .document-icon {
+      font-size: 2rem;
+    }
+
+    .empty-state {
+      padding: 3rem 1.5rem;
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+    }
+  }
+</style>
+
+<!-- Vault Header -->
+<div class="vault-header">
+  <div class="vault-header-content">
+    <h1 class="vault-title">
+      <i class="fas fa-shield-alt"></i>
+      My Vault
+    </h1>
+    <p class="vault-subtitle">Secure storage for all your important documents</p>
+  </div>
+  <a href="{% url 'vault:upload_document' %}" class="vault-upload-btn">
+    <i class="fas fa-cloud-upload-alt"></i>
+    Upload Document
+  </a>
+</div>
+
+<!-- Category Filters -->
+<div class="category-section">
+  <div class="filter-header">
+    <i class="fas fa-filter"></i>
+    <h3>Filter by Category</h3>
+  </div>
+  
+  <div class="category-filters">
+    <a href="{% url 'vault:my_vault' %}" class="filter-btn {% if not selected_category %}active{% endif %}">
+      <i class="fas fa-th"></i>
+      <span>All Documents</span>
+    </a>
+    {% for category_code, category_name in categories %}
+    <a href="?category={{ category_code }}" class="filter-btn {% if selected_category == category_code %}active{% endif %}">
+      <i class="fas fa-{% if category_code == 'id' %}id-card{% elif category_code == 'medical' %}heartbeat{% elif category_code == 'insurance' %}shield-alt{% elif category_code == 'property' %}home{% elif category_code == 'financial' %}dollar-sign{% elif category_code == 'legal' %}gavel{% else %}file{% endif %}"></i>
+      <span>{{ category_name }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Documents Container -->
+<div class="documents-container">
+  <div class="documents-header">
+    <i class="fas fa-folder-open"></i>
+    <h3>
+      {% if selected_category %}
+        {{ selected_category|title }} Documents
+      {% else %}
+        All Documents
+      {% endif %}
+      ({{ documents|length }})
+    </h3>
+  </div>
+
+  {% if documents %}
+  <div class="documents-grid">
+    {% for doc in documents %}
+    <div class="document-card">
+      <div class="document-icon-wrapper">
+        <i class="document-icon fas fa-{% if doc.category == 'id' %}id-card icon-id{% elif doc.category == 'medical' %}heartbeat icon-medical{% elif doc.category == 'insurance' %}shield-alt icon-insurance{% elif doc.category == 'property' %}home icon-property{% elif doc.category == 'financial' %}dollar-sign icon-financial{% elif doc.category == 'legal' %}gavel icon-legal{% else %}file icon-other{% endif %}"></i>
+      </div>
+
+      <div class="document-title">{{ doc.title }}</div>
+
+      <div class="document-meta">
+        <div>
+          <i class="fas fa-tag"></i>
+          {{ doc.get_category_display }}
+        </div>
+        <div>
+          <i class="fas fa-calendar"></i>
+          {{ doc.created_at|date:"M d, Y" }}
+        </div>
+        {% if doc.file_size %}
+        <div>
+          <i class="fas fa-hdd"></i>
+          {{ doc.file_size|filesizeformat }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="document-actions">
+        <a href="{% url 'vault:view_document' doc.id %}" class="btn btn-secondary">
+          <i class="fas fa-eye"></i> View
+        </a>
+        <a href="{% url 'vault:download_document' doc.id %}" class="btn btn-primary">
+          <i class="fas fa-download"></i> Download
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-state-icon">
+      <i class="fas fa-folder-open"></i>
+    </div>
+    <h3>No Documents Found</h3>
+    <p>
+      {% if selected_category %}
+        No documents in this category yet. Upload your first {{ selected_category }} document to get started.
+      {% else %}
+        Your vault is empty. Upload your first document to secure your important files.
+      {% endif %}
+    </p>
+    <a href="{% url 'vault:upload_document' %}" class="btn btn-primary">
+      <i class="fas fa-cloud-upload-alt"></i> Upload Document
+    </a>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

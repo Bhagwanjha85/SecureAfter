@@ -1,0 +1,818 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - SecureAfter{% endblock %}
+
+{% block content %}
+<style>
+    /* Modern Professional Dashboard Styles */
+    :root {
+        --primary: #4f46e5;
+        --primary-dark: #4338ca;
+        --primary-light: #6366f1;
+        --secondary: #06b6d4;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-tertiary: #f1f5f9;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-tertiary: #94a3b8;
+        --border: #e2e8f0;
+        --border-light: #f1f5f9;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        --radius-sm: 0.5rem;
+        --radius-md: 0.75rem;
+        --radius-lg: 1rem;
+        --radius-xl: 1.5rem;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        background: var(--bg-secondary);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        color: var(--text-primary);
+        line-height: 1.6;
+    }
+
+    .dashboard-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+    }
+
+    /* Welcome Header Section */
+    .welcome-section {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--secondary) 100%);
+        border-radius: var(--radius-xl);
+        padding: 3rem 2.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .welcome-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.4;
+    }
+
+    .welcome-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .welcome-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0 0 0.75rem 0;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .welcome-title i {
+        font-size: 2.5rem;
+        opacity: 0.9;
+    }
+
+    .welcome-subtitle {
+        font-size: 1.125rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+        font-weight: 400;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: var(--bg-primary);
+        border-radius: var(--radius-lg);
+        padding: 1.75rem;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--accent-color);
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--accent-color);
+    }
+
+    .stat-card:hover::before {
+        transform: scaleY(1);
+    }
+
+    .stat-card-inner {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.25rem;
+    }
+
+    .stat-icon-wrapper {
+        width: 4rem;
+        height: 4rem;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .stat-icon-wrapper::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: inherit;
+        opacity: 0.2;
+        transform: scale(1.1);
+    }
+
+    .stat-icon-wrapper i {
+        font-size: 1.75rem;
+        z-index: 1;
+    }
+
+    .stat-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .stat-content h3 {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0 0 0.5rem 0;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        line-height: 1;
+        margin: 0;
+    }
+
+    .stat-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-top: 0.75rem;
+    }
+
+    /* Icon Color Variants */
+    .stat-card:nth-child(1) {
+        --accent-color: #3b82f6;
+    }
+    .stat-card:nth-child(1) .stat-icon-wrapper {
+        background: #dbeafe;
+        color: #3b82f6;
+    }
+
+    .stat-card:nth-child(2) {
+        --accent-color: #10b981;
+    }
+    .stat-card:nth-child(2) .stat-icon-wrapper {
+        background: #d1fae5;
+        color: #10b981;
+    }
+
+    .stat-card:nth-child(3) {
+        --accent-color: #8b5cf6;
+    }
+    .stat-card:nth-child(3) .stat-icon-wrapper {
+        background: #ede9fe;
+        color: #8b5cf6;
+    }
+
+    .stat-card:nth-child(4) {
+        --accent-color: #f59e0b;
+    }
+    .stat-card:nth-child(4) .stat-icon-wrapper {
+        background: #fef3c7;
+        color: #f59e0b;
+    }
+
+    /* Main Content Grid */
+    .dashboard-main {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 2rem;
+    }
+
+    /* Content Cards */
+    .content-card {
+        background: var(--bg-primary);
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-header {
+        padding: 1.75rem 2rem;
+        border-bottom: 1px solid var(--border-light);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--bg-secondary);
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 0;
+    }
+
+    .card-title i {
+        font-size: 1.5rem;
+        color: var(--primary);
+    }
+
+    .card-header a {
+        color: var(--primary);
+        font-size: 1.25rem;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 50%;
+        background: transparent;
+    }
+
+    .card-header a:hover {
+        background: var(--bg-tertiary);
+        color: var(--primary-dark);
+    }
+
+    .card-body {
+        padding: 2rem;
+        flex: 1;
+    }
+
+    /* Quick Actions Grid */
+    .action-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .action-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.75rem 1rem;
+        background: var(--bg-secondary);
+        border: 2px solid var(--border);
+        border-radius: var(--radius-lg);
+        text-decoration: none;
+        color: var(--text-secondary);
+        transition: var(--transition);
+        gap: 0.75rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .action-btn::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .action-btn:hover {
+        border-color: var(--primary);
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .action-btn:hover::before {
+        opacity: 0.05;
+    }
+
+    .action-btn i {
+        font-size: 2rem;
+        transition: var(--transition);
+        position: relative;
+        z-index: 1;
+    }
+
+    .action-btn:hover i {
+        color: var(--primary);
+        transform: scale(1.1);
+    }
+
+    .action-btn span {
+        font-weight: 600;
+        font-size: 0.9rem;
+        position: relative;
+        z-index: 1;
+        transition: var(--transition);
+    }
+
+    .action-btn:hover span {
+        color: var(--primary);
+    }
+
+    /* Activity List */
+    .activity-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .activity-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-md);
+        transition: var(--transition);
+    }
+
+    .activity-item:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--border);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .activity-icon {
+        width: 3rem;
+        height: 3rem;
+        border-radius: var(--radius-sm);
+        background: #dbeafe;
+        color: #3b82f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 1.25rem;
+    }
+
+    .activity-details {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .activity-title {
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 0.95rem;
+        margin-bottom: 0.25rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .activity-time {
+        font-size: 0.85rem;
+        color: var(--text-tertiary);
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 3rem 1.5rem;
+        color: var(--text-tertiary);
+    }
+
+    .empty-state i {
+        font-size: 3rem;
+        color: var(--border);
+        margin-bottom: 1rem;
+    }
+
+    .empty-state p {
+        margin: 0.5rem 0 0 0;
+        font-size: 0.95rem;
+    }
+
+    /* Security Status */
+    .security-status {
+        margin-top: 2rem;
+        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        border: 1px solid #a7f3d0;
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .security-status::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+    }
+
+    .security-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        position: relative;
+    }
+
+    .security-header i {
+        font-size: 1.5rem;
+        color: #10b981;
+    }
+
+    .security-header span {
+        font-weight: 700;
+        font-size: 1.125rem;
+        color: #065f46;
+    }
+
+    .security-details {
+        font-size: 0.875rem;
+        color: #047857;
+        line-height: 1.6;
+        position: relative;
+    }
+
+    .security-details strong {
+        font-weight: 600;
+        color: #065f46;
+    }
+
+    /* Button Styles */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--radius-md);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: white;
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+    }
+
+    .btn-link {
+        color: var(--primary);
+        background: transparent;
+        font-weight: 600;
+    }
+
+    .btn-link:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+    }
+
+    /* Nominee Status Icons */
+    .status-icon {
+        font-size: 1.125rem;
+    }
+
+    .status-verified {
+        color: #10b981;
+    }
+
+    .status-pending {
+        color: #f59e0b;
+    }
+
+    /* Divider */
+    .section-divider {
+        margin: 2rem 0;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-light);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+        .dashboard-main {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-container {
+            padding: 1.5rem 1rem;
+        }
+
+        .welcome-section {
+            padding: 2rem 1.5rem;
+        }
+
+        .welcome-title {
+            font-size: 1.5rem;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .welcome-title i {
+            font-size: 2rem;
+        }
+
+        .welcome-subtitle {
+            font-size: 1rem;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+        }
+
+        .action-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .card-header,
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .action-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stat-icon-wrapper {
+            width: 3.5rem;
+            height: 3.5rem;
+        }
+
+        .stat-icon-wrapper i {
+            font-size: 1.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+        }
+    }
+</style>
+
+<div class="dashboard-container">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <div class="welcome-content">
+            <h1 class="welcome-title">
+                <i class="fas fa-shield-alt"></i>
+                Welcome back, {{ user.username }}
+            </h1>
+            <p class="welcome-subtitle">Your secure vault is active. You have {{ total_documents|default:"0" }} documents stored securely.</p>
+        </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-card-inner">
+                <div class="stat-icon-wrapper">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Documents</h3>
+                    <p class="stat-value">{{ total_documents|default:"0" }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-card-inner">
+                <div class="stat-icon-wrapper">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Active Nominees</h3>
+                    <p class="stat-value">{{ total_nominees|default:"0" }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-card-inner">
+                <div class="stat-icon-wrapper">
+                    <i class="fas fa-hdd"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Storage Used</h3>
+                    <p class="stat-value">{{ storage_used|default:"0 MB" }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-card-inner">
+                <div class="stat-icon-wrapper">
+                    <i class="fas fa-shield-check"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Security Status</h3>
+                    <p class="stat-value" style="color: #10b981; font-size: 1.5rem;">Secure</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Grid -->
+    <div class="dashboard-main">
+        <!-- Left Column: Quick Actions & Activity -->
+        <div class="content-card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-bolt"></i>
+                    Quick Actions
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="action-grid">
+                    <a href="{% url 'vault:upload_document' %}" class="action-btn">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Upload File</span>
+                    </a>
+                    <a href="{% url 'vault:add_nominee' %}" class="action-btn">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Add Nominee</span>
+                    </a>
+                    <a href="{% url 'vault:my_vault' %}" class="action-btn">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Browse Vault</span>
+                    </a>
+                    <a href="{% url 'vault:emergency_settings' %}" class="action-btn">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Emergency</span>
+                    </a>
+                </div>
+
+                <div class="section-divider">
+                    <h2 class="card-title">
+                        <i class="fas fa-history"></i>
+                        Recent Activity
+                    </h2>
+                </div>
+
+                <div class="activity-list">
+                    {% if recent_activities %}
+                        {% for activity in recent_activities %}
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="activity-details">
+                                <div class="activity-title">{{ activity.description }}</div>
+                                <div class="activity-time">{{ activity.timestamp|timesince }} ago</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>No recent activity recorded.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Nominees & Security -->
+        <div class="content-card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-users"></i>
+                    My Nominees
+                </h2>
+                <a href="{% url 'vault:add_nominee' %}" title="Add Nominee">
+                    <i class="fas fa-plus-circle"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="activity-list">
+                    {% if nominees %}
+                        {% for nominee in nominees|slice:":3" %}
+                        <div class="activity-item">
+                            <div class="activity-icon" style="background: #ede9fe; color: #8b5cf6;">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="activity-details">
+                                <div class="activity-title">{{ nominee.nominee_name }}</div>
+                                <div class="activity-time">{{ nominee.get_relationship_display }}</div>
+                            </div>
+                            {% if nominee.is_verified %}
+                                <i class="fas fa-check-circle status-icon status-verified" title="Verified"></i>
+                            {% else %}
+                                <i class="fas fa-clock status-icon status-pending" title="Pending Verification"></i>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        {% if nominees|length > 3 %}
+                            <a href="{% url 'vault:emergency_settings' %}" class="btn btn-link" style="margin-top: 1rem; width: 100%; justify-content: center;">
+                                View All Nominees
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-user-friends"></i>
+                            <p>No nominees added yet.</p>
+                            <a href="{% url 'vault:add_nominee' %}" class="btn btn-primary" style="margin-top: 1rem;">
+                                <i class="fas fa-plus"></i>
+                                Add Nominee
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="security-status">
+                    <div class="security-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Account Secured</span>
+                    </div>
+                    <div class="security-details">
+                        Last login: <strong>{{ user.last_login|date:"M d, H:i" }}</strong><br>
+                        OTP Protection: <strong>Active</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

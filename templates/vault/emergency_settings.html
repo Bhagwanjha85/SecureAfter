@@ -1,0 +1,573 @@
+{% extends 'base.html' %}
+
+{% block title %}Emergency Settings - SecureAfter{% endblock %}
+
+{% block content %}
+<style>
+    /* Modern Emergency Settings Styles */
+    
+    /* Page Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    .emergency-wrapper {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    .emergency-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Header */
+    .emergency-header {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+        padding: 3rem 2.5rem;
+        border-radius: 24px;
+        margin-bottom: 2.5rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 40px -10px rgba(239, 68, 68, 0.4);
+        animation: scaleIn 0.8s ease-out;
+    }
+
+    .emergency-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.5;
+    }
+
+    .emergency-header-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .emergency-title {
+        font-size: clamp(1.75rem, 5vw, 2.25rem);
+        font-weight: 900;
+        margin-bottom: 0.75rem;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .emergency-title i {
+        font-size: 2.5rem;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    .emergency-subtitle {
+        font-size: 1.125rem;
+        opacity: 0.95;
+        margin: 0;
+    }
+
+    /* Info Box */
+    .info-box {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        border-left: 4px solid #3b82f6;
+        padding: 1.75rem 2rem;
+        border-radius: 16px;
+        margin-bottom: 2.5rem;
+        display: flex;
+        gap: 1.25rem;
+        align-items: flex-start;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        animation: slideInRight 0.6s ease-out 0.2s both;
+    }
+
+    .info-box i {
+        font-size: 2rem;
+        color: #3b82f6;
+        flex-shrink: 0;
+        margin-top: 0.125rem;
+    }
+
+    .info-box-content h3 {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: #1e40af;
+        margin: 0 0 0.5rem 0;
+    }
+
+    .info-box-content p {
+        color: #1e40af;
+        margin: 0;
+        line-height: 1.7;
+    }
+
+    /* Settings Grid */
+    .settings-grid {
+        display: grid;
+        gap: 2rem;
+    }
+
+    .settings-card {
+        background: white;
+        border-radius: 24px;
+        padding: 2.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border: 2px solid var(--border-color);
+        animation: fadeInUp 0.8s ease-out both;
+    }
+
+    .settings-card:nth-child(1) { animation-delay: 0.3s; }
+    .settings-card:nth-child(2) { animation-delay: 0.4s; }
+    .settings-card:nth-child(3) { animation-delay: 0.5s; }
+
+    .card-header-modern {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .card-title-group {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .card-title-group i {
+        font-size: 1.75rem;
+        color: var(--primary-color);
+    }
+
+    .card-title-group h2 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--text-color);
+        margin: 0;
+    }
+
+    /* Modern Table */
+    .modern-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .modern-table thead tr {
+        background: var(--light-bg);
+        border-radius: 12px;
+    }
+
+    .modern-table th {
+        padding: 1.25rem 1.5rem;
+        text-align: left;
+        font-weight: 700;
+        color: var(--text-color);
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .modern-table th:first-child {
+        border-radius: 12px 0 0 0;
+    }
+
+    .modern-table th:last-child {
+        border-radius: 0 12px 0 0;
+    }
+
+    .modern-table tbody tr {
+        transition: all 0.3s ease;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .modern-table tbody tr:hover {
+        background: var(--secondary-color);
+        transform: scale(1.01);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .modern-table td {
+        padding: 1.25rem 1.5rem;
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+    }
+
+    .modern-table td:first-child {
+        font-weight: 600;
+        color: var(--text-color);
+    }
+
+    /* Badges */
+    .badge-modern {
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .badge-success {
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        color: #065f46;
+    }
+
+    .badge-warning {
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        color: #92400e;
+    }
+
+    .badge-info {
+        background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+        color: #1e40af;
+    }
+
+    .badge-danger {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        color: #991b1b;
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--text-secondary);
+    }
+
+    .empty-state i {
+        font-size: 4rem;
+        color: var(--border-color);
+        margin-bottom: 1rem;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    .empty-state h3 {
+        color: var(--text-color);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+    }
+
+    .empty-state p {
+        margin-bottom: 1.5rem;
+        font-size: 1.05rem;
+    }
+
+    /* Instructions Card */
+    .instructions-preview {
+        background: var(--light-bg);
+        border-radius: 16px;
+        padding: 2rem;
+        border: 2px solid var(--border-color);
+    }
+
+    .instructions-preview p {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+    }
+
+    /* Action Buttons */
+    .btn-add {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 12px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-add:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-add i {
+        font-size: 1.125rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .emergency-header {
+            padding: 2rem 1.5rem;
+        }
+
+        .settings-card {
+            padding: 2rem 1.5rem;
+        }
+
+        .modern-table {
+            font-size: 0.875rem;
+        }
+
+        .modern-table th,
+        .modern-table td {
+            padding: 1rem;
+        }
+
+        .card-header-modern {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .emergency-header {
+            padding: 1.5rem 1rem;
+        }
+
+        .settings-card {
+            padding: 1.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .emergency-title {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .info-box {
+            flex-direction: column;
+        }
+
+        /* Make table scrollable on mobile */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modern-table {
+            min-width: 600px;
+        }
+    }
+</style>
+
+<div class="emergency-wrapper">
+    <div class="emergency-container">
+        <!-- Header -->
+        <div class="emergency-header">
+            <div class="emergency-header-content">
+                <h1 class="emergency-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Emergency Access Settings
+                </h1>
+                <p class="emergency-subtitle">Configure who can access your documents during emergencies and how</p>
+            </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <i class="fas fa-info-circle"></i>
+            <div class="info-box-content">
+                <h3>What is Emergency Access?</h3>
+                <p>Emergency access allows your trusted nominees to access your documents in case of emergencies. You control who can access what and under which conditions. All access attempts are logged and you'll be notified.</p>
+            </div>
+        </div>
+
+        <!-- Settings Grid -->
+        <div class="settings-grid">
+            <!-- Trusted Nominees -->
+            <div class="settings-card">
+                <div class="card-header-modern">
+                    <div class="card-title-group">
+                        <i class="fas fa-users"></i>
+                        <h2>Trusted Nominees</h2>
+                    </div>
+                    <a href="{% url 'vault:add_nominee' %}" class="btn btn-primary btn-add">
+                        <i class="fas fa-user-plus"></i>
+                        Add Nominee
+                    </a>
+                </div>
+                
+                {% if nominees %}
+                <div class="table-responsive">
+                    <table class="modern-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Relationship</th>
+                                <th>Access Level</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for nominee in nominees %}
+                            <tr>
+                                <td>
+                                    <i class="fas fa-user-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+                                    {{ nominee.nominee_name }}
+                                </td>
+                                <td>
+                                    <i class="fas fa-envelope" style="color: var(--text-tertiary); margin-right: 0.5rem;"></i>
+                                    {{ nominee.nominee_email }}
+                                </td>
+                                <td>
+                                    <i class="fas fa-heart" style="color: var(--text-tertiary); margin-right: 0.5rem;"></i>
+                                    {{ nominee.get_relationship_display }}
+                                </td>
+                                <td>
+                                    <span class="badge-modern badge-info">
+                                        <i class="fas fa-key"></i>
+                                        {{ nominee.get_access_level_display }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge-modern badge-success">
+                                        <i class="fas fa-check-circle"></i>
+                                        Active
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-user-friends"></i>
+                    <h3>No Nominees Added</h3>
+                    <p>Add someone you trust to access your documents in emergencies.</p>
+                    <a href="{% url 'vault:add_nominee' %}" class="btn btn-primary btn-add">
+                        <i class="fas fa-user-plus"></i>
+                        Add First Nominee
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Emergency Triggers -->
+            <div class="settings-card">
+                <div class="card-header-modern">
+                    <div class="card-title-group">
+                        <i class="fas fa-bell"></i>
+                        <h2>Emergency Triggers</h2>
+                    </div>
+                </div>
+                
+                {% if triggers %}
+                <div class="table-responsive">
+                    <table class="modern-table">
+                        <thead>
+                            <tr>
+                                <th>Trigger Type</th>
+                                <th>Settings</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for trigger in triggers %}
+                            <tr>
+                                <td>
+                                    <i class="fas fa-clock" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+                                    {{ trigger.get_trigger_type_display }}
+                                </td>
+                                <td>
+                                    {% if trigger.trigger_type == 'inactivity' %}
+                                    <i class="fas fa-calendar-alt" style="color: var(--text-tertiary); margin-right: 0.5rem;"></i>
+                                    {{ trigger.inactivity_days }} days
+                                    {% elif trigger.trigger_type == 'scheduled' %}
+                                    <i class="fas fa-calendar-check" style="color: var(--text-tertiary); margin-right: 0.5rem;"></i>
+                                    {{ trigger.scheduled_date|date:"M d, Y" }}
+                                    {% else %}
+                                    <i class="fas fa-hand-paper" style="color: var(--text-tertiary); margin-right: 0.5rem;"></i>
+                                    Manual
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if trigger.is_active %}
+                                    <span class="badge-modern badge-success">
+                                        <i class="fas fa-check-circle"></i>
+                                        Active
+                                    </span>
+                                    {% else %}
+                                    <span class="badge-modern badge-danger">
+                                        <i class="fas fa-times-circle"></i>
+                                        Inactive
+                                    </span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-bell-slash"></i>
+                    <h3>No Triggers Configured</h3>
+                    <p>Set up automatic triggers to grant emergency access when needed.</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Emergency Instructions -->
+            <div class="settings-card">
+                <div class="card-header-modern">
+                    <div class="card-title-group">
+                        <i class="fas fa-file-medical-alt"></i>
+                        <h2>Emergency Instructions</h2>
+                    </div>
+                </div>
+
+                <div class="instructions-preview">
+                    <p>Add important instructions for your nominees to read during emergency access. This can include medical preferences, family guidance, and asset information.</p>
+                    <a href="{% url 'vault:emergency_instructions' %}" class="btn btn-primary btn-add">
+                        <i class="fas fa-edit"></i>
+                        Manage Instructions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

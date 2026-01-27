@@ -1,0 +1,275 @@
+{% extends 'base.html' %} {% block title %}Verify Phone - SecureAfter{% endblock %}
+{% block content %}
+<style>
+  .auth-container {
+    max-width: 480px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+  }
+
+  .auth-card {
+    background: white;
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0,0,0,0.02);
+  }
+
+  .auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .icon-circle {
+    width: 80px;
+    height: 80px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--primary-color);
+    font-size: 2rem;
+  }
+
+  .auth-header h1 {
+    font-size: 1.75rem;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  .auth-header p {
+    color: #6b7280;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .target-value {
+    font-weight: 600;
+    color: #111827;
+    font-size: 1.1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    color: #374151;
+    font-size: 0.95rem;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    height: 60px;
+    letter-spacing: 0.5rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--primary-color);
+    background: #f9fafb;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: white;
+    box-shadow: 0 0 0 4px var(--secondary-color);
+  }
+
+  .form-group input::placeholder {
+    color: #d1d5db;
+    letter-spacing: 0.2rem;
+    font-weight: 400;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 0.875rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    filter: brightness(1.05);
+  }
+
+  .btn-submit:active {
+    transform: translateY(0);
+  }
+
+  .alert {
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+  }
+
+  .otp-info {
+    background: #f3f4f6;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    color: #4b5563;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border-left: 4px solid var(--primary-color);
+  }
+
+  .otp-info i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-top: 0.1rem;
+  }
+
+  .resend-section {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .resend-section p {
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .resend-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+
+  .resend-btn:hover {
+    background: var(--secondary-color);
+    text-decoration: none;
+  }
+
+  @media (max-width: 480px) {
+    .auth-container {
+      margin: 2rem 1rem;
+    }
+
+    .auth-card {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="icon-circle">
+        <i class="fas fa-mobile-screen-button"></i>
+      </div>
+      <h1>Verify Phone</h1>
+      <p>We've sent a verification code to:</p>
+      <p class="target-value">{{ phone }}</p>
+    </div>
+
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="otp-info">
+      <i class="fas fa-comment-sms"></i>
+      <div>
+        <strong>Check your phone</strong>
+        <p style="margin: 0.25rem 0 0 0">Enter the 6-digit code sent to your mobile.</p>
+      </div>
+    </div>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="otp_code">Verification Code</label>
+        <input
+          type="text"
+          id="otp_code"
+          name="otp_code"
+          class="form-control"
+          maxlength="6"
+          inputmode="numeric"
+          placeholder="000000"
+          required
+          pattern="[0-9]{6}"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-submit">
+        Verify Phone
+      </button>
+    </form>
+
+    <div class="resend-section">
+      <p>Didn't receive the code?</p>
+      <form
+        method="POST"
+        action="{% url 'accounts:resend_phone_otp' %}"
+        style="display: inline"
+      >
+        {% csrf_token %}
+        <button type="submit" class="resend-btn"><i class="fas fa-redo-alt"></i> Resend Code</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Auto-focus and format OTP input
+  const otpInput = document.getElementById("otp_code");
+  if (otpInput) {
+    otpInput.addEventListener("keypress", function (e) {
+      if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+      }
+    });
+
+    otpInput.addEventListener("input", function (e) {
+      this.value = this.value.replace(/[^0-9]/g, "");
+      if (this.value.length === 6) {
+        // Auto-submit when 6 digits entered
+        // Uncomment to enable auto-submit
+        // this.form.submit();
+      }
+    });
+
+    // Focus on load
+    otpInput.focus();
+  }
+</script>
+{% endblock %}

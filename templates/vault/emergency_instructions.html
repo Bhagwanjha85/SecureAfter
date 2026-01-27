@@ -1,0 +1,589 @@
+{% extends 'base.html' %}
+
+{% block title %}Emergency Instructions - SecureAfter{% endblock %}
+
+{% block content %}
+<style>
+  /* Modern Emergency Instructions Styles */
+  
+  /* Page Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+
+  .instructions-wrapper {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .instructions-container {
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .instructions-header {
+    padding: 3rem 2.5rem;
+    border-radius: 24px;
+    margin-bottom: 2.5rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.4);
+    animation: scaleIn 0.8s ease-out;
+  }
+
+
+  .instructions-header-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .instructions-title {
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+    font-weight: 900;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .instructions-title i {
+    font-size: 2.5rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .instructions-subtitle {
+    font-size: 1.125rem;
+    opacity: 0.95;
+    margin: 0;
+  }
+
+  /* Info Box */
+  .info-box {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-left: 4px solid #f59e0b;
+    padding: 1.75rem 2rem;
+    border-radius: 16px;
+    margin-bottom: 2.5rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.1);
+    animation: slideInRight 0.6s ease-out 0.2s both;
+  }
+
+  .info-box i {
+    font-size: 2rem;
+    color: #f59e0b;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  .info-box-content h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #92400e;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .info-box-content p {
+    color: #92400e;
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  /* Form Card */
+  .instructions-card {
+    background: white;
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 2px solid var(--border-color);
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+  }
+
+  /* Form Section */
+  .form-section {
+    margin-bottom: 2.5rem;
+    animation: slideInRight 0.6s ease-out both;
+  }
+
+  .form-section:nth-child(1) { animation-delay: 0.4s; }
+  .form-section:nth-child(2) { animation-delay: 0.5s; }
+  .form-section:nth-child(3) { animation-delay: 0.6s; }
+  .form-section:nth-child(4) { animation-delay: 0.7s; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  .section-header i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+  }
+
+  .section-header h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-color);
+    margin: 0;
+  }
+
+  .section-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-description i {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+  }
+
+  /* Form Group */
+  .form-group {
+    margin-bottom: 1.75rem;
+  }
+
+  .form-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    color: var(--text-color);
+    font-size: 1rem;
+  }
+
+  .form-group label i {
+    color: var(--primary-color);
+    font-size: 1.125rem;
+  }
+
+  textarea.form-control {
+    width: 100%;
+    padding: 1.25rem;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: all 0.3s ease;
+    background: white;
+    min-height: 150px;
+  }
+
+  textarea.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.1);
+    transform: translateY(-2px);
+  }
+
+  textarea.form-control::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  /* Character Counter */
+  .char-counter {
+    text-align: right;
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+    margin-top: 0.5rem;
+  }
+
+  /* Tips Box */
+  .tips-box {
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    border: 2px solid #a7f3d0;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .tips-box h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #065f46;
+    margin-bottom: 1rem;
+  }
+
+  .tips-box h4 i {
+    color: #10b981;
+  }
+
+  .tips-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tips-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    color: #047857;
+    font-size: 0.9rem;
+  }
+
+  .tips-list li i {
+    color: #10b981;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    animation: fadeInUp 0.6s ease-out 0.8s both;
+  }
+
+  .btn-save {
+    flex: 1;
+    padding: 1.125rem 2rem;
+    font-size: 1.05rem;
+    border-radius: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+  }
+
+  .btn-save:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-save i {
+    font-size: 1.25rem;
+  }
+
+  /* Preview Mode */
+  .preview-mode {
+    background: var(--light-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px dashed var(--border-color);
+    margin-top: 1rem;
+    display: none;
+  }
+
+  .preview-mode.active {
+    display: block;
+  }
+
+  .preview-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .preview-content {
+    color: var(--text-color);
+    white-space: pre-wrap;
+    line-height: 1.7;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .instructions-header {
+      padding: 2rem 1.5rem;
+    }
+
+    .instructions-card {
+      padding: 2rem 1.5rem;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .instructions-header {
+      padding: 1.5rem 1rem;
+    }
+
+    .instructions-card {
+      padding: 1.5rem 1rem;
+      border-radius: 20px;
+    }
+
+    .instructions-title {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .info-box {
+      flex-direction: column;
+    }
+
+    textarea.form-control {
+      min-height: 120px;
+    }
+  }
+</style>
+
+<div class="instructions-wrapper">
+  <div class="instructions-container">
+    <!-- Header -->
+    <div class="instructions-header">
+      <div class="instructions-header-content">
+        <h1 class="instructions-title">
+          <i class="fas fa-file-medical-alt"></i>
+          Emergency Instructions
+        </h1>
+        <p class="instructions-subtitle">Provide important guidance for your nominees during emergency access</p>
+      </div>
+    </div>
+
+    <!-- Info Box -->
+    <div class="info-box">
+      <i class="fas fa-lightbulb"></i>
+      <div class="info-box-content">
+        <h3>What are Emergency Instructions?</h3>
+        <p>These instructions will be shared with your nominees when they get emergency access. Use this space to provide important information, medical preferences, family guidance, or any other critical details your loved ones should know.</p>
+      </div>
+    </div>
+
+    <!-- Tips Box -->
+    <div class="tips-box">
+      <h4>
+        <i class="fas fa-check-circle"></i>
+        Tips for Writing Instructions
+      </h4>
+      <ul class="tips-list">
+        <li>
+          <i class="fas fa-check"></i>
+          <span>Be clear and specific - your nominees should understand exactly what to do</span>
+        </li>
+        <li>
+          <i class="fas fa-check"></i>
+          <span>Include contact information for important people (doctors, lawyers, financial advisors)</span>
+        </li>
+        <li>
+          <i class="fas fa-check"></i>
+          <span>Update these instructions regularly as your situation changes</span>
+        </li>
+        <li>
+          <i class="fas fa-check"></i>
+          <span>Keep sensitive information secure - only include what's necessary</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Form Card -->
+    <div class="instructions-card">
+      <form method="POST" id="instructionsForm">
+        {% csrf_token %}
+
+        <!-- Emergency Message -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="fas fa-envelope-open-text"></i>
+            <h3>Emergency Message</h3>
+          </div>
+          <div class="section-description">
+            <i class="fas fa-info-circle"></i>
+            This message will be the first thing your nominees see
+          </div>
+          <textarea id="emergency_message" name="emergency_message" class="form-control" placeholder="Write a heartfelt message that your nominees should read first. This could include words of comfort, gratitude, or important first steps they should take...">{{ instructions.emergency_message }}</textarea>
+          <div class="char-counter" id="message_counter">0 characters</div>
+        </div>
+
+        <!-- Medical Consent -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="fas fa-heartbeat"></i>
+            <h3>Medical Consent & Preferences</h3>
+          </div>
+          <div class="section-description">
+            <i class="fas fa-info-circle"></i>
+            Include medical wishes, DNR preferences, organ donation, healthcare directives
+          </div>
+          <textarea id="medical_consent" name="medical_consent" class="form-control" placeholder="Your medical preferences, DNR wishes, organ donation preferences, preferred hospitals, doctors' contact information, medical conditions, allergies, medications, etc...">{{ instructions.medical_consent }}</textarea>
+          <div class="char-counter" id="medical_counter">0 characters</div>
+        </div>
+
+        <!-- Family Guidance -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="fas fa-users"></i>
+            <h3>Family Guidance</h3>
+          </div>
+          <div class="section-description">
+            <i class="fas fa-info-circle"></i>
+            Important family matters, business information, or personal guidance
+          </div>
+          <textarea id="family_guidance" name="family_guidance" class="form-control" placeholder="Important family matters, business contacts, guardianship preferences for children, pet care instructions, funeral wishes, or other personal guidance your family should know...">{{ instructions.family_guidance }}</textarea>
+          <div class="char-counter" id="family_counter">0 characters</div>
+        </div>
+
+        <!-- Asset Information -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="fas fa-dollar-sign"></i>
+            <h3>Asset & Account Information</h3>
+          </div>
+          <div class="section-description">
+            <i class="fas fa-info-circle"></i>
+            Financial accounts, investments, property details, insurance policies
+          </div>
+          <textarea id="asset_information" name="asset_information" class="form-control" placeholder="Bank account details, investment accounts, property information, insurance policies, safe deposit boxes, cryptocurrency wallets, or other financial information...">{{ instructions.asset_information }}</textarea>
+          <div class="char-counter" id="asset_counter">0 characters</div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button type="submit" class="btn btn-primary btn-save">
+            <i class="fas fa-save"></i>
+            Save Instructions
+          </button>
+          <a href="{% url 'vault:emergency_settings' %}" class="btn btn-secondary btn-save">
+            <i class="fas fa-arrow-left"></i>
+            Back to Settings
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Character counters
+  const textareas = {
+    'emergency_message': 'message_counter',
+    'medical_consent': 'medical_counter',
+    'family_guidance': 'family_counter',
+    'asset_information': 'asset_counter'
+  };
+
+  Object.keys(textareas).forEach(id => {
+    const textarea = document.getElementById(id);
+    const counter = document.getElementById(textareas[id]);
+    
+    if (textarea && counter) {
+      // Initial count
+      counter.textContent = textarea.value.length + ' characters';
+      
+      // Update on input
+      textarea.addEventListener('input', function() {
+        counter.textContent = this.value.length + ' characters';
+      });
+    }
+  });
+
+  // Auto-save draft (optional)
+  let autoSaveTimeout;
+  document.querySelectorAll('textarea').forEach(textarea => {
+    textarea.addEventListener('input', function() {
+      clearTimeout(autoSaveTimeout);
+      autoSaveTimeout = setTimeout(() => {
+        // Save to localStorage as draft
+        localStorage.setItem('emergency_draft_' + this.id, this.value);
+      }, 1000);
+    });
+  });
+
+  // Load draft on page load
+  window.addEventListener('load', function() {
+    document.querySelectorAll('textarea').forEach(textarea => {
+      const draft = localStorage.getItem('emergency_draft_' + textarea.id);
+      if (draft && !textarea.value) {
+        textarea.value = draft;
+        // Update counter
+        const counterId = textareas[textarea.id];
+        if (counterId) {
+          document.getElementById(counterId).textContent = draft.length + ' characters';
+        }
+      }
+    });
+  });
+
+  // Clear drafts on successful save
+  document.getElementById('instructionsForm').addEventListener('submit', function() {
+    Object.keys(textareas).forEach(id => {
+      localStorage.removeItem('emergency_draft_' + id);
+    });
+  });
+
+  // Confirm before leaving with unsaved changes
+  let formChanged = false;
+  document.querySelectorAll('textarea').forEach(textarea => {
+    textarea.addEventListener('input', function() {
+      formChanged = true;
+    });
+  });
+
+  document.getElementById('instructionsForm').addEventListener('submit', function() {
+    formChanged = false;
+  });
+
+  window.addEventListener('beforeunload', function(e) {
+    if (formChanged) {
+      e.preventDefault();
+      e.returnValue = '';
+      return '';
+    }
+  });
+</script>
+
+{% endblock %}

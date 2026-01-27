@@ -1,0 +1,581 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Nominee - SecureAfter{% endblock %}
+
+{% block content %}
+<style>
+    /* Modern Add Nominee Styles */
+    
+    /* Page Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    .nominee-wrapper {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    .form-container {
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+
+    /* Header Section */
+    .nominee-header {
+                 
+        padding: 3rem 2.5rem;
+        border-radius: 24px;
+        margin-bottom: 2.5rem;
+        font-weight: 600;
+        color: rgb(240, 238, 238);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.4);
+        animation: scaleIn 0.8s ease-out;
+    }
+
+    .nominee-header-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .nominee-title {
+        font-size: clamp(1.75rem, 5vw, 2.25rem);
+        font-weight: 900;
+        margin-bottom: 0.75rem;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .nominee-title i {
+        font-size: 2.5rem;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    .nominee-subtitle {
+        font-size: 1.125rem;
+        opacity: 0.95;
+        margin: 0;
+    }
+
+    /* Info Box */
+    .info-box {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        border-left: 4px solid #3b82f6;
+        padding: 1.5rem 1.75rem;
+        border-radius: 16px;
+        margin-bottom: 2.5rem;
+        display: flex;
+        gap: 1.25rem;
+        align-items: flex-start;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        animation: slideInRight 0.6s ease-out 0.2s both;
+    }
+
+    .info-box i {
+        font-size: 1.75rem;
+        color: #3b82f6;
+        flex-shrink: 0;
+        margin-top: 0.125rem;
+    }
+
+    .info-box-content {
+        flex: 1;
+    }
+
+    .info-box-content strong {
+        color: #1e40af;
+        font-weight: 700;
+        font-size: 1.05rem;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-box-content p {
+        color: #1e40af;
+        margin: 0;
+        line-height: 1.7;
+        font-size: 0.95rem;
+    }
+
+    /* Form Card */
+    .nominee-card {
+        background: white;
+        border-radius: 24px;
+        padding: 2.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border: 2px solid var(--border-color);
+        animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+
+    /* Form Section Headers */
+    .form-section {
+        margin-bottom: 2.5rem;
+    }
+
+    .form-section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .form-section-header i {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+    }
+
+    .form-section-header h3 {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--text-color);
+        margin: 0;
+    }
+
+    /* Form Groups */
+    .form-group {
+        margin-bottom: 1.75rem;
+        animation: slideInRight 0.6s ease-out both;
+    }
+
+    .form-group:nth-child(1) { animation-delay: 0.4s; }
+    .form-group:nth-child(2) { animation-delay: 0.5s; }
+    .form-group:nth-child(3) { animation-delay: 0.6s; }
+
+    .form-group label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+        font-weight: 700;
+        color: var(--text-color);
+        font-size: 1rem;
+    }
+
+    .form-group label i {
+        color: var(--primary-color);
+        font-size: 1.125rem;
+    }
+
+    .required-star {
+        color: #ef4444;
+        font-weight: 700;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 1rem 1.25rem;
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.1);
+        transform: translateY(-2px);
+    }
+
+    select.form-control {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%236b7280' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        padding-right: 3rem;
+    }
+
+    /* Form Row */
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    /* Help Text */
+    .help-text {
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+    }
+
+    .help-text i {
+        font-size: 0.875rem;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2.5rem;
+        animation: fadeInUp 0.6s ease-out 0.7s both;
+    }
+
+    .btn-nominee {
+        flex: 1;
+        padding: 1.125rem 2rem;
+        font-size: 1.05rem;
+        border-radius: 12px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-nominee:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-nominee i {
+        font-size: 1.25rem;
+    }
+
+    /* Features List */
+    .features-list {
+        background: var(--light-bg);
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .features-list h4 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .features-list h4 i {
+        color: var(--primary-color);
+    }
+
+    .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .feature-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .feature-item i {
+        color: #10b981;
+        font-size: 1.125rem;
+    }
+
+    .feature-item span {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .nominee-header {
+            padding: 2rem 1.5rem;
+        }
+
+        .nominee-card {
+            padding: 2rem 1.5rem;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .nominee-header {
+            padding: 1.5rem 1rem;
+        }
+
+        .nominee-card {
+            padding: 1.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nominee-title {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .info-box {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="nominee-wrapper">
+    <div class="form-container">
+        <!-- Header -->
+        <div class="nominee-header">
+            <div class="nominee-header-content">
+                <h1 class="nominee-title">
+                    <i class="fas fa-user-shield"></i>
+                    Add Trusted Nominee
+                </h1>
+                <p class="nominee-subtitle">Designate someone you trust to access your documents during emergencies</p>
+            </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <i class="fas fa-shield-alt"></i>
+            <div class="info-box-content">
+                <strong>Security Notice:</strong>
+                <p>Nominees can only access your documents during emergencies based on the triggers you set. They will be notified and must verify their identity before accessing any information.</p>
+            </div>
+        </div>
+
+        <!-- Form Card -->
+        <div class="nominee-card">
+            <form method="POST" id="nomineeForm">
+                {% csrf_token %}
+                
+                <!-- Personal Information Section -->
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <i class="fas fa-id-card"></i>
+                        <h3>Personal Information</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">
+                            <i class="fas fa-user"></i>
+                            Full Name <span class="required-star">*</span>
+                        </label>
+                        <input type="text" id="name" name="name" class="form-control" required placeholder="John Doe" />
+                        <div class="help-text">
+                            <i class="fas fa-info-circle"></i>
+                            Enter the nominee's complete legal name
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i>
+                                Email Address <span class="required-star">*</span>
+                            </label>
+                            <input type="email" id="email" name="email" class="form-control" required placeholder="john@example.com" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">
+                                <i class="fas fa-phone"></i>
+                                Phone Number <span class="required-star">*</span>
+                            </label>
+                            <input type="tel" id="phone" name="phone" class="form-control" required placeholder="+91 1234567890" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Relationship & Access Section -->
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Relationship & Access</h3>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="relationship">
+                                <i class="fas fa-heart"></i>
+                                Relationship <span class="required-star">*</span>
+                            </label>
+                            <select id="relationship" name="relationship" class="form-control" required>
+                                <option value="">Select relationship</option>
+                                <option value="parent">Parent</option>
+                                <option value="spouse">Spouse</option>
+                                <option value="sibling">Sibling</option>
+                                <option value="child">Child</option>
+                                <option value="friend">Friend</option>
+                                <option value="attorney">Attorney</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="access_level">
+                                <i class="fas fa-key"></i>
+                                Access Level <span class="required-star">*</span>
+                            </label>
+                            <select id="access_level" name="access_level" class="form-control" required>
+                                <option value="">Select access level</option>
+                                <option value="view">View Only</option>
+                                <option value="download">View and Download</option>
+                                <option value="notes">Instructions Only</option>
+                                <option value="full">Full Access</option>
+                            </select>
+                            <div class="help-text">
+                                <i class="fas fa-info-circle"></i>
+                                Defines what the nominee can do with your documents
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Info -->
+                <div class="features-list">
+                    <h4>
+                        <i class="fas fa-check-circle"></i>
+                        Nominee Benefits
+                    </h4>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Two-factor authentication required for access</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Complete audit trail of all nominee activities</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Email and SMS notifications for all access attempts</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Automatic revocation after emergency period ends</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary btn-nominee">
+                        <i class="fas fa-user-plus"></i>
+                        Add Nominee
+                    </button>
+                    <a href="{% url 'vault:emergency_settings' %}" class="btn btn-secondary btn-nominee">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Form validation
+    const nomineeForm = document.getElementById('nomineeForm');
+    
+    nomineeForm.addEventListener('submit', function(e) {
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            e.preventDefault();
+            alert('Please enter a valid email address');
+            document.getElementById('email').focus();
+            return false;
+        }
+        
+        // Phone validation (basic)
+        const phoneRegex = /^[\d\s\+\-\(\)]+$/;
+        if (!phoneRegex.test(phone)) {
+            e.preventDefault();
+            alert('Please enter a valid phone number');
+            document.getElementById('phone').focus();
+            return false;
+        }
+    });
+
+    // Real-time validation feedback
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            if (this.required && !this.value.trim()) {
+                this.style.borderColor = '#ef4444';
+            } else {
+                this.style.borderColor = '';
+            }
+        });
+
+        input.addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.style.borderColor = '#10b981';
+            }
+        });
+    });
+
+    // Phone number formatting
+    const phoneInput = document.getElementById('phone');
+    phoneInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 0) {
+            if (!value.startsWith('91') && value.length === 10) {
+                value = '91' + value;
+            }
+            if (value.length > 2) {
+                value = '+' + value.substring(0, 2) + ' ' + value.substring(2);
+            }
+        }
+        e.target.value = value;
+    });
+</script>
+
+{% endblock %}

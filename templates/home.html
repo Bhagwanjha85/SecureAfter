@@ -1,0 +1,1257 @@
+{% extends 'base.html' %} {% block title %} My Profile - SecureAfter
+{% endblock %}
+{% block content %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css"
+/>
+<style>
+    /* Home Page Specific Styles */
+    .hero-section {
+        position: relative;
+        padding: 4rem 2rem;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+        border-radius: 24px;
+        margin-bottom: 4rem;
+        overflow: hidden;
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1900px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1.25rem;
+        background: linear-gradient(135deg, var(--primary-color), #6366f1);
+        color: white;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .hero-badge i {
+        font-size: 1rem;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 6vw, 4rem);
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #1f2937 0%, #4b5563 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+    }
+
+    .hero-highlight {
+        background: linear-gradient(135deg, var(--primary-color), rgb(225, 57, 57));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1.125rem, 2vw, 1.375rem);
+        color: var(--text-secondary);
+        margin-bottom: 2.5rem;
+        line-height: 1.7;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+    }
+
+    .btn-lg {
+        padding: 1rem 2.5rem;
+        font-size: 1.125rem;
+        border-radius: 12px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        min-height: 56px;
+    }
+
+    .btn-lg:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-top: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary-color);
+        display: block;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        font-weight: 600;
+    }
+
+    /* Features Section */
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .section-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: var(--secondary-color);
+        color: var(--primary-color);
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .section-title {
+        font-size: clamp(2rem, 4vw, 2.75rem);
+        font-weight: 800;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+        color: var(--text-secondary);
+        font-size: 1.125rem;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.7;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-bottom: 5rem;
+    }
+
+    .feature-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid transparent;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), #6366f1);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+        border-color: var(--secondary-color);
+    }
+
+    .feature-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .feature-icon {
+        width: 72px;
+        height: 72px;
+        background: linear-gradient(135deg, var(--secondary-color), rgba(99, 102, 241, 0.1));
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+
+    .feature-card:hover .feature-icon {
+        transform: scale(1.1) rotate(-5deg);
+        background: linear-gradient(135deg, var(--primary-color), #6366f1);
+        color: white;
+    }
+
+    .feature-title {
+        font-size: 1.375rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+        letter-spacing: -0.01em;
+    }
+
+    .feature-desc {
+        color: var(--text-secondary);
+        line-height: 1.7;
+        font-size: 1rem;
+    }
+
+    /* Benefits Section */
+    .benefits-section {
+        background: white;
+        border-radius: 24px;
+        padding: 3rem 1.5rem;
+        margin-bottom: 5rem;
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+    }
+
+    .benefits-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, var(--primary-color), #6366f1, var(--secondary-color));
+    }
+
+    .benefits-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .benefit-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem;
+        background: var(--light-bg);
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid transparent;
+    }
+
+    .benefit-item:hover {
+        background: var(--secondary-color);
+        border-color: var(--primary-color);
+        transform: translateX(8px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .check-icon {
+        color: var(--primary-color);
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        background: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .benefit-text {
+        font-weight: 600;
+        color: var(--text-color);
+        font-size: 1.05rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        text-align: center;
+        padding: 5rem 2rem;
+        /* background: linear-gradient(135deg, var(--primary-color) 0%, #6366f1 50%, #8b5cf6 100%); */
+        background-image: url('https://wallpapers.com/images/high/honeycomb-cyber-security-de1nra84qghymwjm.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 24px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.4);
+        margin-bottom: 2rem;
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .cta-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1.25rem;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+
+    .cta-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.02em;
+    }
+
+    .cta-desc {
+        font-size: 1.25rem;
+        opacity: 0.95;
+        margin-bottom: 2.5rem;
+        line-height: 1.7;
+    }
+
+    .btn-white {
+        background: white;
+        color: var(--primary-color);
+        padding: 1.25rem 3rem;
+        font-size: 1.125rem;
+        border-radius: 12px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        text-decoration: none;
+    }
+
+    .btn-white:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Trust Indicators */
+    .trust-section {
+        background: white;
+        border-radius: 20px;
+        padding: 3rem 2rem;
+        margin-bottom: 5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        text-align: center;
+        border: 1px solid var(--border-color);
+    }
+
+    .trust-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .trust-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .trust-icon {
+        width: 64px;
+        height: 64px;
+        background: var(--secondary-color);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        color: var(--primary-color);
+    }
+
+    .trust-label {
+        font-weight: 600;
+        color: var(--text-color);
+        font-size: 0.95rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 668px) {
+        .hero-section {
+            padding: 2rem 1rem;
+            border-radius: 20px;
+        }
+
+        .hero-stats {
+            gap: 2rem;
+        }
+
+        .features-grid {
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+        }
+
+        .feature-card {
+            padding: 2rem;
+        }
+
+        .benefits-section {
+            padding: 2rem 1rem;
+        }
+
+        .benefits-list {
+            grid-template-columns: 1fr;
+        }
+
+        .cta-section {
+            padding: 4rem 1.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-badge {
+            font-size: 0.75rem;
+            padding: 0.375rem 1rem;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            font-size: 1.75rem;
+        }
+
+        .check-icon {
+            width: 36px;
+            height: 36px;
+            font-size: 1.25rem;
+        }
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+        padding: 4rem 2rem;
+        background: linear-gradient(to bottom, #f8fafc, #ffffff);
+        margin-bottom: 5rem;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .testimonial-slider-container {
+        position: relative;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .testimonial-track-container {
+        overflow: hidden;
+        width: 100%;
+        border-radius: 20px;
+    }
+
+    .testimonial-track {
+        display: flex;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .testimonial-slide {
+        min-width: 100%;
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+
+    .testimonial-card {
+        background: white;
+        padding: 3rem 2.5rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        text-align: left;
+    }
+
+    .testimonial-header {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+
+    .user-info h4 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-color);
+    }
+
+    .rating {
+        color: #fbbf24;
+        font-size: 0.9rem;
+    }
+
+    .testimonial-text {
+        color: var(--text-secondary);
+        line-height: 1.8;
+        font-size: 1.05rem;
+        margin-bottom: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .testimonial-text.expanded {
+        -webkit-line-clamp: unset;
+    }
+
+    .read-more-btn {
+        background: none;
+        border: none;
+        color: var(--primary-color);
+        font-weight: 600;
+        cursor: pointer;
+        padding: 0;
+        font-size: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .read-more-btn:hover {
+        text-decoration: underline;
+    }
+
+    .slider-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: white;
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .slider-nav-btn:hover {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+    }
+
+    .prev-btn {
+        left: -20px;
+    }
+
+    .next-btn {
+        right: -20px;
+    }
+
+    .slider-dots {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 2rem;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #cbd5e1;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0;
+    }
+
+    .dot.active {
+        background: var(--primary-color);
+        width: 30px;
+        border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+        .slider-nav-btn {
+            display: none;
+        }
+
+        .testimonial-card {
+            padding: 2rem;
+        }
+    }
+
+    /* Contact Section */
+    .contact-section {
+        padding: 0 2rem 4rem;
+        margin-bottom: 5rem;
+    }
+
+    .contact-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 24px;
+        box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+         background-image: url('https://img2.wallspic.com/previews/9/0/3/9/0/109309/109309-text-x750.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+    }
+
+    .contact-info-side {
+        /* background: linear-gradient(135deg, var(--primary-color), #6366f1); */
+        background: rgba(0, 0, 0, 0.6);
+        padding: 3rem 2rem;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .contact-info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .contact-info-item i {
+        font-size: 1.5rem;
+        background: rgba(255, 255, 255, 0.2);
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .contact-info-content h4 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+
+    .contact-info-content p {
+        opacity: 0.9;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .contact-form-side {
+        padding: 3rem 2.5rem;
+    }
+
+    .contact-form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 800;
+        color: var(--text-color);
+        font-size: 0.95rem;
+
+    }
+
+    .contact-input {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #f8fafc;
+        font-family: inherit;
+    }
+
+    .contact-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        background: white;
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+
+    textarea.contact-input {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    @media (max-width: 768px) {
+        .contact-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .contact-info-side {
+            padding: 2.5rem 1.5rem;
+        }
+        
+        .contact-form-side {
+            padding: 2.5rem 1.5rem;
+        }
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <i class="fas fa-shield-check"></i>
+            Trusted by Thousands
+        </div>
+
+        <h1 class="hero-title">
+            Secure Your Legacy with <span class="hero-highlight">SecureAfter</span>
+        </h1>
+
+        <p class="hero-subtitle">
+            The most secure platform to manage your important documents, nominate trusted beneficiaries, and ensure
+            peace of mind for the future.
+        </p>
+
+        <div class="hero-buttons">
+            {% if user.is_authenticated %}
+            <a href="{% url 'vault:user_dashboard' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+            </a>
+            <a href="{% url 'vault:my_vault' %}" class="btn btn-secondary btn-lg">
+                <i class="fas fa-folder-open"></i> My Vault
+            </a>
+            {% else %}
+            <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-rocket"></i> Get Started Free
+            </a>
+            <a href="{% url 'accounts:login' %}" class="btn btn-secondary btn-lg">
+                <i class="fas fa-sign-in-alt"></i> Sign In
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number">256-bit</span>
+                <span class="stat-label">Encryption</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">99.9%</span>
+                <span class="stat-label">Uptime</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Support</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="section-header">
+    <div class="section-badge">
+        <i class="fas fa-star"></i>
+        Features
+    </div>
+    <h2 class="section-title">Everything You Need, All in One Place</h2>
+    <p class="section-subtitle">
+        Powerful features designed to keep your documents safe and accessible when you need them most.
+    </p>
+</div>
+
+<div class="features-grid">
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-lock"></i>
+        </div>
+        <h3 class="feature-title">Bank-Grade Security</h3>
+        <p class="feature-desc">Your documents are encrypted with military-grade algorithms. Only you and your
+            designated nominees can access them.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <h3 class="feature-title">Trusted Nominees</h3>
+        <p class="feature-desc">Add family members or trusted individuals who can access specific documents in case of
+            emergencies.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-bell"></i>
+        </div>
+        <h3 class="feature-title">Smart Reminders</h3>
+        <p class="feature-desc">Never miss a renewal date. Set automated reminders for insurance policies, licenses, and
+            subscriptions.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-heartbeat"></i>
+        </div>
+        <h3 class="feature-title">Emergency Access</h3>
+        <p class="feature-desc">Define clear protocols for when and how your nominees can access your critical
+            information.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+        </div>
+        <h3 class="feature-title">Mobile Ready</h3>
+        <p class="feature-desc">Access your vault securely from any device. Our responsive design ensures a seamless
+            experience.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-fingerprint"></i>
+        </div>
+        <h3 class="feature-title">OTP Verification</h3>
+        <p class="feature-desc">Advanced two-step verification for all critical actions ensures your account remains
+            uncompromised.</p>
+    </div>
+</div>
+
+<!-- Benefits Section -->
+<div class="benefits-section">
+    <div class="section-header">
+        <div class="section-badge">
+            <i class="fas fa-check"></i>
+            Why Choose Us
+        </div>
+        <h2 class="section-title">Built for Security & Peace of Mind</h2>
+        <p class="section-subtitle">
+            We provide the protection you deserve with features designed for security and accessibility.
+        </p>
+    </div>
+
+    <div class="benefits-list">
+        <div class="benefit-item">
+            <div class="check-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <span class="benefit-text">Zero-Knowledge Encryption</span>
+        </div>
+        <div class="benefit-item">
+            <div class="check-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <span class="benefit-text">24/7 Secure Access</span>
+        </div>
+        <div class="benefit-item">
+            <div class="check-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <span class="benefit-text">Legacy Planning</span>
+        </div>
+        <div class="benefit-item">
+            <div class="check-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <span class="benefit-text">Document Organization</span>
+        </div>
+        <div class="benefit-item">
+            <div class="check-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <span class="benefit-text">Instant Notifications</span>
+        </div>
+        <div class="benefit-item">
+            <div class="check-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <span class="benefit-text">Complete Audit Trails</span>
+        </div>
+        <div class="benefit-item">
+            <div class="check-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <span class="benefit-text">Secure Sharing</span>
+        </div>
+        <div class="benefit-item">
+            <div class="check-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <span class="benefit-text">Easy Recovery</span>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="testimonials-section">
+    <div class="section-header">
+        <div class="section-badge">
+            <i class="fas fa-quote-left"></i>
+            Testimonials
+        </div>
+        <h2 class="section-title">What Our Users Say</h2>
+        <p class="section-subtitle">
+            Join thousands of satisfied users who trust SecureAfter with their most important documents.
+        </p>
+    </div>
+
+    <div class="testimonial-slider-container">
+        <button class="slider-nav-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+
+        <div class="testimonial-track-container">
+            <ul class="testimonial-track" id="track">
+                <!-- Slide 1 -->
+                <li class="testimonial-slide">
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="profile-icon">
+                                <img src ="https://media.licdn.com/dms/image/v2/D5603AQH63Izdbsg5Pw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1715607957802?e=1770854400&v=beta&t=Qy1-Aljvq4O2ck0fxHoZcwYj4LmSfipXg_KmFzHm0L0" alt="sumit jha" style="width:60px; border-radius: 50%;"></img>
+                            </div>
+                            <div class="user-info">
+                                <h4>Sumit Jha</h4>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p class="testimonial-text" id="text-1">
+                                SecureAfter has completely changed how I manage my family's important documents. The
+                                peace of mind knowing that my children will have access to everything they need if
+                                something happens to me is invaluable. The interface is intuitive, and the nominee
+                                verification process is robust yet simple to set up. I highly recommend this to anyone
+                                who wants to ensure their legacy is protected. SecureAfter is not just a cloud storage
+                                like Google Drive, Dropbox, Amazon S3, IDrive, Apple iCloud, Mega etc… only used for
+                                storage of any documents but SecureAfter is a conditional access system
+                            </p>
+                            <button class="read-more-btn" onclick="toggleReadMore('text-1', this)">Read More <i
+                                    class="fas fa-chevron-down"></i></button>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Slide 2 -->
+                <li class="testimonial-slide">
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="profile-icon">
+<img src ="https://media.licdn.com/dms/image/v2/D5603AQGLxx03SRrhuA/profile-displayphoto-shrink_400_400/B56ZTO6qU_GoAk-/0/1738638272844?e=1770854400&v=beta&t=wAtYnC5B2hz9hJray5lWCX4FmqQ1Lemansai-hVBWKg" alt="Akrati Gupta
+" style="width:60px; border-radius: 50%;"></img>
+                            </div>
+                            <div class="user-info">
+                                <h4>Akrati Gupta </h4>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p class="testimonial-text" id="text-2">
+                                As a financial advisor, I often see clients struggle with organizing their estate
+                                documents. SecureAfter provides the perfect solution. It's secure, accessible, and the
+                                emergency triggers are a game-changer. I've started recommending it to all my clients as
+                                part of their estate planning toolkit. The encryption standards meet all my security
+                                requirements.
+                            </p>
+                            <button class="read-more-btn" onclick="toggleReadMore('text-2', this)">Read More <i
+                                    class="fas fa-chevron-down"></i></button>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Slide 3 -->
+                <li class="testimonial-slide">
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="profile-icon">
+                                <img src ="https://media.licdn.com/dms/image/v2/C5603AQHaDDWeFvePVQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1657225857905?e=1770854400&v=beta&t=cqK9it5Cg-PvIoUnf8aqFWuNxBEzKYe8xBlfeRALy0E" alt="Emily Rodriguez
+" style="width:60px; border-radius: 50%;"></img>
+                            </div>
+                            <div class="user-info">
+                                <h4>Emily Rodriguez</h4>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p class="testimonial-text" id="text-3">
+                                The smart reminders feature saved me from a lapsed insurance policy just last month!
+                                Beyond the vault features, the daily utility of having all my expiration dates tracked
+                                is fantastic. The mobile support means I can check documents on the go, which has been
+                                incredibly useful during medical appointments.
+                            </p>
+                            <button class="read-more-btn" onclick="toggleReadMore('text-3', this)">Read More <i
+                                    class="fas fa-chevron-down"></i></button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <button class="slider-nav-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    <div class="slider-dots" id="sliderDots"></div>
+</div>
+
+<!-- Trust Section -->
+<div class="trust-section">
+    <h2 class="section-title" style="margin-bottom: 0;">Trusted & Certified</h2>
+    <div class="trust-grid">
+        <div class="trust-item">
+            <div class="trust-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <span class="trust-label">SSL Secured</span>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">
+                <i class="fas fa-database"></i>
+            </div>
+            <span class="trust-label">Data Encrypted</span>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <span class="trust-label">Privacy Protected</span>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <span class="trust-label">ISO Certified</span>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Section -->
+<div class="contact-section" id="contact">
+    <div class="section-header">
+        <div class="section-badge">
+            <i class="fas fa-envelope"></i>
+            Get in Touch
+        </div>
+        <h2 class="section-title">We're Here to Help</h2>
+        <p class="section-subtitle">
+            Have questions about SecureAfter? Our team is ready to assist you.
+        </p>
+    </div>
+
+    <div class="contact-container">
+        <div class="contact-info-side">
+            <div class="contact-info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="contact-info-content">
+                    <h4>Our Location</h4>
+                    <p>123 Paschim Vihar, C-Block, Delhi<br>Delhi, India - 110063</p>
+                </div>
+            </div>
+            <div class="contact-info-item">
+                <i class="fas fa-envelope"></i>
+                <div class="contact-info-content">
+                    <h4>Email Us</h4>
+                    <p>support@secureafter.com<br>info@secureafter.com</p>
+                </div>
+            </div>
+            <div class="contact-info-item">
+                <i class="fas fa-phone-alt"></i>
+                <div class="contact-info-content">
+                    <h4>Call Us</h4>
+                    <p>+91 1234567890<br>Mon-Fri, 9am-6pm ASI</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form-side">
+            <form onsubmit="event.preventDefault(); alert('Thank you for your message! We will get back to you soon.');">
+                <div class="contact-form-group">
+                    <label class="contact-label">Full Name</label>
+                    <input type="text" class="contact-input" placeholder="Bhagwan Jha" required>
+                </div>
+                <div class="contact-form-group">
+                    <label class="contact-label">Email Address</label>
+                    <input type="email" class="contact-input" placeholder="hr@secureafter.com" required>
+                </div>
+                <div class="contact-form-group">
+                    <label class="contact-label">Message</label>
+                    <textarea class="contact-input" placeholder="How can we help you?" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                    Send Message <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+{% if not user.is_authenticated %}
+<div class="cta-section">
+    <div class="cta-content">
+        <div class="cta-badge">
+            <i class="fas fa-gift"></i>
+            Free Forever Plan Available
+        </div>
+        <h2 class="cta-title">Ready to Secure Your Future?</h2>
+        <p class="cta-desc">
+            Join thousands of users who trust SecureAfter with their most important information. Start your free account
+            today.
+        </p>
+        <a href="{% url 'accounts:register' %}" class="btn-white">
+            <i class="fas fa-rocket"></i> Create Free Account
+        </a>
+    </div>
+</div>
+
+
+{% endif %}
+
+<script>
+    // ============================================
+    // TESTIMONIAL SLIDER & READ MORE
+    // ============================================
+    const track = document.getElementById('track');
+    const slides = Array.from(document.querySelectorAll('.testimonial-slide'));
+    const nextButton = document.getElementById('nextBtn');
+    const prevButton = document.getElementById('prevBtn');
+    const dotsNav = document.getElementById('sliderDots');
+    let currentSlideIndex = 0;
+
+    // Create dots
+    slides.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => moveToSlide(index));
+        dotsNav.appendChild(dot);
+    });
+
+    function updateDots(index) {
+        const dots = Array.from(dotsNav.children);
+        dots.forEach(dot => dot.classList.remove('active'));
+        if (dots[index]) dots[index].classList.add('active');
+    }
+
+    function moveToSlide(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+        track.style.transform = 'translateX(-' + (index * 100) + '%)';
+        currentSlideIndex = index;
+        updateDots(index);
+    }
+
+    if (nextButton) nextButton.addEventListener('click', () => moveToSlide(currentSlideIndex + 1));
+    if (prevButton) prevButton.addEventListener('click', () => moveToSlide(currentSlideIndex - 1));
+
+    // Auto slide
+    setInterval(() => moveToSlide(currentSlideIndex + 1), 6000);
+
+    // Read More Toggle
+    window.toggleReadMore = function (elementId, btn) {
+        const textElement = document.getElementById(elementId);
+        textElement.classList.toggle('expanded');
+        if (textElement.classList.contains('expanded')) {
+            btn.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
+        } else {
+            btn.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
+        }
+    };
+
+    // Initialize everything when DOM is ready
+    document.addEventListener('DOMContentLoaded', function () {
+    });
+</script>
+{% endblock %}

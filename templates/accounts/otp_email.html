@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} - SecureAfter</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Helvetica", "Arial", sans-serif;
+        background-color: #f3f4f6;
+        color: #1f2937;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      .content {
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      .content h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #1f2937;
+      }
+
+      .content p {
+        font-size: 16px;
+        color: #6b7280;
+        margin-bottom: 15px;
+      }
+
+      .otp-box {
+        background-color: #f9fafb;
+        border: 2px solid #667eea;
+        border-radius: 8px;
+        padding: 30px 20px;
+        margin: 30px 0;
+      }
+
+      .otp-code {
+        font-size: 48px;
+        font-weight: bold;
+        color: #667eea;
+        letter-spacing: 8px;
+        font-family: "Courier New", monospace;
+        word-break: break-all;
+      }
+
+      .otp-label {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-top: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .expiry-info {
+        background-color: #fef3c7;
+        border-left: 4px solid #f59e0b;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #92400e;
+      }
+
+      .security-info {
+        background-color: #dbeafe;
+        border-left: 4px solid #3b82f6;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #1e40af;
+      }
+
+      .footer {
+        background-color: #f9fafb;
+        padding: 20px;
+        text-align: center;
+        font-size: 12px;
+        color: #9ca3af;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .footer p {
+        margin: 5px 0;
+      }
+
+      .button {
+        display: inline-block;
+        background-color: #667eea;
+        color: white;
+        text-decoration: none;
+        padding: 12px 30px;
+        border-radius: 6px;
+        font-weight: 600;
+        margin-top: 20px;
+      }
+
+      .button:hover {
+        background-color: #5568d3;
+      }
+
+      .divider {
+        height: 1px;
+        background-color: #e5e7eb;
+        margin: 30px 0;
+      }
+
+      @media (max-width: 600px) {
+        .header {
+          padding: 30px 15px;
+        }
+
+        .header h1 {
+          font-size: 24px;
+        }
+
+        .content {
+          padding: 30px 15px;
+        }
+
+        .otp-code {
+          font-size: 36px;
+          letter-spacing: 6px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>SecureAfter</h1>
+        <p>Secure Document Management Platform</p>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <h2>{{ title }}</h2>
+
+        {% if email_type == 'registration' %}
+        <p>
+          Welcome to SecureAfter! To complete your registration, please verify your
+          email address using the code below.
+        </p>
+        {% elif email_type == 'phone_verification' %}
+        <p>
+          To complete your registration, please verify your phone number using
+          the code below.
+        </p>
+        {% elif email_type == 'nominee' %}
+        <p>
+          You have been added as a nominee in SecureAfter. Please verify your email
+          address using the code below to activate your nominee access.
+        </p>
+        {% elif email_type == 'nominee_phone' %}
+        <p>
+          You have been added as a nominee in SecureAfter. Please verify your phone
+          number using the code below to complete your nominee verification.
+        </p>
+        {% else %}
+        <p>Please use the verification code below to proceed.</p>
+        {% endif %}
+
+        <!-- OTP Code -->
+        <div class="otp-box">
+          <div class="otp-code">{{ otp_code }}</div>
+          <div class="otp-label">Verification Code</div>
+        </div>
+
+        <!-- Expiry Info -->
+        <div class="expiry-info">
+          This code will expire in
+          <strong>{{ expiry_minutes }} minutes</strong>. Don't share this code
+          with anyone.
+        </div>
+
+        <!-- Security Info -->
+        <div class="security-info">
+          🔒 SecureAfter will never ask you for this code via email or phone. Never
+          share this code with anyone.
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Additional Info -->
+        {% if email_type == 'registration' %}
+        <p style="font-size: 14px; color: #6b7280; margin-bottom: 10px">
+          After verification, you'll be able to:
+        </p>
+        <ul
+          style="
+            font-size: 14px;
+            color: #6b7280;
+            margin: 15px 0;
+            padding-left: 20px;
+          "
+        >
+          <li>Store and manage your important documents securely</li>
+          <li>Add trusted nominees to access your vault</li>
+          <li>Set emergency triggers and instructions</li>
+          <li>Sleep peacefully knowing your loved ones are protected</li>
+        </ul>
+        {% endif %}
+
+        <p style="font-size: 12px; color: #9ca3af; margin-top: 20px">
+          If you didn't request this code, please ignore this email or contact
+          our support team.
+        </p>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>&copy; 2026 SecureAfter - All rights reserved</p>
+        <p>Secure Document Management for Your Peace of Mind</p>
+        <p>
+          <a
+            href="https://bhagwanjha.netlify.app/"
+            style="color: #667eea; text-decoration: none"
+            >https://bhagwanjha.netlify.app/</a
+          >
+          |
+          <a
+            href="mailto:j73400884@gmail.com"
+            style="color: #667eea; text-decoration: none"
+            >j73400884@gmail.com</a
+          >
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
