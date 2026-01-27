@@ -1,7 +1,7 @@
 Django==4.2.13
 djangorestframework==3.14.0
 django-cors-headers==4.3.1
-Pillow==10.1.0
+Pillow==9.5.0
 python-decouple==3.8
 psycopg2-binary==2.9.9
 celery==5.3.4
@@ -12,3 +12,4 @@ django-ratelimit==4.1.0
 django-csp==3.7
 bleach==6.1.0
 python-slugify==8.0.1
+gunicorn
