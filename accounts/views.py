@@ -40,8 +40,10 @@ def register_view(request):
         try:
             username = request.POST.get('username', '').strip()
             email = request.POST.get('email', '').strip()
-            password = request.POST.get('password', '')
-            password2 = request.POST.get('password2', '')
+            password = request.POST.get('password', '').strip()
+            password2 = request.POST.get('password2', '').strip()
+            if not password2:
+                password2 = request.POST.get('confirm_password', '').strip()
             phone = request.POST.get('phone', '').strip()
             
             # Input validation
