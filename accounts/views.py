@@ -8,12 +8,14 @@ from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.core.exceptions import ValidationError
 from django.db import transaction, IntegrityError
 from django.utils.html import escape
+from django.utils import timezone
 import logging
 import os
 import subprocess
+from django.http import FileResponse, Http404
 from .models import User, Nominee, OTPVerification
 from .otp_utils import create_otp, verify_otp, send_otp_email, resend_otp, send_otp_phone
-from vault.models import Vault
+from vault.models import Vault, Document, EmergencyInstructions
 from audit_logs.models import AuditLog
 from core.security import InputValidator
 
@@ -294,15 +296,23 @@ def complete_registration(request):
         
         # Create user account
         with transaction.atomic():
+            # If this email matches an existing verified nominee invitation, create nominee account
+            new_user_type = reg_data.get('user_type', 'normal')
+            if Nominee.objects.filter(nominee_email__iexact=reg_data['email'], is_verified=True).exists():
+                new_user_type = 'nominee'
+
             user = User.objects.create_user(
                 username=reg_data['username'],
                 email=reg_data['email'],
                 password=reg_data['password'],
                 phone=reg_data['phone'],
-                user_type=reg_data['user_type'],
+                user_type=new_user_type,
                 email_verified=True,
                 phone_verified=request.session.get('phone_verified', False)
             )
+            
+            # Link any matching nominee invitations to this nominee user account
+            Nominee.objects.filter(nominee_email__iexact=user.email, nominee_user__isnull=True).update(nominee_user=user)
             
             # Create vault for user
             Vault.objects.create(user=user)
@@ -353,8 +363,16 @@ def login_view(request):
             # Sanitize username input
             username = InputValidator.sanitize_text(username)
             
-            # Attempt to authenticate
+            # Attempt to authenticate using username, email, or phone
             user = authenticate(request, username=username, password=password)
+            if user is None:
+                candidate = None
+                if '@' in username:
+                    candidate = User.objects.filter(email__iexact=username).first()
+                elif username.isdigit():
+                    candidate = User.objects.filter(phone=username).first()
+                if candidate:
+                    user = authenticate(request, username=candidate.username, password=password)
             
             if user is not None:
                 # Regenerate session ID after login (prevent session fixation)
@@ -379,7 +397,7 @@ def login_view(request):
                 )
                 
                 audit_logger.info(f"User login successful: {escape(username)} from {get_client_ip(request)}")
-                messages.success(request, f'Welcome back!')
+                messages.success(request, 'Welcome back!')
                 return redirect('vault:user_dashboard')
             else:
                 # Log failed login attempt
@@ -391,7 +409,7 @@ def login_view(request):
                 )
                 
                 audit_logger.warning(f"Failed login attempt for username: {escape(username)} from {get_client_ip(request)}")
-                messages.error(request, 'Invalid username or password!')
+                messages.error(request, 'Invalid username, email, phone, or password!')
                 
         except Exception as e:
             logger.error(f"Login error: {str(e)}")
@@ -788,3 +806,546 @@ def reset_password_confirm_view(request):
                 messages.error(request, 'User not found.')
                 
     return render(request, 'accounts/reset_password_confirm.html')
+
+
+# =====================================================
+# SMART EMERGENCY TRIGGER SYSTEM VIEWS
+# =====================================================
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def emergency_settings_view(request):
+    """Configure Dead Man's Switch and emergency settings"""
+    from .models import EmergencySettings
+    
+    # Get or create emergency settings
+    emergency_settings, created = EmergencySettings.objects.get_or_create(
+        user=request.user,
+        defaults={
+            'check_in_interval': 30,
+            'grace_period': 7,
+            'missed_checkins_for_reminder': 1,
+            'missed_checkins_for_urgent': 2,
+            'missed_checkins_for_emergency': 3,
+        }
+    )
+    
+    if request.method == 'POST':
+        action = request.POST.get('action', '')
+        
+        if action == 'configure':
+            # Update settings
+            is_enabled = request.POST.get('is_enabled') == 'on'
+            check_in_interval = int(request.POST.get('check_in_interval', 30))
+            grace_period = int(request.POST.get('grace_period', 7))
+            auto_trigger = request.POST.get('auto_trigger_emergency') == 'on'
+            notify_nominees = request.POST.get('notify_nominees_on_missed') == 'on'
+            
+            emergency_settings.is_enabled = is_enabled
+            emergency_settings.check_in_interval = check_in_interval
+            emergency_settings.grace_period = grace_period
+            emergency_settings.auto_trigger_emergency = auto_trigger
+            emergency_settings.notify_nominees_on_missed = notify_nominees
+            
+            if is_enabled and not emergency_settings.last_check_in:
+                # First time enabling - set initial check-in
+                from datetime import timedelta
+                emergency_settings.last_check_in = timezone.now()
+                emergency_settings.next_check_in_due = timezone.now() + timedelta(days=check_in_interval)
+            
+            emergency_settings.save()
+            
+            messages.success(request, 'Emergency settings updated successfully!')
+            audit_logger.info(f"Emergency settings updated for {request.user.username}")
+            
+        elif action == 'check_in':
+            # Manual check-in
+            return check_in_now(request)
+        
+        elif action == 'disable':
+            emergency_settings.is_enabled = False
+            emergency_settings.is_emergency_triggered = False
+            emergency_settings.save()
+            messages.success(request, 'Emergency system disabled.')
+    
+    # Get check-in status
+    check_in_status = None
+    if emergency_settings.is_enabled:
+        missed = emergency_settings.get_missed_checkins_count()
+        if missed == 0:
+            check_in_status = 'on_track'
+        elif missed < emergency_settings.missed_checkins_for_reminder:
+            check_in_status = 'upcoming'
+        elif missed < emergency_settings.missed_checkins_for_urgent:
+            check_in_status = 'reminder'
+        elif missed < emergency_settings.missed_checkins_for_emergency:
+            check_in_status = 'urgent'
+        else:
+            check_in_status = 'emergency'
+    
+    # Get recent check-in records
+    from .models import CheckInRecord
+    recent_checkins = CheckInRecord.objects.filter(user=request.user)[:10]
+    
+    context = {
+        'emergency_settings': emergency_settings,
+        'check_in_status': check_in_status,
+        'recent_checkins': recent_checkins,
+    }
+    return render(request, 'vault/emergency_settings.html', context)
+
+
+@login_required
+def check_in_now(request):
+    """Process user check-in to confirm they're alive"""
+    from .models import EmergencySettings, CheckInRecord
+    
+    try:
+        emergency_settings = EmergencySettings.objects.get(user=request.user)
+        
+        if not emergency_settings.is_enabled:
+            messages.info(request, 'Emergency system is not enabled.')
+            return redirect('accounts:emergency_settings')
+        
+        # Update check-in time
+        from datetime import timedelta
+        emergency_settings.last_check_in = timezone.now()
+        emergency_settings.next_check_in_due = timezone.now() + timedelta(days=emergency_settings.check_in_interval)
+        
+        # Reset emergency state if was triggered
+        if emergency_settings.is_emergency_triggered:
+            emergency_settings.is_emergency_triggered = False
+            emergency_settings.emergency_triggered_at = None
+            messages.success(request, 'Check-in successful! Emergency status has been reset.')
+        else:
+            messages.success(request, 'Check-in successful! You are safe.')
+        
+        emergency_settings.save()
+        
+        # Create check-in record
+        CheckInRecord.objects.create(
+            user=request.user,
+            emergency_settings=emergency_settings,
+            status='on_time',
+            ip_address=get_client_ip(request),
+            user_agent=request.META.get('HTTP_USER_AGENT', '')[:500]
+        )
+        
+        audit_logger.info(f"Check-in completed by {request.user.username}")
+        
+    except EmergencySettings.DoesNotExist:
+        messages.error(request, 'Emergency settings not found. Please configure first.')
+        return redirect('accounts:emergency_settings')
+    
+    return redirect('accounts:emergency_settings')
+
+
+@login_required
+def emergency_status_api(request):
+    """API to get current emergency status"""
+    from .models import EmergencySettings
+    from django.http import JsonResponse
+    
+    try:
+        emergency_settings = EmergencySettings.objects.get(user=request.user)
+        
+        data = {
+            'is_enabled': emergency_settings.is_enabled,
+            'last_check_in': emergency_settings.last_check_in.isoformat() if emergency_settings.last_check_in else None,
+            'next_check_in_due': emergency_settings.next_check_in_due.isoformat() if emergency_settings.next_check_in_due else None,
+            'is_emergency_triggered': emergency_settings.is_emergency_triggered,
+            'missed_checkins': emergency_settings.get_missed_checkins_count(),
+            'is_overdue': emergency_settings.is_overdue(),
+        }
+        
+        return JsonResponse(data)
+    except EmergencySettings.DoesNotExist:
+        return JsonResponse({'error': 'Emergency settings not found'}, status=404)
+
+
+# =====================================================
+# NOMINEE ACCESS REQUEST SYSTEM
+# =====================================================
+
+@login_required
+def nominee_access_requests_view(request):
+    """View all access requests from nominees"""
+    from .models import NomineeAccessRequest
+    
+    # Get pending requests
+    pending_requests = NomineeAccessRequest.objects.filter(
+        user=request.user,
+        status__in=['pending', 'user_notified']
+    ).order_by('-created_at')
+    
+    # Get processed requests
+    processed_requests = NomineeAccessRequest.objects.filter(
+        user=request.user,
+        status__in=['approved', 'rejected', 'access_granted']
+    ).order_by('-created_at')[:20]
+    
+    context = {
+        'pending_requests': pending_requests,
+        'processed_requests': processed_requests,
+    }
+    return render(request, 'accounts/nominee_access_requests.html', context)
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def respond_to_access_request(request, request_id):
+    """Respond to a nominee's access request"""
+    from .models import NomineeAccessRequest
+    
+    try:
+        access_request = NomineeAccessRequest.objects.get(id=request_id, user=request.user)
+    except NomineeAccessRequest.DoesNotExist:
+        messages.error(request, 'Access request not found.')
+        return redirect('accounts:nominee_access_requests')
+    
+    if request.method == 'POST':
+        action = request.POST.get('action', '')
+        response_text = request.POST.get('response', '').strip()
+        
+        if action == 'approve':
+            access_request.status = 'approved'
+            access_request.user_response = response_text
+            access_request.responded_at = timezone.now()
+            access_request.save()
+            messages.success(request, 'Access request approved!')
+            audit_logger.info(f"Access request approved for {request.user.username} by nominee {access_request.nominee.nominee_name}")
+            
+        elif action == 'reject':
+            access_request.status = 'rejected'
+            access_request.user_response = response_text
+            access_request.responded_at = timezone.now()
+            access_request.save()
+            messages.info(request, 'Access request rejected.')
+            audit_logger.info(f"Access request rejected for {request.user.username}")
+        
+        return redirect('accounts:nominee_access_requests')
+    
+    context = {
+        'access_request': access_request,
+    }
+    return render(request, 'accounts/respond_access_request.html', context)
+
+
+# =====================================================
+# NOMINEE SIDE VIEWS
+# =====================================================
+
+@login_required
+def nominee_dashboard(request):
+    """Dashboard for nominees to manage their assigned vaults"""
+    from .models import Nominee, NomineeAccessRequest
+
+    nominees = Nominee.objects.filter(
+        nominee_user=request.user,
+        is_verified=True,
+        is_active=True
+    )
+
+    shared_vaults = []
+    for nominee in nominees:
+        documents = Document.objects.filter(
+            user=nominee.user,
+            is_accessible_by_nominee=True
+        ).order_by('-created_at')
+        instructions = None
+        try:
+            instructions = EmergencyInstructions.objects.get(user=nominee.user)
+        except EmergencyInstructions.DoesNotExist:
+            instructions = None
+
+        shared_vaults.append({
+            'nominee': nominee,
+            'documents': documents,
+            'shared_count': documents.count(),
+            'can_download': nominee.access_level == 'download',
+            'emergency_instructions': instructions,
+        })
+
+    my_requests = NomineeAccessRequest.objects.filter(
+        nominee__nominee_user=request.user
+    ).order_by('-created_at')[:10]
+
+    context = {
+        'shared_vaults': shared_vaults,
+        'my_requests': my_requests,
+    }
+    return render(request, 'accounts/nominee_dashboard.html', context)
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def request_vault_access(request, nominee_id):
+    """Nominee requests access to a user's vault"""
+    from .models import Nominee, NomineeAccessRequest
+    from datetime import timedelta
+    
+    try:
+        nominee = Nominee.objects.get(id=nominee_id, nominee_user=request.user)
+    except Nominee.DoesNotExist:
+        messages.error(request, 'Nominee relationship not found.')
+        return redirect('accounts:nominee_dashboard')
+    
+    # Check if there's already a pending request
+    existing_request = NomineeAccessRequest.objects.filter(
+        nominee=nominee,
+        user=nominee.user,
+        status__in=['pending', 'user_notified']
+    ).first()
+    
+    if existing_request:
+        messages.warning(request, 'You already have a pending access request.')
+        return redirect('accounts:nominee_dashboard')
+    
+    if request.method == 'POST':
+        reason = request.POST.get('reason', '')
+        description = request.POST.get('description', '').strip()
+        
+        if not reason:
+            messages.error(request, 'Please select a reason.')
+            return redirect('accounts:request_vault_access', nominee_id=nominee_id)
+        
+        if not description:
+            messages.error(request, 'Please provide a description.')
+            return redirect('accounts:request_vault_access', nominee_id=nominee_id)
+        
+        # Create access request
+        expires_at = timezone.now() + timedelta(days=7)  # 7 days to respond
+        
+        access_request = NomineeAccessRequest.objects.create(
+            nominee=nominee,
+            user=nominee.user,
+            reason=reason,
+            description=description,
+            expires_at=expires_at
+        )
+        
+        # TODO: Send notification to user
+        # send_access_request_notification(nominee.user, access_request)
+        
+        messages.success(request, f'Access request sent to {nominee.user.username}!')
+        audit_logger.info(f"Access request created by nominee {request.user.username} for user {nominee.user.username}")
+        
+        return redirect('accounts:nominee_dashboard')
+    
+    context = {
+        'nominee': nominee,
+    }
+    return render(request, 'accounts/request_vault_access.html', context)
+
+
+@login_required
+def nominee_documents(request, nominee_id):
+    """List documents a nominee can access within a shared vault"""
+    try:
+        nominee = Nominee.objects.get(id=nominee_id, nominee_user=request.user, is_verified=True, is_active=True)
+    except Nominee.DoesNotExist:
+        messages.error(request, 'Nominee relationship not found.')
+        return redirect('accounts:nominee_dashboard')
+
+    documents = Document.objects.filter(user=nominee.user, is_accessible_by_nominee=True).order_by('-created_at')
+    return render(request, 'accounts/nominee_documents.html', {
+        'nominee': nominee,
+        'documents': documents,
+        'can_download': nominee.access_level == 'download',
+    })
+
+
+@login_required
+def nominee_view_document(request, document_id):
+    """View a single document shared with a nominee"""
+    try:
+        document = Document.objects.get(id=document_id, is_accessible_by_nominee=True)
+    except Document.DoesNotExist:
+        messages.error(request, 'Document not found or not available for nominee access.')
+        return redirect('accounts:nominee_dashboard')
+
+    nominee = Nominee.objects.filter(
+        nominee_user=request.user,
+        user=document.user,
+        is_verified=True,
+        is_active=True
+    ).first()
+    if not nominee:
+        messages.error(request, 'You do not have access to this document.')
+        return redirect('accounts:nominee_dashboard')
+
+    return render(request, 'accounts/nominee_view_document.html', {
+        'document': document,
+        'nominee': nominee,
+        'can_download': nominee.access_level == 'download',
+    })
+
+
+@login_required
+def nominee_download_document(request, document_id):
+    """Allow a nominee to download a shared document if their access level allows it"""
+    try:
+        document = Document.objects.get(id=document_id, is_accessible_by_nominee=True)
+    except Document.DoesNotExist:
+        messages.error(request, 'Document not found or not available for nominee download.')
+        return redirect('accounts:nominee_dashboard')
+
+    nominee = Nominee.objects.filter(
+        nominee_user=request.user,
+        user=document.user,
+        is_verified=True,
+        is_active=True
+    ).first()
+    if not nominee or nominee.access_level != 'download':
+        messages.error(request, 'Download is not allowed for your access level.')
+        return redirect('accounts:nominee_view_document', document_id=document.id)
+
+    if not document.file or not document.file.path:
+        messages.error(request, 'Document file is unavailable.')
+        return redirect('accounts:nominee_view_document', document_id=document.id)
+
+    try:
+        response = FileResponse(open(document.file.path, 'rb'), as_attachment=True, filename=document.title)
+        return response
+    except FileNotFoundError:
+        raise Http404('File not found.')
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def nominee_download_all_documents(request, nominee_id):
+    """Allow a nominee to download selected or all shared documents as a ZIP file"""
+    try:
+        import io
+        import zipfile
+        from django.http import HttpResponse
+        
+        nominee = Nominee.objects.get(
+            id=nominee_id,
+            nominee_user=request.user,
+            is_verified=True,
+            is_active=True
+        )
+        
+        if nominee.access_level != 'download':
+            messages.error(request, 'Download is not allowed for your access level.')
+            return redirect('accounts:nominee_documents', nominee_id=nominee.id)
+            
+        documents = Document.objects.filter(user=nominee.user, is_accessible_by_nominee=True)
+        
+        if request.method == 'POST':
+            document_ids = request.POST.getlist('document_ids')
+            if document_ids:
+                documents = documents.filter(id__in=document_ids)
+                
+        if not documents.exists():
+            messages.warning(request, 'No documents found to download.')
+            return redirect('accounts:nominee_documents', nominee_id=nominee.id)
+            
+        zip_buffer = io.BytesIO()
+        with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+            for doc in documents:
+                if doc.file and os.path.exists(doc.file.path):
+                    file_ext = os.path.splitext(doc.file.name)[1]
+                    safe_title = "".join([c for c in doc.title if c.isalpha() or c.isdigit() or c==' ' or c=='-']).rstrip()
+                    filename = f"{safe_title}_{doc.id}{file_ext}"
+                    category = doc.category if doc.category else 'Uncategorized'
+                    arcname = os.path.join(category, filename)
+                    zip_file.write(doc.file.path, arcname)
+                    
+        zip_buffer.seek(0)
+        response = HttpResponse(zip_buffer, content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="Shared_Vault_{nominee.user.username}.zip"'
+        return response
+        
+    except Nominee.DoesNotExist:
+        messages.error(request, 'Nominee access not found.')
+        return redirect('accounts:nominee_dashboard')
+    except Exception as e:
+        logger.error(f"Bulk download error for nominee: {str(e)}")
+        messages.error(request, 'Error generating download.')
+        return redirect('accounts:nominee_dashboard')
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def nominee_add_nominee(request, nominee_id):
+    """View for a nominee to add another nominee to the shared vault, if permitted."""
+    try:
+        # Verify current user is a nominee for this vault and has permission
+        nominee_record = get_object_or_404(Nominee, id=nominee_id, nominee_user=request.user, can_add_nominees=True)
+        vault_owner = nominee_record.user
+        
+        if request.method == 'POST':
+            name = request.POST.get('name', '').strip()
+            email = request.POST.get('email', '').strip()
+            phone = request.POST.get('phone', '').strip()
+            relationship = request.POST.get('relationship', '').strip()
+            access_level = request.POST.get('access_level', '').strip()
+            
+            # Basic validations
+            if not name or len(name) < 3:
+                messages.error(request, 'Nominee name must be at least 3 characters!')
+                return redirect('accounts:nominee_add_nominee', nominee_id=nominee_id)
+                
+            name = InputValidator.sanitize_text(name)
+            email = InputValidator.validate_email(email)
+            phone = InputValidator.validate_phone(phone)
+            
+            valid_levels = [choice[0] for choice in Nominee.ACCESS_LEVELS]
+            if access_level not in valid_levels:
+                messages.error(request, 'Invalid access level!')
+                return redirect('accounts:nominee_add_nominee', nominee_id=nominee_id)
+                
+            # Check if already added to vault owner's vault
+            if Nominee.objects.filter(user=vault_owner, nominee_email=email).exists():
+                messages.error(request, 'This nominee is already added to the vault!')
+                return redirect('accounts:nominee_add_nominee', nominee_id=nominee_id)
+                
+            # Create nominee for vault owner
+            new_nominee = Nominee.objects.create(
+                user=vault_owner,
+                nominee_name=name,
+                nominee_email=email,
+                nominee_phone=phone,
+                relationship=relationship,
+                access_level=access_level,
+                is_verified=False
+            )
+            
+            request.session['nominee_data'] = {
+                'nominee_id': new_nominee.id,
+                'nominee_name': name,
+                'nominee_email': email,
+                'nominee_phone': phone,
+                'adding_as_nominee': True, # Flag to know redirect later
+            }
+            
+            # We must send an OTP to verify the email
+            otp_result = create_otp(
+                email=email,
+                otp_type='nominee_email',
+                nominee=new_nominee
+            )
+            
+            if otp_result['success']:
+                if send_otp_email(email, otp_result['otp_code'], 'nominee_email'):
+                    request.session['nominee_verification_email'] = email
+                    messages.success(request, f'Verification code sent to {escape(email)}. Please verify to complete nominee addition.')
+                    # Redirecting to vault app's verify_nominee_email_otp
+                    return redirect('vault:verify_nominee_email_otp')
+                else:
+                    new_nominee.delete()
+                    messages.error(request, 'Error sending verification email.')
+            else:
+                new_nominee.delete()
+                messages.error(request, 'Error sending verification code.')
+                
+        return render(request, 'vault/add_nominee.html', {
+            'is_nominee_adding': True,
+            'vault_owner': vault_owner,
+            'nominee_id': nominee_id
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in nominee_add_nominee: {str(e)}")
+        messages.error(request, 'Error processing request.')
+        return redirect('accounts:nominee_dashboard')

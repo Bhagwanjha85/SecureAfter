@@ -4,14 +4,14 @@ from .models import User, Nominee
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    list_display = ('username', 'email', 'user_type', 'is_active', 'created_at')
+    list_display = ('username', 'unique_id', 'email', 'user_type', 'is_active', 'created_at')
     list_filter = ('user_type', 'is_active', 'is_staff')
-    search_fields = ('username', 'email', 'phone')
+    search_fields = ('username', 'email', 'phone', 'unique_id')
     ordering = ('-created_at',)
     
     fieldsets = BaseUserAdmin.fieldsets + (
         ('Additional Info', {
-            'fields': ('user_type', 'phone', 'emergency_contact', 'is_verified')
+            'fields': ('unique_id', 'user_type', 'phone', 'emergency_contact', 'is_verified', 'about_me', 'profile_image', 'avatar_url')
         }),
     )
 

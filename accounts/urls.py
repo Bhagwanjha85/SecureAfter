@@ -21,4 +21,22 @@ urlpatterns = [
     path('verify-reset-otp/', views.verify_reset_otp_view, name='verify_reset_otp'),
     path('resend-reset-otp/', views.resend_reset_otp_view, name='resend_reset_otp'),
     path('reset-password-confirm/', views.reset_password_confirm_view, name='reset_password_confirm'),
+    
+    # =====================================================
+    # SMART EMERGENCY TRIGGER SYSTEM URLs
+    # =====================================================
+    path('emergency-settings/', views.emergency_settings_view, name='emergency_settings'),
+    path('check-in/', views.check_in_now, name='check_in'),
+    path('emergency-status/', views.emergency_status_api, name='emergency_status_api'),
+    
+    # Nominee Access Request URLs
+    path('access-requests/', views.nominee_access_requests_view, name='nominee_access_requests'),
+    path('access-requests/respond/<int:request_id>/', views.respond_to_access_request, name='respond_to_access_request'),
+    path('nominee-dashboard/', views.nominee_dashboard, name='nominee_dashboard'),
+    path('nominee-documents/<int:nominee_id>/', views.nominee_documents, name='nominee_documents'),
+    path('nominee-document/<int:document_id>/', views.nominee_view_document, name='nominee_view_document'),
+    path('nominee-document/<int:document_id>/download/', views.nominee_download_document, name='nominee_download_document'),
+    path('nominee-documents/<int:nominee_id>/download-all/', views.nominee_download_all_documents, name='nominee_download_all_documents'),
+    path('request-vault-access/<int:nominee_id>/', views.request_vault_access, name='request_vault_access'),
+    path('nominee-dashboard/add-nominee/<int:nominee_id>/', views.nominee_add_nominee, name='nominee_add_nominee'),
 ]
