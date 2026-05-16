@@ -1,0 +1,3802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>SecureAfter - Emergency Document Management System</title>
+    <meta name="description"
+        content="SecureAfter project report - Emergency document management system with AES encryption and automated nominee sharing.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1f2937;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-width: 0
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, .97);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+            padding: .85rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #2563eb;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            white-space: nowrap
+        }
+
+        mark {
+            background-color: #fff4cc;
+            /* light background */
+            color: #ff7a00;
+            /* soft orange text */
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        /* hide horizontal nav links on ALL screens – we use the sidebar instead */
+        .nav-links {
+            display: none !important
+        }
+
+        /* Always-visible toggle button */
+        .nav-toggle {
+            background: none;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #374151;
+            padding: .35rem .6rem;
+            display: flex;
+            align-items: center;
+            transition: .2s;
+        }
+
+        .nav-toggle:hover {
+            background: #eff6ff;
+            border-color: #2563eb;
+            color: #2563eb
+        }
+
+        /* ── LEFT SIDEBAR (all screens) ── */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -270px;
+            width: 260px;
+            height: 100vh;
+            background: #ffffff;
+            transition: left .3s cubic-bezier(.4, 0, .2, 1);
+            z-index: 1100;
+            overflow-y: auto;
+            box-shadow: 3px 0 20px rgba(0, 0, 0, .25);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.open {
+            left: 0
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            z-index: 1;
+        }
+
+        .sidebar-logo {
+            color: #2563eb;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-decoration: none
+        }
+
+        .sidebar-close {
+            background: none;
+            border: none;
+            color: #6b7280;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: .3rem;
+            border-radius: 6px;
+            transition: .2s;
+        }
+
+        .sidebar-close:hover {
+            color: #fff;
+            background: #f1f5f9
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: .5rem 0 2rem
+        }
+
+        .sidebar li {
+            margin: 0
+        }
+
+        .sidebar a {
+            color: #4b5563;
+            text-decoration: none;
+            font-size: .88rem;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .65rem 1.2rem;
+            border-left: 3px solid transparent;
+            transition: .2s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            color: #fcfbfb;
+            background: #232323;
+            border-left-color: #7d7d7e;
+        }
+
+        .sidebar-section-label {
+            color: #475569;
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            padding: .9rem 1.2rem .3rem;
+        }
+
+        /* ── OVERLAY ── */
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            z-index: 1050;
+        }
+
+        .overlay.show {
+            display: block
+        }
+
+        /* ── PAGE BODY OFFSET when sidebar open on large screens ── */
+        @media(min-width:1024px) {
+            body.sidebar-open .page-wrap {
+                margin-left: 260px
+            }
+        }
+
+        /* ── SECTIONS ── */
+        .page-wrap {
+            transition: margin-left .3s cubic-bezier(.4, 0, .2, 1)
+        }
+
+        section {
+            padding: 3.5rem 5%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            min-width: 0
+        }
+
+        h1 {
+            font-size: clamp(1.6rem, 4vw, 2.8rem);
+            line-height: 1.2
+        }
+
+        h2 {
+            font-size: clamp(1.4rem, 3vw, 1.9rem);
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: #111827;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 4px;
+            background: #2563eb;
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-bottom: .7rem;
+            color: #111827
+        }
+
+        h4 {
+            font-size: .95rem;
+            margin-bottom: .5rem;
+            color: #1f2937
+        }
+
+        p {
+            margin-bottom: .8rem;
+            color: #374151;
+            line-height: 1.7
+        }
+
+        a {
+            color: #2563eb
+        }
+
+        strong {
+            color: #111827
+        }
+
+        /* ── GRIDS ── */
+        .grid2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+            gap: 1.5rem;
+            align-items: start
+        }
+
+        .grid3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+            gap: 1.5rem
+        }
+
+        /* ── CARDS ── */
+        .card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+            transition: .3s;
+            min-width: 0;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: #2563eb;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, .1)
+        }
+
+        .dark-card {
+            background: #ffffff;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1.5rem;
+            min-width: 0;
+        }
+
+        .dark-card h3,
+        .dark-card h4 {
+            color: #111827
+        }
+
+        .dark-card p {
+            color: #4b5563
+        }
+
+        /* ── TABLES – always scrollable ── */
+        .tbl-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 8px
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: clamp(.78rem, 1.5vw, .88rem);
+            white-space: nowrap;
+        }
+
+        th {
+            background: #f1f5f9;
+            color: #111827;
+            padding: .6rem .9rem;
+            text-align: left
+        }
+
+        td {
+            padding: .6rem .9rem;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+            white-space: normal;
+            min-width: 80px
+        }
+
+        tr:hover td {
+            background: #f3f2f6;
+            font-weight: 400;
+            cursor: grab;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: .1rem .4rem;
+            border-radius: 4px;
+            font-size: .83rem;
+            color: #2563eb;
+            white-space: nowrap
+        }
+
+        /* ── FLOW STEPS ── */
+        .flow-row {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 750px;
+            margin: 0 auto
+        }
+
+        .flow-item {
+            display: flex;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden
+        }
+
+        .flow-num {
+            background: #2563eb;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 800;
+            padding: .9rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+            flex-shrink: 0;
+        }
+
+        .flow-body {
+            padding: .9rem 1.1rem;
+            flex: 1;
+            min-width: 0
+        }
+
+        .flow-body h4 {
+            color: #111827;
+            font-size: .95rem;
+            margin-bottom: .2rem
+        }
+
+        .flow-body p {
+            color: #4b5563;
+            margin: 0;
+            font-size: .85rem
+        }
+
+        /* ── ARCH ── */
+        .arch-wrap {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .arch-layer {
+            display: flex;
+            justify-content: center;
+            gap: .8rem;
+            flex-wrap: wrap;
+            margin: .5rem 0
+        }
+
+        .arch-box {
+            background: #ffffff;
+            color: #111827;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: .8rem 1rem;
+            font-weight: 600;
+            border-bottom: 3px solid #2563eb;
+            min-width: 130px;
+            max-width: 180px;
+            text-align: center;
+            font-size: .82rem;
+        }
+
+        .arch-box small {
+            display: block;
+            color: #6b7280;
+            font-weight: 400;
+            font-size: .72rem;
+            margin-top: .2rem
+        }
+
+        .arr {
+            color: #2563eb;
+            font-size: 1.2rem;
+            margin: .2rem 0;
+            text-align: center
+        }
+
+        /* ── CODE ── */
+        .code-block {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.2rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-left: 4px solid #2563eb;
+            font-family: 'Courier New', monospace;
+            font-size: clamp(.75rem, 1.4vw, .85rem);
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .code-block pre {
+            min-width: min-content
+        }
+
+        .kw {
+            color: #f472b6;
+            font-weight: bold
+        }
+
+        .fn {
+            color: #60a5fa
+        }
+
+        .str {
+            color: #34d399
+        }
+
+        .cm {
+            color: #6b7280;
+            font-style: italic
+        }
+
+        /* ── SWOT ── */
+        .swot {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+            gap: 1rem
+        }
+
+        .swot-box {
+            border-radius: 8px;
+            padding: 1.3rem
+        }
+
+        .sw {
+            background: #ffffff;
+            border: 1px solid #e5e7eb
+        }
+
+        .sw h4 {
+            color: #2563eb;
+            margin-bottom: .8rem
+        }
+
+        .sw li {
+            color: #4b5563
+        }
+
+        .ot {
+            background: #fff;
+            border: 1px solid #e5e7eb
+        }
+
+        .ot h4 {
+            margin-bottom: .8rem
+        }
+
+        /* ── FAQ ── */
+        .faq-item {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: .7rem;
+            overflow: hidden;
+            transition: .2s
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .06)
+        }
+
+        .faq-q {
+            padding: 1rem 1.3rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #111827;
+            font-size: .92rem;
+            gap: .5rem;
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: .35s;
+            padding: 0 1.3rem;
+            color: #4b5563;
+            font-size: .88rem
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 600px;
+            padding: .5rem 1.3rem 1rem
+        }
+
+        .faq-icon {
+            transition: .35s;
+            color: #2563eb;
+            flex-shrink: 0
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(180deg)
+        }
+
+        /* ── GANTT ── */
+        .gantt {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch
+        }
+
+        .bar {
+            background: #2563eb;
+            border-radius: 3px;
+            color: #fff;
+            font-size: .65rem;
+            padding: .12rem .3rem;
+            display: block;
+            text-align: center
+        }
+
+        /* ── MISC ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: .65s cubic-bezier(.5, 0, 0, 1)
+        }
+
+        .reveal.on {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .sec-alt {
+            background: #fff
+        }
+
+        ul {
+            padding-left: 1.3rem
+        }
+
+        li {
+            margin-bottom: .35rem
+        }
+
+        /* ── SCROLL TOP ── */
+        #scrolltop {
+            position: fixed;
+            bottom: 22px;
+            right: 22px;
+            background: #2563eb;
+            color: #fff;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .95rem;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, .35);
+            opacity: 0;
+            transition: .3s;
+            z-index: 100;
+        }
+
+        #scrolltop.show {
+            opacity: 1
+        }
+
+        #scrolltop:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px)
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #f8fafc;
+            color: #4b5563;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            padding: 2.5rem 5%;
+            margin-top: 2rem
+        }
+
+        footer h3 {
+            color: #111827;
+            font-size: 1.4rem;
+            margin-bottom: .5rem
+        }
+
+        footer a {
+            color: #60a5fa;
+            text-decoration: none
+        }
+
+        /* ── RESPONSIVE BREAKPOINTS ── */
+        @media(max-width:600px) {
+            nav {
+                padding: .75rem 4%
+            }
+
+            section {
+                padding: 2.5rem 4%
+            }
+
+            h2 {
+                font-size: 1.35rem
+            }
+
+            .flow-num {
+                min-width: 50px;
+                font-size: .95rem;
+                padding: .75rem .7rem
+            }
+
+            .arch-box {
+                min-width: 110px;
+                font-size: .78rem
+            }
+
+            .faq-q {
+                font-size: .85rem;
+                padding: .85rem 1rem
+            }
+        }
+
+        @media(max-width:480px) {
+
+            .grid2,
+            .grid3 {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .read-more-content {
+            display: none;
+        }
+
+        .read-more-content.expanded {
+            display: block;
+        }
+
+        .read-more-btn {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #2563eb;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.05);
+        }
+
+        .read-more-btn:hover {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        }
+
+        /* ── GO BACK & LIVE TRACKER ── */
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-go-back {
+            color: #4b5563;
+            font-size: 0.95rem;
+            text-decoration: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .btn-go-back:hover {
+            background: #f1f5f9;
+            color: #2563eb;
+            border-color: #cbd5e1;
+        }
+
+        .page-indicator {
+            color: #6b7280;
+            font-size: 0.9rem;
+            border-left: 2px solid #e5e7eb;
+            padding-left: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 600;
+        }
+
+        .live-tracker-badge {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #10b981;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .live-tracker-badge:hover {
+            background: #d1fae5;
+            transform: translateY(-1px);
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 4px #10b981;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        @media(max-width: 768px) {
+            .header-left {
+                gap: 0.5rem;
+            }
+
+            .btn-go-back span {
+                display: none;
+            }
+
+            .btn-go-back {
+                padding: 0.4rem;
+                font-size: 1rem;
+            }
+
+            .page-indicator {
+                padding-left: 0.5rem;
+                gap: 0.5rem;
+                font-size: 0.8rem;
+                border-left: 1px solid #e5e7eb;
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .page-indicator span.page-title-text {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-wrap">
+        <nav id="navbar">
+            <div class="header-left">
+                <a href="{% url 'home' %}" class="btn-go-back" title="Back to Home">
+                    <i class="fa fa-arrow-left"></i> <span>Home</span>
+                </a>
+                <a href="#cover" class="logo"><i class="fa fa-shield-halved"></i> SecureAfter</a>
+                <div class="page-indicator">
+                    <span class="page-title-text">About Us</span>
+                    <a href="https://secureafter.onrender.com" target="_blank" class="live-tracker-badge"
+                        title="Live Project Tracker">
+                        <span class="live-dot"></span> Live Tracker
+                    </a>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#cover">Cover</a></li>
+                <li><a href="#details">Project</a></li>
+                <li><a href="#objectives">Objectives</a></li>
+                <li><a href="#problem">Problem</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#flowchart">Flowchart</a></li>
+                <li><a href="#usecase">Use Case</a></li>
+                <li><a href="#dbtables">Tables</a></li>
+                <li><a href="#stakeholders">Stakeholders</a></li>
+                <li><a href="#techstack">Tech Stack</a></li>
+                <li><a href="#abbreviations">Glossary</a></li>
+                <li><a href="#limitations">Limitations</a></li>
+                <li><a href="#scope">Scope</a></li>
+                <li><a href="#advantages">Advantages</a></li>
+                <li><a href="#existing">Comparison</a></li>
+                <li><a href="#novelty">Novelty</a></li>
+                <li><a href="#feasibility">Feasibility</a></li>
+                <li><a href="#sdlc">SDLC</a></li>
+                <li><a href="#lowlevel">LLD</a></li>
+                <li><a href="#diagrams">Diagrams</a></li>
+                <li><a href="#dfd">DFD</a></li>
+                <li><a href="#erdiagram">ER Diagram</a></li>
+                <li><a href="#dbdesign">Database</a></li>
+                <li><a href="#apidesign">API</a></li>
+                <li><a href="#business">Business</a></li>
+                <li><a href="#future">Future</a></li>
+                <li><a href="#challenges">Challenges</a></li>
+                <li><a href="#social">Impact</a></li>
+                <li><a href="#swot">SWOT</a></li>
+                <li><a href="#timeline">Timeline</a></li>
+                <li><a href="#cost">Cost</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#references">References</a></li>
+            </ul>
+            <button class="nav-toggle" id="mbtn" aria-label="Toggle navigation"><i class="fa fa-braille"></i></button>
+        </nav>
+        <div class="overlay" id="overlay"></div>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="#cover" class="sidebar-logo"><i class="fa fa-shield-halved"></i> SecureAfter</a>
+                <button class="sidebar-close" id="sclose" aria-label="Close menu"><i class="fa fa-xmark"></i></button>
+            </div>
+            <ul>
+                <li><a href="#cover" class="slink">Cover</a></li>
+                <li><a href="#details" class="slink">Project</a></li>
+                <li><a href="#objectives" class="slink">Objectives</a></li>
+                <li><a href="#problem" class="slink">Problem</a></li>
+                <li><a href="#architecture" class="slink">Architecture</a></li>
+                <li><a href="#flowchart" class="slink">Flowchart</a></li>
+                <li><a href="#usecase" class="slink">Use Case</a></li>
+                <li><a href="#dbtables" class="slink">Tables</a></li>
+                <li><a href="#stakeholders" class="slink">Stakeholders</a></li>
+                <li><a href="#techstack" class="slink">Tech Stack</a></li>
+                <li><a href="#abbreviations" class="slink">Glossary</a></li>
+                <li><a href="#limitations" class="slink">Limitations</a></li>
+                <li><a href="#scope" class="slink">Scope</a></li>
+                <li><a href="#advantages" class="slink">Advantages</a></li>
+                <li><a href="#existing" class="slink">Comparison</a></li>
+                <li><a href="#novelty" class="slink">Novelty</a></li>
+                <li><a href="#feasibility" class="slink">Feasibility</a></li>
+                <li><a href="#sdlc" class="slink">SDLC</a></li>
+                <li><a href="#lowlevel" class="slink">LLD</a></li>
+                <li><a href="#diagrams" class="slink">Diagrams</a></li>
+                <li><a href="#dfd" class="slink">DFD</a></li>
+                <li><a href="#erdiagram" class="slink">ER Diagram</a></li>
+                <li><a href="#dbdesign" class="slink">Database</a></li>
+                <li><a href="#apidesign" class="slink">API</a></li>
+                <li><a href="#business" class="slink">Business</a></li>
+                <li><a href="#future" class="slink">Future</a></li>
+                <li><a href="#challenges" class="slink">Challenges</a></li>
+                <li><a href="#social" class="slink">Impact</a></li>
+                <li><a href="#swot" class="slink">SWOT</a></li>
+                <li><a href="#timeline" class="slink">Timeline</a></li>
+                <li><a href="#cost" class="slink">Cost</a></li>
+                <li><a href="#faq" class="slink">FAQ</a></li>
+                <li><a href="#references" class="slink">References</a></li>
+            </ul>
+        </div>
+        <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 4%;margin-top:58px;background:linear-gradient(135deg,#f8fafc 0%,#e0e7ff 100%)"
+            id="home">
+            <div style="max-width:700px">
+                <div style="font-size:3.5rem;color:#2563eb;margin-bottom:1rem"><i class="fa fa-shield-halved"></i></div>
+                <h1 style="font-size:3.8rem;font-weight:800;color:#111827;margin-bottom:1rem;line-height:1.2">
+                    SecureAfter<br><span style="font-size:1.7rem;font-weight:800;color:#2563eb">Emergency Document
+                        Management System</span></h1>
+                <p style="font-size:1.1rem;color:#6b7280;margin-bottom:2rem">A secure, automated platform that protects
+                    your
+                    critical documents and shares them with verified nominees when you need it most.</p>
+                <a href="#cover"
+                    style="background:#2563eb;color:#fff;padding:.9rem 2rem;border-radius:8px;text-decoration:none;font-weight:700;font-size:1rem;box-shadow:0 4px 12px rgba(37,99,235,.3);transition:.3s;display:inline-block">View
+                    Full Report</a>
+            </div>
+        </div>
+        <section id="cover" class="reveal" class="sec-alt">
+            <h2>Cover Page</h2>
+            <div
+                style='text-align:center;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;padding:3rem 2rem;color:#1f2937'>
+                <div style='font-size:4rem;color:#2563eb;margin-bottom:1rem'><i class='fa fa-shield-halved'></i></div>
+                <h1 style='font-size:2.8rem;font-weight:800;color:#111827;margin:.5rem 0'>SecureAfter</h1>
+                <p style='color:#3b82f6;font-size:1.2rem;margin-bottom:2rem'>Emergency Document Management System</p>
+                <div class="tbl-wrap" style='display:inline-block;background:#f8fafc;border-radius:8px;padding:1.5rem 2rem; border-left: 4px solid #10b981; width: 100%;
+text-align:left'>
+                    <table style='color:#4b5563'>
+                        <tbody>
+                            <tr>
+                                <td style='color:#6b7280;padding:.3rem 1rem .3rem 0'>College</td>
+                                <td style='color:#111827'>Govt. Engineering college Ajmer</td>
+                            </tr>
+                            <tr>
+                                <td style='color:#6b7280;padding:.3rem 1rem .3rem 0'>Department</td>
+                                <td style='color:#111827'>Computer Science &amp; Engineering</td>
+                            </tr>
+                            <tr>
+                                <td style='color:#6b7280;padding:.3rem 1rem .3rem 0'>Session / Year</td>
+                                <td style='color:#111827'>2025-26 &mdash; Final Year Project</td>
+                            </tr>
+                            <tr>
+                                <td style='color:#6b7280;padding:.3rem 1rem .3rem 0'>Project Guide</td>
+                                <td style='color:#111827'>Prof. Jyoti Gajrani, Dept. of CSE</td>
+                            </tr>
+                            <tr>
+                                <td style='color:#6b7280;padding:.3rem 1rem .3rem 0'>Team Members</td>
+                                <td style='color:#111827'>Bhagwan Jha &bull; Gautam </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section id="details" class="reveal">
+            <h2>Project Details &amp; Problem Statement</h2>
+            <div class='grid2'>
+                <div class='card'>
+
+                    <h3>What is SecureAfter?</h3>
+
+                    <p>
+                        SecureAfter is a <mark>secure digital platform</mark>
+                        designed to <mark>protect and manage</mark> sensitive personal documents
+                        and automatically share them with trusted nominees during
+                        <mark>emergency or critical situations</mark>. The project focuses on
+                        ensuring that important information remains accessible to authorized
+                        people when the original owner becomes inactive, unreachable,
+                        hospitalized, unconscious, missing, or deceased.
+                    </p>
+
+                    <div class="read-more-content">
+
+                        <p>
+                            In today’s digital world, people store a large amount of important
+                            information such as <mark>medical records</mark>,
+                            <mark>bank documents</mark>,
+                            <mark>insurance policies</mark>,
+                            educational certificates, <mark>legal papers</mark>,
+                            investment details, passwords, and personal identity documents.
+
+                            However, during emergencies or after death, family members or trusted
+                            individuals often struggle to access these documents because they do
+                            not know where the data is stored or they do not have permission to
+                            access it. This creates serious problems related to healthcare,
+                            <mark>financial management</mark>, legal processes,
+                            <mark>insurance claims</mark>, and property handling.
+                        </p>
+
+                        <p>
+                            The project also implements
+                            <mark>role-based access control</mark>, which means nominees can only
+                            access documents and information specifically authorized for them.
+
+                            This helps maintain <mark>privacy and security</mark> while still
+                            ensuring emergency accessibility.
+
+                            The platform combines <mark>cybersecurity</mark>,
+                            automation, <mark>cloud storage</mark>,
+                            emergency response systems, and
+                            <mark>secure authentication</mark> into one centralized solution.
+
+                            <br><br>
+
+                            <b>SecureAfter</b> is not just a
+                            <mark>cloud storage platform</mark>; it is an
+                            <mark>intelligent emergency management</mark> and secure digital
+                            inheritance system designed for real-world situations where
+                            <mark>timely access to information</mark> can save lives,
+                            reduce legal complications, and help families manage important
+                            responsibilities effectively.
+                        </p>
+
+                    </div>
+                    <button class="read-more-btn" onclick="toggleReadMore(this)">Learn More <i
+                            class="fa fa-chevron-down"></i></button>
+                </div>
+                <div class='dark-card'>
+                    <h3>Problem Statement</h3>
+
+                    <p style="color:#212121">
+                        Nowadays, people store many important documents in digital form such as
+                        <mark>medical reports</mark>,
+                        <mark>bank details</mark>,
+                        <mark>insurance papers</mark>,
+                        <mark>Government Identities</mark>,
+                        <mark>Property documents</mark>,
+                        <mark>Educational certificates</mark>,
+                        <mark>Investment records</mark>,
+                        <mark>legal documents</mark>, and personal identity documents etc...
+                    </p>
+                    <div class="read-more-content">
+                        <p>To solve these problems, SecureAfter provides a secure emergency document management system.
+                            The
+                            platform allows users to <mark>securely store</mark> important documents, <mark>add verified
+                                nominees</mark> and
+                            <mark>automatically share authorized documents</mark> when emergency conditions are
+                            detected.
+                            The system uses
+                            encryption, authentication, activity monitoring, and role-based access control to ensure
+                            data
+                            security, privacy, and safe emergency access.
+                        </p>
+
+
+                        <ul style="margin-left:1.5rem;color:#374151">
+
+                            <li style="margin-bottom:.4rem">
+                                Families cannot access <mark>important documents</mark> during emergencies
+                            </li>
+
+                            <li style="margin-bottom:.4rem">
+                                Doctors may not receive <mark>medical reports</mark> during urgent treatment
+                            </li>
+
+                            <li style="margin-bottom:.4rem">
+                                <mark>Bank accounts</mark>, investments, and insurance records remain inaccessible
+                            </li>
+
+                            <li style="margin-bottom:.4rem">
+                                Family members often do not know <mark>passwords</mark> or document locations
+                            </li>
+
+                            <li style="margin-bottom:.4rem">
+                                Existing <mark>cloud storage systems</mark> only provide manual sharing
+                            </li>
+
+                            <li style="margin-bottom:.4rem">
+                                <mark>Password managers</mark> do not support complete emergency document access
+                            </li>
+
+                            <li style="margin-bottom:.4rem">
+                                Sensitive files face risks of <mark>unauthorized access</mark>, hacking, and misuse
+                            </li>
+
+                            <li style="margin-bottom:.4rem">
+                                Lack of planning for <mark>digital data after death</mark> creates legal and financial
+                                issues
+                            </li>
+
+                        </ul>
+
+                        <p style="color:#f59e0b;margin-top:1rem">
+                            <strong style="color:#515251;margin-top:1rem">
+                                Result: Important digital information may become permanently inaccessible during
+                                emergencies.
+                            </strong>
+                        </p>
+
+                    </div>
+
+
+
+                    <button class="read-more-btn" onclick="toggleReadMore(this)">Learn More <i
+                            class="fa fa-chevron-down"></i></button>
+                </div>
+
+
+
+            </div>
+        </section>
+
+
+        <section id="objectives" class="reveal" class="sec-alt">
+            <h2>Objectives of the Project</h2>
+            <p style="border: 4px solid rgb(175, 175, 175); padding: 10px; border-radius: 16px;">The main
+                objective of our project is to
+                create a secure and reliable
+                platform where users can safely store their important documents and share them with trusted
+                nominees during emergency situations. The project is designed to help people protect sensitive
+                information. The system focuses on security, privacy, emergency
+                support, and automated document sharing.
+                <br><br>
+                <mark>The objectives of the project are divided into three main categories: Functional Objectives,
+                    Security Objectives, and Emergency Objectives.</mark><br>
+            </p>
+            <div class='grid3'>
+                <div class='card'>
+                    <h3>Functional Objectives</h3>
+
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>To allow users to create and manage their accounts easily.</li>
+                        <li style='margin-bottom:.4rem'>To provide email and mobile verification during registration.
+                        </li>
+                        <li style='margin-bottom:.4rem'>To allow users to upload and manage documents digitally.</li>
+                        <li style='margin-bottom:.4rem'>Multi-nominee addition with OTP verification</li>
+                        <li style='margin-bottom:.4rem'>Role-based document access per nominee</li>
+                        <li style='margin-bottom:.4rem'>Emergency message/instruction storage</li>
+                        <li style='margin-bottom:.4rem'>To monitor user activity and account status regularly.</li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>Security Objectives</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>To protect sensitive user documents from unauthorized access.
+                        </li>
+                        <li style='margin-bottom:.4rem'>To secure all uploaded files using AES encryption</li>
+                        <li style='margin-bottom:.4rem'>To provide secure authentication and login mechanisms.</li>
+                        <li style='margin-bottom:.4rem'>To implement email and mobile OTP verification.</li>
+                        <li style='margin-bottom:.4rem'>Secure cloud storage (AWS S3)</li>
+                        <li style='margin-bottom:.4rem'>HTTPS/TLS in transit</li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>Emergency Objectives</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Track prolonged inactivity</li>
+                        <li style='margin-bottom:.4rem'>Automated Dead-Man Switch</li>
+                        <li style='margin-bottom:.4rem'>24-hour activity monitoring cycle</li>
+                        <li style='margin-bottom:.4rem'>3-strike inactivity detection rule</li>
+                        <li style='margin-bottom:.4rem'>Auto-trigger nominee notification</li>
+                        <li style='margin-bottom:.4rem'>Automatic emergency medical access</li>
+                        <li style='margin-bottom:.4rem'>Audit log for all access events</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="problem" class="reveal">
+            <h2>Why This Project Matters</h2>
+            <div style="border: 4px solid rgb(175, 175, 175); padding: 10px; border-radius: 16px;">
+                <p>SecureAfter is not just a normal cloud storage platform. It is a real-world emergency management and
+                    secure document transfer system designed to solve problems that happen during accidents, medical
+                    emergencies, missing cases, unconscious situations, or death.
+                <p>Today, many people store important documents digitally, but very few systems ensure that these
+                    documents
+                    safely reach trusted family members or nominees during critical situations.</p>
+
+                <p> This project matters because important personal data becomes extremely difficult to access during
+                    emergencies. Families often struggle to find medical reports, insurance papers, bank details,
+                    investment
+                    records, passwords, property documents, legal papers etc.. when they are needed the most.</p>
+
+                SecureAfter solves this problem using automation, security, emergency monitoring, and nominee-based
+                document sharing.</p>
+            </div><br><br>
+            <div class='grid2'>
+                <div class='card'>
+                    <h3>Real-World Impact</h3>
+                    <div style='overflow-x:auto'>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Problem</th>
+                                    <th>Affected People</th>
+                                    <th>SecureAfter Fix</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Important documents become inaccessible during prolonged emergencies, death
+                                        situations, or long-term inactivity</td>
+                                    <td>Patients, Doctors, Families, Banks, Insurance Companies, lawyers etc..</td>
+                                    <td>Secure nominee-based document access after inactivity verification</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class='dark-card'>
+                    <h3>Why No Existing System Solves This?</h3>
+                    <p>Many digital platforms already exist for:<br>
+
+                        1. cloud storage,<br>
+                        2. password management,<br>
+                        3. Manual file sharing,<br>
+                        4. account recovery,<br>
+                        5. secure document storage.<br>
+                        <br>
+
+                    <div class="read-more-content">
+
+                        But most of these systems solve only one small part of the problem.
+                        </p>
+
+                        <ul style='margin-left:1.5rem;color:#4b5563'>
+                            <li style='margin-bottom:.4rem'>Google Inactive Manager: only Google data, no other external
+                                files/documents supported</li>
+                            <li style='margin-bottom:.4rem'>Dropbox/Drive/oneDrive: no track inactivities, no trigger,
+                                no
+                                nominee
+                                system</li>
+                            <li style='margin-bottom:.4rem'>LastPass/1Password/Bitwarden : passwords only, no doc
+                                sharing
+                                workflows.</li>
+                            <li style='margin-bottom:.4rem'>Digital vaults: manual process, no automation</li>
+                            <li style='margin-bottom:.4rem'>None combine: monitoring + encryption + auto-trigger</li>
+                        </ul>
+                    </div>
+                    <button class="read-more-btn" onclick="toggleReadMore(this)">Learn More <i
+                            class="fa fa-chevron-down"></i></button>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section id="architecture" class="reveal" class="sec-alt">
+
+
+            <h2>System Architecture</h2>
+            <div class='arch-wrap'>
+                <p style='text-align:center;color:#6b7280;margin-bottom:1.5rem; '>5-Layer Secure
+                    Architecture with
+                    Automated
+                    Emergency Layer</p>
+                <img src="images/img.png" style="width: 855px;" />
+                <br>
+
+                <div style='display:flex;flex-direction:column;align-items:center;gap:.5rem'>
+                    <div class='arch-layer'>
+                        <div class='arch-box'><i class='fa fa-user'
+                                style='color:#60a5fa;display:block;font-size:1.5rem;margin-bottom:.3rem'></i>User/Nominee
+                            Client<small>React.js Web App &bull; Mobile Browser</small></div>
+                    </div>
+                    <div class='arr' style="color: #60a5fa;">&#8595;</div>
+                    <div class='arr'> HTTPS/TLS Encrypted</div>
+                    <div style="text-align: center;"> (When the user interacts with the website, all data travels
+                        through an HTTPS / TLS encrypted connection enforced by Django security middleware. This
+                        protects: passwords, uploaded documents, personal data, and session cookies.)<br>
+                        <b>____HTTPS=
+                            Hypertext Transfer Protocol Secure,
+                            TLS= Transport Layer Security ____</b>
+
+                    </div>
+                    <div class='arch-layer'>
+                        <div class='arch-box' style='border-color:#f472b6'><i class='fa fa-server'
+                                style='color:#f472b6;display:block;font-size:1.5rem;margin-bottom:.3rem'></i>API
+                            Gateway<small>Django Rest Framework</small></div>
+                    </div>
+                    The frontend communicates with the backend server through APIs.
+                    <div class='arr'>&#8595;</div>
+                    <div class='arch-layer'>
+                        <div class='arch-box' style='border-color:#34d399'><i class='fa fa-key'
+                                style='color:#34d399;display:block;font-size:1.2rem;margin-bottom:.3rem'></i>Auth
+                            <small>Django
+                                Session Authentication + Role-Based Access Control</small>
+                        </div>
+                        <div class='arch-box' style='border-color:#fbbf24'><i class='fa fa-clock'
+                                style='color:#fbbf24;display:block;font-size:1.2rem;margin-bottom:.3rem'></i>Monitor
+                            Engine<small>Celery & Redis Workers , Django Audit Logs</small></div>
+                        <div class='arch-box' style='border-color:#a78bfa'><i class='fa fa-lock'
+                                style='color:#a78bfa;display:block;font-size:1.2rem;margin-bottom:.3rem'></i>Crypto
+                            Engine<small>Python cryptography Library (AES Encryption/Decryption)</small></div>
+                        <div class='arch-box' style='border-color:#fb923c'><i class='fa fa-bell'
+                                style='color:#fb923c;display:block;font-size:1.2rem;margin-bottom:.3rem'></i>Notify
+                            Service<small>SMTP Email Delivery (e.g., Gmail Backend)</small></div>
+                    </div>
+                    <div class='arr'>&#8595;</div>
+                    <div class='arch-layer'>
+                        <div class='arch-box' style='border-color:#fbbf24'><i class='fa fa-database'
+                                style='color:#fbbf24;display:block;font-size:1.2rem;margin-bottom:.3rem'></i>PostgreSQL
+                            / SQLite Database<small>Users,
+                                Users, Nominees, Permissions, Logs, and Metadata</small></div>
+                        <div class='arch-box' style='border-color:#fbbf24'><i class='fa fa-cloud'
+                                style='color:#fbbf24;display:block;font-size:1.2rem;margin-bottom:.3rem'></i>Secure
+                            Media Storage<small>Encrypted Documents stored in isolated media directories (scalable to
+                                Cloud
+                                Storage)</small></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="flowchart" class="reveal">
+            <h2>Step-by-Step System Flowchart</h2>
+            <div class='flow-row'>
+                <div class='flow-item'>
+                    <div class='flow-num'>1</div>
+                    <div class='flow-body'>
+                        <h4>Registration & Onboarding </h4>
+                        <p>User visits site → Signs up → Verifies email + mobile via secure OTP (tracked via
+                            OTPVerification with attempt limits) → Account created and User model marked as verified.
+                        </p>
+                    </div>
+                </div>
+                <div class='flow-item'>
+                    <div class='flow-num'>2</div>
+                    <div class='flow-body'>
+                        <h4>Dashboard Setup & Vault Initialization</h4>
+                        <p>Login → Upload encrypted documents (is_encrypted=True) → Add nominees (name, email, phone,
+                            relationship) → Nominees verified via OTP (ensuring contact details are valid).</p>
+                    </div>
+                </div>
+                <div class='flow-item'>
+                    <div class='flow-num'>3</div>
+                    <div class='flow-body'>
+                        <h4>Permission Configuration</h4>
+                        <p>Categorize documents (medical, financial, educational, personal, legal, insurance, etc.) →
+                            Set Nominee Access Levels
+                            (View Only, View & Download, Notes Only) → Write Emergency Instructions (medical consent,
+                            family guidance, secure notes).</p>
+                    </div>
+                </div>
+                <div class='flow-item'>
+                    <div class='flow-num' style='background:#eab308'>4</div>
+                    <div class='flow-body'>
+                        <h4>Monitoring Phase (Dead Man's Switch)</h4>
+                        <p> Celery background workers run periodically → Checks user's Emergency Settings against
+                            next_check_in_due (customizable intervals like 7, 10, 15, 20, 30 days) → If overdue: system
+                            sends check-in ping alerts (Email/SMS) → Logs check-in status (on_time, late, missed) via
+                            CheckInRecord.</p>
+                    </div>
+                </div>
+                <div class='flow-item'>
+                    <div class='flow-num' style='background:#ef4444'>5</div>
+                    <div class='flow-body'>
+                        <h4>Emergency Trigger</h4>
+                        <p>Missed check-ins reach the configured threshold (default: 3 missed check-ins) →
+                            is_emergency_triggered flag is set to True → Secure EmergencyAccess tokens are generated →
+                            Verified nominees are notified instantly with access alerts. (Note: Nominees can also
+                            proactively submit a NomineeAccessRequest in case of sudden accidents, which triggers a
+                            grace-period approval workflow).</p>
+                    </div>
+                </div>
+                <div class='flow-item'>
+                    <div class='flow-num' style='background:#10b981'>6</div>
+                    <div class='flow-body'>
+                        <h4>Nominee Access</h4>
+                        <p>Nominee clicks secure token link → Logs in with their linked verified email and an access
+                            verification code → Accesses only permitted documents and instructions based on RBAC → All
+                            actions (views, downloads) are strictly recorded in the AccessLog to ensure transparency.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="usecase" class="reveal" class="sec-alt">
+            <h2>Use Case Diagram</h2>
+            <div class='arch-wrap'>
+                <p style='text-align:center;margin-bottom:1.5rem;color:#6b7280'>Actors and their interactions with the
+                    SecureAfter system</p>
+                <div style='display:flex;gap:2rem;flex-wrap:wrap;justify-content:center'>
+                    <div class='dark-card' style='flex:1;min-width:220px'>
+                        <h3><i class='fa fa-user' style='color:#60a5fa'></i> User (Primary Actor)</h3>
+                        <ul style='margin-left:1.5rem;color:#4b5563'>
+                            <li style='margin-bottom:.4rem'>Register / Secure Login</li>
+                            <li style='margin-bottom:.4rem'>Upload Encrypted Documents</li>
+                            <li style='margin-bottom:.4rem'>Add & Verify Nominees (via OTP)</li>
+                            <li style='margin-bottom:.4rem'>Set Nominee Access Levels</li>
+                            <li style='margin-bottom:.4rem'>Write Emergency Instructions</li>
+                            <li style='margin-bottom:.4rem'>Manage Dead Man's Switch Settings</li>
+                            <li style='margin-bottom:.4rem'>View Vault Activity Logs</li>
+                            <li style='margin-bottom:.4rem'>Approve/Reject Access Requests</li>
+                        </ul>
+                    </div>
+                    <div class='dark-card' style='flex:1;min-width:220px'>
+                        <h3><i class='fa fa-user-check' style='color:#34d399'></i> Nominee (Secondary Actor)</h3>
+                        <ul style='margin-left:1.5rem;color:#4b5563'>
+                            <li style='margin-bottom:.4rem'>Receive Emergency Alerts</li>
+                            <li style='margin-bottom:.4rem'>Secure Login & OTP Verification</li>
+                            <li style='margin-bottom:.4rem'>Request Emergency Vault Access</li>
+                            <li style='margin-bottom:.4rem'>View Permitted Documents</li>
+                            <li style='margin-bottom:.4rem'>Read Emergency Instructions</li>
+                            <li style='margin-bottom:.4rem'>Download Assigned Files</li>
+                        </ul>
+                    </div>
+                    <div class='dark-card' style='flex:1;min-width:220px'>
+                        <h3><i class='fa fa-cog' style='color:#fbbf24'></i> System (Automated Actor)</h3>
+                        <ul style='margin-left:1.5rem;color:#4b5563'>
+                            <li style='margin-bottom:.4rem'>Execute Background Workers (Celery)</li>
+                            <li style='margin-bottom:.4rem'>Monitor Next Check-In Dates</li>
+                            <li style='margin-bottom:.4rem'>Send Automated Check-in Pings</li>
+                            <li style='margin-bottom:.4rem'>Trigger Emergency Mode Automatically</li>
+                            <li style='margin-bottom:.4rem'>Generate Secure Access Tokens</li>
+                            <li style='margin-bottom:.4rem'>Enforce Role-Based Access (RBAC)</li>
+                            <li style='margin-bottom:.4rem'>Maintain Immutable Audit Logs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <section id="dbtables" class="reveal">
+            <h2>Database &amp; Comparison Tables</h2>
+            <div style='overflow-x:auto'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table Name</th>
+                            <th>Primary Key</th>
+                            <th>Key Fields (Actual Django Models)</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>users</td>
+                            <td>id</td>
+                            <td>username, email, phone, password_hash, user_type, last_active, is_verified</td>
+                            <td>Stores all registered users and admins</td>
+                        </tr>
+                        <tr>
+                            <td>nominees</td>
+                            <td>id</td>
+                            <td>user_id (FK), nominee_name, nominee_email, relationship, access_level, is_verified</td>
+                            <td>Stores verified nominees and their access privileges (View/Download)</td>
+                        </tr>
+                        <tr>
+                            <td>documents</td>
+                            <td>id</td>
+                            <td>vault_id (FK), user_id (FK), title, category, file, is_encrypted,
+                                is_accessible_by_nominee</td>
+                            <td>Encrypted document metadata and file storage references</td>
+                        </tr>
+                        <tr>
+                            <td>emergency_settings</td>
+                            <td>id</td>
+                            <td>user_id (FK), check_in_interval, grace_period, next_check_in_due, is_emergency_triggered
+                            </td>
+                            <td>Stores the Dead Man's Switch logic and ping intervals</td>
+                        </tr>
+                        <tr>
+                            <td>access_logs</td>
+                            <td>id</td>
+                            <td>emergency_access_id (FK), action, document_id, ip_address, created_at</td>
+                            <td>Immutable tracking of document views, downloads, and logins</td>
+                        </tr>
+                        <tr>
+                            <td>emergency_accesses</td>
+                            <td>id</td>
+                            <td>user_id (FK), nominee_id (FK), status, access_token, expires_at</td>
+                            <td>Manages generated secure links and token expiration</td>
+                        </tr>
+                        <tr>
+                            <td>emergency_instructions</td>
+                            <td>id</td>
+                            <td>user_id (FK), emergency_message, medical_consent, family_guidance</td>
+                            <td>Stores secure directives for nominees in an emergency</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 style='margin:2rem 0 1rem'>Competitor Comparison Table</h3>
+            <div style='overflow-x:auto'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>SecureAfter</th>
+                            <th>Google Inactive</th>
+                            <th>Dropbox</th>
+                            <th>LastPass</th>
+                            <th>Digital Vault</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Auto Emergency Trigger</td>
+                            <td>Yes (Dead-Man Switch)</td>
+                            <td>Partial</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>AES Document Encryption</td>
+                            <td>Yes</td>
+                            <td>No</td>
+                            <td>Partial</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Verified Nominee System</td>
+                            <td>Yes (Secure OTP)</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>Partial</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>Role-Based Access</td>
+                            <td>Yes</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>Partial</td>
+                        </tr>
+                        <tr>
+                            <td>Emergency Instructions</td>
+                            <td>Yes (Medical/Family/Notes)</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>Activity Monitoring</td>
+                            <td>Yes (Celery Workers)</td>
+                            <td>Yes</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>Multi-Document Categories</td>
+                            <td>Yes</td>
+                            <td>Google only</td>
+                            <td>Any file</td>
+                            <td>Passwords only</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Proactive Nominee Requests</td>
+                            <td>Yes</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 style='margin:2rem 0 1rem'>Testing Summary Table</h3>
+            <div style='overflow-x:auto'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test Case</th>
+                            <th>Module</th>
+                            <th>Input</th>
+                            <th>Expected Output</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>User Registration</td>
+                            <td>Accounts</td>
+                            <td>Valid email, phone, password</td>
+                            <td>Account created, OTP Verification tracked</td>
+                            <td>Pass</td>
+                        </tr>
+                        <tr>
+                            <td>OTP Verification</td>
+                            <td>Accounts</td>
+                            <td>Correct 6-digit OTP</td>
+                            <td>Email/phone flagged as 'is_verified=True'</td>
+                            <td>Pass</td>
+                        </tr>
+                        <tr>
+                            <td>Document Upload</td>
+                            <td>Vault</td>
+                            <td>File upload &lt;5MB limit</td>
+                            <td>File AES-encrypted, stored in secure media dir</td>
+                            <td>Pass</td>
+                        </tr>
+                        <tr>
+                            <td>Nominee Add + Verify</td>
+                            <td>Accounts</td>
+                            <td>Nominee email, phone, relationship</td>
+                            <td>Nominee linked to account post-OTP verification</td>
+                            <td>Pass</td>
+                        </tr>
+                        <tr>
+                            <td>Check-in Ping</td>
+                            <td>Celery / Monitor</td>
+                            <td>Scheduled interval passed</td>
+                            <td>Reminder email/SMS sent to user</td>
+                            <td>Pass</td>
+                        </tr>
+                        <tr>
+                            <td>Miss Threshold Check-ins</td>
+                            <td>Emergency</td>
+                            <td>Configured missed check-ins met</td>
+                            <td>is_emergency_triggered flag set to True</td>
+                            <td>Pass</td>
+                        </tr>
+                        <tr>
+                            <td>Nominee Access Link</td>
+                            <td>Emergency</td>
+                            <td>Emergency protocol active</td>
+                            <td>Secure unique token generated &amp; emailed</td>
+                            <td>Pass</td>
+                        </tr>
+                        <tr>
+                            <td>Access Level Filter</td>
+                            <td>Vault / Access</td>
+                            <td>Nominee with 'View Only' access</td>
+                            <td>Download button disabled, only authorized docs visible</td>
+                            <td>Pass</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="stakeholders" class="reveal sec-alt">
+            <h2>Project Stakeholders</h2>
+            <div class='grid3'>
+                <div class='dark-card'>
+                    <h3>Primary Stakeholders</h3>
+                    <p style='color:#4b5563'>Directly impacted by the system:</p>
+                    <ul style='margin-left:1.5rem;color:#4b5563'>
+                        <li style='margin-bottom:.4rem'><strong>Users</strong> &mdash; Store and protect their documents
+                        </li>
+                        <li style='margin-bottom:.4rem'><strong>Nominees</strong> &mdash; Receive emergency document
+                            access
+                        </li>
+                        <li style='margin-bottom:.4rem'><strong>Families</strong> &mdash; Benefit in crisis situations
+                        </li>
+                        <li style='margin-bottom:.4rem'><strong>Legal heirs</strong> &mdash; Access inherited documents
+                        </li>
+                    </ul>
+                </div>
+                <div class='dark-card'>
+                    <h3>Secondary Stakeholders</h3>
+                    <p style='color:#4b5563'>Indirectly benefit from the system:</p>
+                    <ul style='margin-left:1.5rem;color:#4b5563'>
+                        <li style='margin-bottom:.4rem'><strong>Hospitals</strong> &mdash; Faster access to patient
+                            history
+                        </li>
+                        <li style='margin-bottom:.4rem'><strong>Insurance Companies</strong> &mdash; Faster claim
+                            processing
+                        </li>
+                        <li style='margin-bottom:.4rem'><strong>Banks</strong> &mdash; Easier account resolution</li>
+                        <li style='margin-bottom:.4rem'><strong>Government Agencies</strong> &mdash; Digital record
+                            access
+                        </li>
+                        <li style='margin-bottom:.4rem'><strong>Legal Authorities</strong> &mdash; Property &amp; will
+                            documents</li>
+                    </ul>
+                </div>
+                <div class='dark-card'>
+                    <h3>Technical Stakeholders</h3>
+                    <p style='color:#4b5563'>Responsible for building and maintaining:</p>
+                    <ul style='margin-left:1.5rem;color:#4b5563'>
+                        <li style='margin-bottom:.4rem'><strong>Developers</strong> &mdash; Build and maintain the
+                            Django system
+                        </li>
+                        <li style='margin-bottom:.4rem'><strong>Cloud &amp; Infra Providers</strong> &mdash; Render.com,
+                            PostgreSQL
+                        </li>
+                        <li style='margin-bottom:.4rem'><strong>Security Team</strong> &mdash; Audit AES encryption
+                            &amp;
+                            RBAC access
+                        </li>
+                        <li style='margin-bottom:.4rem'><strong>DevOps</strong> &mdash; Celery deployment and
+                            environment monitoring</li>
+                        <li style='margin-bottom:.4rem'><strong>QA Engineers</strong> &mdash; Test all Django apps and
+                            modules</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="techstack" class="reveal">
+            <h2>Technology Stack &amp; Implementation</h2>
+            <div style='overflow-x:auto'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Technology</th>
+                            <th>Category</th>
+                            <th>Why Used</th>
+                            <th>Where Used</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Django Templates (HTML/JS)</td>
+                            <td>Frontend</td>
+                            <td>Server-Side Rendering (SSR) for secure, fast delivery</td>
+                            <td>User Dashboard, Nominee Portal, Authentication pages</td>
+                        </tr>
+                        <tr>
+                            <td>Python 3</td>
+                            <td>Backend Language</td>
+                            <td>Secure, highly robust, and excellent library support</td>
+                            <td>Core application logic, Emergency algorithms</td>
+                        </tr>
+                        <tr>
+                            <td>Django Framework</td>
+                            <td>Backend Framework</td>
+                            <td>Built-in security, ORM, and rapid development</td>
+                            <td>Routing, Database mapping, Middleware, Security handling</td>
+                        </tr>
+                        <tr>
+                            <td>PostgreSQL / SQLite</td>
+                            <td>Database</td>
+                            <td>Strict relational schema for data integrity</td>
+                            <td>Users, Nominees, Vault Metadata, Activity Logs</td>
+                        </tr>
+                        <tr>
+                            <td>Django Media Storage</td>
+                            <td>File Storage</td>
+                            <td>Secure, isolated local storage (Cloud-ready)</td>
+                            <td>All uploaded encrypted document files</td>
+                        </tr>
+                        <tr>
+                            <td>Python Cryptography (AES)</td>
+                            <td>Encryption</td>
+                            <td>Industry-standard symmetric encryption</td>
+                            <td>Document encryption before storage upload</td>
+                        </tr>
+                        <tr>
+                            <td>Django Sessions</td>
+                            <td>Authentication</td>
+                            <td>Stateful, highly secure HTTP-only cookies</td>
+                            <td>User login sessions, RBAC access control</td>
+                        </tr>
+                        <tr>
+                            <td>SMTP / Gmail Backend</td>
+                            <td>Notifications API</td>
+                            <td>Reliable transactional email delivery</td>
+                            <td>OTP Verification emails, Check-in Pings, Emergency Alerts</td>
+                        </tr>
+                        <tr>
+                            <td>Celery</td>
+                            <td>Task Queue</td>
+                            <td>Asynchronous, highly reliable task processing</td>
+                            <td>Background email delivery, Dead-Man switch monitoring</td>
+                        </tr>
+                        <tr>
+                            <td>Redis</td>
+                            <td>Message Broker</td>
+                            <td>Fast, in-memory data structure store</td>
+                            <td>Message broker for Celery background tasks</td>
+                        </tr>
+                        <tr>
+                            <td>PBKDF2</td>
+                            <td>Password Hash</td>
+                            <td>Django's secure, salted password hashing algorithm</td>
+                            <td>User password storage</td>
+                        </tr>
+                        <tr>
+                            <td>Render.com</td>
+                            <td>Deployment</td>
+                            <td>Robust PaaS for Python web applications</td>
+                            <td>Full-stack application and database hosting</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+
+        <section id="scope" class="reveal sec-alt">
+            <h2>Scope of the Project</h2>
+            <div class='grid2'>
+                <div class='card'>
+                    <h3>Current Scope (MVP)</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Web-based platform (Fast Server-Side Rendering via Django)</li>
+                        <li style='margin-bottom:.4rem'>Secure document vault with strict MIME-type and size validations
+                        </li>
+                        <li style='margin-bottom:.4rem'>Dual-Channel OTP verification (Email + SMS) for all users and
+                            nominees</li>
+                        <li style='margin-bottom:.4rem'>Granular Role-Based Access Control (View, Download, Notes, Full)
+                        </li>
+                        <li style='margin-bottom:.4rem'>Smart Dead-Man's Switch with multi-tier escalation (Reminder
+                            &rarr; Urgent &rarr; Emergency)</li>
+                        <li style='margin-bottom:.4rem'>Automated missing check-in tracking via scheduled background
+                            tasks</li>
+                        <li style='margin-bottom:.4rem'>Dedicated modules for Medical Consent, Family Guidance, and
+                            Final Notes</li>
+                        <li style='margin-bottom:.4rem'>Proactive nominee access requests (with timed expiry and reason
+                            logging)</li>
+                        <li style='margin-bottom:.4rem'>Delegated nominee invitations (nominees can invite others if
+                            permitted)</li>
+                        <li style='margin-bottom:.4rem'>Immutable Audit logging (capturing IPs, User-Agents, and
+                            specific actions)</li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>Future Scope</h3>
+                    <ul style='margin-left:1.5rem;color:#4b5563'>
+                        <li style='margin-bottom:.4rem'>Mobile application (Android + iOS) powered by Django REST
+                            Framework</li>
+                        <li style='margin-bottom:.4rem'>AI-powered inactivity prediction based on login and health
+                            patterns</li>
+                        <li style='margin-bottom:.4rem'>Blockchain-based document immutability and checksum mapping</li>
+                        <li style='margin-bottom:.4rem'>Biometric authentication (Face ID, Fingerprint) integration</li>
+                        <li style='margin-bottom:.4rem'>Government ID verification API integration for ultimate trust
+                        </li>
+                        <li style='margin-bottom:.4rem'>Health device integration (wearables) for real-time safety
+                            monitoring</li>
+                        <li style='margin-bottom:.4rem'>Multi-language UI support for global accessibility</li>
+                        <li style='margin-bottom:.4rem'>Voice &amp; video emergency messages with automated
+                            transcription</li>
+                        <li style='margin-bottom:.4rem'>Integration with insurance &amp; banking APIs for automated
+                            claims</li>
+                        <li style='margin-bottom:.4rem'>Geo-location based emergency alerts and safe-zone tracking</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="advantages" class="reveal">
+            <h2>Advantages &amp; Key Features</h2>
+            <div class='grid3'>
+                <div class='card'>
+                    <h3>Security &amp; Privacy</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'><strong>AES-256 Encryption:</strong> Robust encryption
+                            protecting sensitive vault data.</li>
+                        <li style='margin-bottom:.4rem'><strong>Dual-Channel OTP Auth:</strong> Mandatory Email &amp;
+                            SMS verification with rate-limiting.</li>
+                        <li style='margin-bottom:.4rem'><strong>Granular RBAC:</strong> Precise nominee access levels
+                            mapping to specific capabilities.</li>
+                        <li style='margin-bottom:.4rem'><strong>Comprehensive Audit Trails:</strong> IP and user-agent
+                            tracking for every login, view, edit, and download.</li>
+                        <li style='margin-bottom:.4rem'><strong>Anti-Injection Systems:</strong> Built-in input
+                            sanitization and strict HTTP method validation.</li>
+                        <li style='margin-bottom:.4rem'><strong>Secure File Handling:</strong> ZIP bulk-export packaging
+                            and FFmpeg profile video transcoding.</li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>Smart Emergency System</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'><strong>Custom Dead-Man's Switch:</strong> Tailored check-in
+                            intervals (10 to 60 days).</li>
+                        <li style='margin-bottom:.4rem'><strong>Multi-Tier Escalation:</strong> Intelligent progression
+                            across Reminder, Urgent, and Emergency states.</li>
+                        <li style='margin-bottom:.4rem'><strong>Automated Grace Periods:</strong> Configurable buffer
+                            delays (3 to 14 days) before releasing vault access.</li>
+                        <li style='margin-bottom:.4rem'><strong>Proactive Access Requests:</strong> Nominees can
+                            formally request access (e.g., Medical, Accident) directly.</li>
+                        <li style='margin-bottom:.4rem'><strong>Dedicated Notifications:</strong> Automated
+                            multi-channel alerts tracking delivery status.</li>
+                        <li style='margin-bottom:.4rem'><strong>Targeted Directives:</strong> Separate, distinct
+                            delivery of Medical, Family, and Final instructions.</li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>User Experience</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'><strong>Intelligent Dashboard:</strong> Visual storage
+                            statistics and upcoming reminder tracking.</li>
+                        <li style='margin-bottom:.4rem'><strong>Advanced Document Control:</strong> Categorize files and
+                            instantly toggle nominee visibility.</li>
+                        <li style='margin-bottom:.4rem'><strong>Delegated Invites:</strong> Permitted nominees can
+                            securely onboard secondary trusted contacts.</li>
+                        <li style='margin-bottom:.4rem'><strong>Rich Profile Customization:</strong> DiceBear avatars,
+                            custom images, and transcoded profile videos.</li>
+                        <li style='margin-bottom:.4rem'><strong>Centralized Nominee Portal:</strong> A dedicated UI for
+                            managing multiple shared vaults simultaneously.</li>
+                        <li style='margin-bottom:.4rem'><strong>Clean SSR Interface:</strong> Fast, responsive, and
+                            secure Server-Side Rendered views.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style='margin:2rem 0 1rem'>Feature Comparison: SecureAfter vs Alternatives</h3>
+            <div style='overflow-x:auto'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>SecureAfter</th>
+                            <th>Traditional Cloud</th>
+                            <th>Password Managers</th>
+                            <th>Digital Vaults</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Smart Dead-Man's Switch</strong></td>
+                            <td>Yes (Custom Intervals)</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>Rare</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dual-Channel Verifications (Email+SMS)</strong></td>
+                            <td>Yes (Mandatory for Nominees)</td>
+                            <td>Optional</td>
+                            <td>Yes</td>
+                            <td>Optional</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nominee-Initiated Access Requests</strong></td>
+                            <td>Yes (With reason tracking &amp; expiry)</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Multi-Tier Alert Escalation</strong></td>
+                            <td>Yes (Reminder &rarr; Urgent &rarr; Emergency)</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Granular Nominee Access Levels</strong></td>
+                            <td>Yes (View / Download / Notes / Full)</td>
+                            <td>Basic (Read/Write)</td>
+                            <td>No (All or nothing)</td>
+                            <td>Partial</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Automated Unlock Grace Periods</strong></td>
+                            <td>Yes (Configurable 3-14 day delays)</td>
+                            <td>No</td>
+                            <td>No (Instant if approved)</td>
+                            <td>Rare</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Comprehensive Activity Auditing</strong></td>
+                            <td>Yes (Captures IPs, Agents &amp; Actions)</td>
+                            <td>Limited</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Delegated Nominee Invites</strong></td>
+                            <td>Yes (If permitted by vault owner)</td>
+                            <td>Yes</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+
+
+        <!----=====Advantage and Features =============-->
+        <section id="scope" class="reveal sec-alt">
+            <h2>Scope of the Project</h2>
+            <div class='grid2'>
+                <div class='card'>
+                    <h3>Current Scope (MVP)</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Web-based platform (Fast Server-Side Rendering via Django)</li>
+                        <li style='margin-bottom:.4rem'>Secure document vault with strict MIME-type and size validations
+                        </li>
+                        <li style='margin-bottom:.4rem'>Dual-Channel OTP verification (Email + SMS) for all users and
+                            nominees</li>
+                        <li style='margin-bottom:.4rem'>Granular Role-Based Access Control (View, Download, Notes, Full)
+                        </li>
+                        <li style='margin-bottom:.4rem'>Smart Dead-Man's Switch with multi-tier escalation (Reminder
+                            &rarr; Urgent &rarr; Emergency)</li>
+                        <li style='margin-bottom:.4rem'>Automated missing check-in tracking via scheduled background
+                            tasks</li>
+                        <li style='margin-bottom:.4rem'>Dedicated modules for Medical Consent, Family Guidance, and
+                            Final Notes</li>
+                        <li style='margin-bottom:.4rem'>Proactive nominee access requests (with timed expiry and reason
+                            logging)</li>
+                        <li style='margin-bottom:.4rem'>Delegated nominee invitations (nominees can invite others if
+                            permitted)</li>
+                        <li style='margin-bottom:.4rem'>Immutable Audit logging (capturing IPs, User-Agents, and
+                            specific actions)</li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>Future Scope</h3>
+                    <ul style='margin-left:1.5rem;color:#4b5563'>
+                        <li style='margin-bottom:.4rem'>Mobile application (Android + iOS) powered by Django REST
+                            Framework</li>
+                        <li style='margin-bottom:.4rem'>AI-powered inactivity prediction based on login and health
+                            patterns</li>
+                        <li style='margin-bottom:.4rem'>Blockchain-based document immutability and checksum mapping</li>
+                        <li style='margin-bottom:.4rem'>Biometric authentication (Face ID, Fingerprint) integration</li>
+                        <li style='margin-bottom:.4rem'>Government ID verification API integration for ultimate trust
+                        </li>
+                        <li style='margin-bottom:.4rem'>Health device integration (wearables) for real-time safety
+                            monitoring</li>
+                        <li style='margin-bottom:.4rem'>Multi-language UI support for global accessibility</li>
+                        <li style='margin-bottom:.4rem'>Voice &amp; video emergency messages with automated
+                            transcription</li>
+                        <li style='margin-bottom:.4rem'>Integration with insurance &amp; banking APIs for automated
+                            claims</li>
+                        <li style='margin-bottom:.4rem'>Geo-location based emergency alerts and safe-zone tracking</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="advantages" class="reveal">
+            <h2>Advantages &amp; Key Features</h2>
+            <div class='grid3'>
+                <div class='card'>
+                    <h3>Security &amp; Privacy</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'><strong>AES-256 Encryption:</strong> Robust encryption
+                            protecting sensitive vault data.</li>
+                        <li style='margin-bottom:.4rem'><strong>Dual-Channel OTP Auth:</strong> Mandatory Email &amp;
+                            SMS verification with rate-limiting.</li>
+                        <li style='margin-bottom:.4rem'><strong>Granular RBAC:</strong> Precise nominee access levels
+                            mapping to specific capabilities.</li>
+                        <li style='margin-bottom:.4rem'><strong>Comprehensive Audit Trails:</strong> IP and user-agent
+                            tracking for every login, view, edit, and download.</li>
+                        <li style='margin-bottom:.4rem'><strong>Anti-Injection Systems:</strong> Built-in input
+                            sanitization and strict HTTP method validation.</li>
+                        <li style='margin-bottom:.4rem'><strong>Secure File Handling:</strong> ZIP bulk-export packaging
+                            and FFmpeg profile video transcoding.</li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>Smart Emergency System</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'><strong>Custom Dead-Man's Switch:</strong> Tailored check-in
+                            intervals (10 to 60 days).</li>
+                        <li style='margin-bottom:.4rem'><strong>Multi-Tier Escalation:</strong> Intelligent progression
+                            across Reminder, Urgent, and Emergency states.</li>
+                        <li style='margin-bottom:.4rem'><strong>Automated Grace Periods:</strong> Configurable buffer
+                            delays (3 to 14 days) before releasing vault access.</li>
+                        <li style='margin-bottom:.4rem'><strong>Proactive Access Requests:</strong> Nominees can
+                            formally request access (e.g., Medical, Accident) directly.</li>
+                        <li style='margin-bottom:.4rem'><strong>Dedicated Notifications:</strong> Automated
+                            multi-channel alerts tracking delivery status.</li>
+                        <li style='margin-bottom:.4rem'><strong>Targeted Directives:</strong> Separate, distinct
+                            delivery of Medical, Family, and Final instructions.</li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>User Experience</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'><strong>Intelligent Dashboard:</strong> Visual storage
+                            statistics and upcoming reminder tracking.</li>
+                        <li style='margin-bottom:.4rem'><strong>Advanced Document Control:</strong> Categorize files and
+                            instantly toggle nominee visibility.</li>
+                        <li style='margin-bottom:.4rem'><strong>Delegated Invites:</strong> Permitted nominees can
+                            securely onboard secondary trusted contacts.</li>
+                        <li style='margin-bottom:.4rem'><strong>Rich Profile Customization:</strong> DiceBear avatars,
+                            custom images, and transcoded profile videos.</li>
+                        <li style='margin-bottom:.4rem'><strong>Centralized Nominee Portal:</strong> A dedicated UI for
+                            managing multiple shared vaults simultaneously.</li>
+                        <li style='margin-bottom:.4rem'><strong>Clean SSR Interface:</strong> Fast, responsive, and
+                            secure Server-Side Rendered views.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style='margin:2rem 0 1rem'>Feature Comparison: SecureAfter vs Alternatives</h3>
+            <div style='overflow-x:auto'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>SecureAfter</th>
+                            <th>Traditional Cloud</th>
+                            <th>Password Managers</th>
+                            <th>Digital Vaults</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Smart Dead-Man's Switch</strong></td>
+                            <td>Yes (Custom Intervals)</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>Rare</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dual-Channel Verifications (Email+SMS)</strong></td>
+                            <td>Yes (Mandatory for Nominees)</td>
+                            <td>Optional</td>
+                            <td>Yes</td>
+                            <td>Optional</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nominee-Initiated Access Requests</strong></td>
+                            <td>Yes (With reason tracking &amp; expiry)</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Multi-Tier Alert Escalation</strong></td>
+                            <td>Yes (Reminder &rarr; Urgent &rarr; Emergency)</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Granular Nominee Access Levels</strong></td>
+                            <td>Yes (View / Download / Notes / Full)</td>
+                            <td>Basic (Read/Write)</td>
+                            <td>No (All or nothing)</td>
+                            <td>Partial</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Automated Unlock Grace Periods</strong></td>
+                            <td>Yes (Configurable 3-14 day delays)</td>
+                            <td>No</td>
+                            <td>No (Instant if approved)</td>
+                            <td>Rare</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Comprehensive Activity Auditing</strong></td>
+                            <td>Yes (Captures IPs, Agents &amp; Actions)</td>
+                            <td>Limited</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Delegated Nominee Invites</strong></td>
+                            <td>Yes (If permitted by vault owner)</td>
+                            <td>Yes</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!----===== Existing Systems vs SecureAfter =============---->
+
+        <section id="existing" class="reveal" class="sec-alt">
+            <h2>Existing Systems vs SecureAfter</h2>
+            <div style='overflow-x:auto'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>System</th>
+                            <th>What It Does</th>
+                            <th>Key Limitation</th>
+                            <th>SecureAfter Advantage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Google Inactive Account Manager</td>
+                            <td>Shares Google data after 3-18 months inactivity</td>
+                            <td>Only Google account data, no document vault</td>
+                            <td>Full document vault with AES encryption</td>
+                        </tr>
+                        <tr>
+                            <td>Dropbox / Google Drive</td>
+                            <td>Cloud file storage and manual sharing</td>
+                            <td>No automation, no nominees, no emergency trigger</td>
+                            <td>Automated trigger with verified nominee system</td>
+                        </tr>
+                        <tr>
+                            <td>LastPass Emergency Access</td>
+                            <td>Shares passwords with emergency contact</td>
+                            <td>Passwords only, no documents, 24hr wait period</td>
+                            <td>Documents, instructions, role-based instant access</td>
+                        </tr>
+                        <tr>
+                            <td>SafelyFiled</td>
+                            <td>Digital document storage</td>
+                            <td>Manual sharing, no inactivity detection</td>
+                            <td>Automated Dead-Man Switch with notifications</td>
+                        </tr>
+                        <tr>
+                            <td>DocuSign / Adobe Sign</td>
+                            <td>Document signing and storage</td>
+                            <td>No emergency sharing or nominee system</td>
+                            <td>Emergency sharing built-in with RBAC</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!--==========Novelty of the project==========-->
+        <section id="novelty" class="reveal">
+            <h2>Novelty of the Project</h2>
+            <div class='grid3'>
+                <div class='card'>
+                    <h3>1. The "Are You Okay?" Check</h3>
+                    <p>Instead of relying on someone to report an emergency, SecureAfter <strong>checks on you
+                            automatically</strong>. If you don't respond to reminders, it safely assumes you need help
+                        and starts the emergency process without any human effort.
+                    </p>
+                </div>
+                <div class='card'>
+                    <h3>2. Smart "Who Sees What" Rules</h3>
+                    <p>Unlike other apps that share everything at once, we let you <strong>choose specific files for
+                            specific people</strong>. Your doctor only sees medical records, while your spouse sees
+                        financial details. You are in full control.</p>
+                </div>
+                <div class='card'>
+                    <h3>3. Strict Identity Checks</h3>
+                    <p>Even in an emergency, your data is locked tight. The people you trust (nominees) must
+                        <strong>verify their identity with a secure code (OTP)</strong> before opening any files,
+                        ensuring no stranger can access your private life.
+                    </p>
+                </div>
+            </div>
+            <div class='dark-card' style='margin-top:1.5rem'>
+                <h3>What Makes It Truly Unique?</h3>
+                <div style='overflow-x:auto'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>New Feature</th>
+                                <th>What It Means</th>
+                                <th>Why It Matters</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Automatic Emergency Trigger</td>
+                                <td>The system acts on its own when you can't. No one has to press a panic button.</td>
+                                <td>Saves crucial time and works even if you are entirely unreachable.</td>
+                            </tr>
+                            <tr>
+                                <td>Specific Sharing Rules</td>
+                                <td>Each trusted person only gets the exact documents you assigned to them.</td>
+                                <td>Keeps your unrelated private matters completely confidential.</td>
+                            </tr>
+                            <tr>
+                                <td>Double-Check Verification</td>
+                                <td>Trusted people must use an OTP code to prove who they are.</td>
+                                <td>Stops hackers or the wrong person from seeing your sensitive files.</td>
+                            </tr>
+                            <tr>
+                                <td>Self-Destructing Links</td>
+                                <td>Emergency document links automatically expire after a set time.</td>
+                                <td>Ensures your information doesn't float around the internet forever.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!--=======Feasibility Study=========-->
+        <section id="feasibility" class="reveal" class="sec-alt">
+            <h2>Feasibility Study</h2>
+            <div class='grid3'>
+                <div class='card'>
+                    <h3>Technical Feasibility</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Built on a robust, production-ready Django and Python
+                            architecture</li>
+                        <li style='margin-bottom:.4rem'>Military-grade AES-256 encryption ensures complete data privacy
+                        </li>
+                        <li style='margin-bottom:.4rem'>Automated background workflows (Dead-Man Switch) managed
+                            reliably via Celery</li>
+                        <li style='margin-bottom:.4rem'>Secure, scalable cloud storage with 99.99% uptime guarantees
+                        </li>
+                        <li style='margin-bottom:.4rem'>Platform is capable of scaling seamlessly as user base grows
+                        </li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>Economic Feasibility</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Low initial development cost leveraging open-source frameworks
+                        </li>
+                        <li style='margin-bottom:.4rem'>Cloud infrastructure free tiers help minimize early deployment
+                            costs</li>
+                        <li style='margin-bottom:.4rem'>Cost-effective SMS and email gateway integration for
+                            notifications</li>
+                        <li style='margin-bottom:.4rem'>Scalable database architecture keeps storage overhead low</li>
+                        <li style='margin-bottom:.4rem'>Tiered subscription model ensures long-term operational
+                            profitability</li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>Operational Feasibility</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Intuitive, self-service dashboard designed for non-technical
+                            users</li>
+                        <li style='margin-bottom:.4rem'>Set-and-forget logic: requires minimal active maintenance from
+                            the user</li>
+                        <li style='margin-bottom:.4rem'>Automated email and SMS alerts independently notify nominees
+                        </li>
+                        <li style='margin-bottom:.4rem'>Granular role-based access control prevents unauthorized
+                            document sharing</li>
+                        <li style='margin-bottom:.4rem'>Comprehensive admin panel for easy system oversight and
+                            monitoring</li>
+                    </ul>
+                </div>
+            </div>
+            <div style='margin-top:1.5rem'>
+                <div style='overflow-x:auto'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feasibility Area</th>
+                                <th>Assessment</th>
+                                <th>Risk Level</th>
+                                <th>Mitigation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Technical</td>
+                                <td>Proven Django stack with Celery automation</td>
+                                <td>Low</td>
+                                <td>Adherence to framework best practices & modular design</td>
+                            </tr>
+                            <tr>
+                                <td>Economic</td>
+                                <td>Optimized cloud usage and predictable scaling</td>
+                                <td>Low</td>
+                                <td>Freemium or tiered subscription plans for steady revenue</td>
+                            </tr>
+                            <tr>
+                                <td>Operational</td>
+                                <td>Highly automated workflows with minimal user effort</td>
+                                <td>Low</td>
+                                <td>Clear onboarding guides and simple UI/UX</td>
+                            </tr>
+                            <tr>
+                                <td>Security</td>
+                                <td>Multi-layered: AES-256, HTTPS/TLS, JWT & OTPs</td>
+                                <td>Medium</td>
+                                <td>Routine security audits and encrypted vault backups</td>
+                            </tr>
+                            <tr>
+                                <td>Legal</td>
+                                <td>Compliance with Data Privacy & IT Act regulations</td>
+                                <td>Medium</td>
+                                <td>Transparent privacy policies and explicit user consent</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!--========Software development life cycle process==========-->
+        <section id="sdlc" class="reveal">
+            <h2>Software Development Methodology (SDLC)</h2>
+            <div class='arch-wrap'>
+                <p style='text-align:center;margin-bottom:1.5rem;color:#6b7280'>SecureAfter follows an <strong>Agile
+                        SDLC</strong> methodology divided into structured phases</p>
+                <div class='flow-row'>
+                    <div class='flow-item'>
+                        <div class='flow-num' style='min-width:80px;font-size:1rem'>Phase 1</div>
+                        <div class='flow-body'>
+                            <h4>Requirements &amp; Planning (Week 1-2)</h4>
+                            <p>Gather core requirements, define role-based access logic, create structural wireframes,
+                                plan the relational database schema, and set up the project repository.</p>
+                        </div>
+                    </div>
+                    <div class='flow-item'>
+                        <div class='flow-num' style='min-width:80px;font-size:1rem'>Phase 2</div>
+                        <div class='flow-body'>
+                            <h4>UI/UX Design &amp; Prototyping (Week 3-4)</h4>
+                            <p>Design responsive mockups, define the styling system, map out the user journey for vault
+                                owners and nominees, and finalize the frontend architecture.</p>
+                        </div>
+                    </div>
+                    <div class='flow-item'>
+                        <div class='flow-num' style='min-width:80px;font-size:1rem'>Phase 3</div>
+                        <div class='flow-body'>
+                            <h4>Frontend Interfaces (Week 5-7)</h4>
+                            <p>Develop Django templates and responsive views: Authentication portals, User Dashboard,
+                                secure Document Vault, and Nominee Management interface.</p>
+                        </div>
+                    </div>
+                    <div class='flow-item'>
+                        <div class='flow-num' style='min-width:80px;font-size:1rem'>Phase 4</div>
+                        <div class='flow-body'>
+                            <h4>Backend &amp; Security Development (Week 8-10)</h4>
+                            <p>Build the robust Django backend: Implement AES-256 encryption logic, document CRUD,
+                                access-control layers, and configure Celery background tasks for the Dead-Man Switch.
+                            </p>
+                        </div>
+                    </div>
+                    <div class='flow-item'>
+                        <div class='flow-num' style='min-width:80px;font-size:1rem;background:#eab308'>Phase 5</div>
+                        <div class='flow-body'>
+                            <h4>Integration &amp; Testing (Week 11-12)</h4>
+                            <p>Integrate frontend with backend models, conduct rigorous unit and integration testing,
+                                perform security audits, and verify automated notification workflows.</p>
+                        </div>
+                    </div>
+                    <div class='flow-item'>
+                        <div class='flow-num' style='min-width:80px;font-size:1rem;background:#10b981'>Phase 6</div>
+                        <div class='flow-body'>
+                            <h4>Deployment &amp; Review (Week 13-14)</h4>
+                            <p>Deploy to production environments, configure PostgreSQL databases, initialize Redis for
+                                Celery queues, set up secure cloud storage, and conduct final system review.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!---========Low-Level Design (Module-Wise)=======-->
+
+        <section id="lowlevel" class="reveal" class="sec-alt">
+            <h2>Low-Level Design (Module-Wise)</h2>
+            <div class='grid3'>
+                <div class='card'>
+                    <h3>Auth Module</h3>
+                    <p><strong>Core Methods:</strong></p>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>register_user(name, email, phone, password)</li>
+                        <li style='margin-bottom:.4rem'>send_verification_otp(contact, type)</li>
+                        <li style='margin-bottom:.4rem'>verify_otp(contact, otp)</li>
+                        <li style='margin-bottom:.4rem'>login_user(request)</li>
+                        <li style='margin-bottom:.4rem'>logout_user(request)</li>
+                    </ul>
+                    <p><strong>Django Models:</strong> CustomUser, OTPToken</p>
+                </div>
+                <div class='card'>
+                    <h3>Document Vault Module</h3>
+                    <p><strong>Core Methods:</strong></p>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>upload_document(file, user_id, doc_type)</li>
+                        <li style='margin-bottom:.4rem'>encrypt_document(file_data, aes_key)</li>
+                        <li style='margin-bottom:.4rem'>store_to_cloud(encrypted_data)</li>
+                        <li style='margin-bottom:.4rem'>list_user_documents(user_id)</li>
+                        <li style='margin-bottom:.4rem'>download_and_decrypt(doc_id, request_user)</li>
+                    </ul>
+                    <p><strong>Django Models:</strong> Document, VaultLog</p>
+                </div>
+                <div class='card'>
+                    <h3>Nominee Module</h3>
+                    <p><strong>Core Methods:</strong></p>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>add_nominee(user_id, nominee_data)</li>
+                        <li style='margin-bottom:.4rem'>verify_nominee_otp(nominee_id, otp)</li>
+                        <li style='margin-bottom:.4rem'>grant_document_access(doc_id, nominee_id)</li>
+                        <li style='margin-bottom:.4rem'>list_nominees(user_id)</li>
+                        <li style='margin-bottom:.4rem'>revoke_nominee_access(nominee_id)</li>
+                    </ul>
+                    <p><strong>Django Models:</strong> Nominee, DocumentPermission</p>
+                </div>
+                <div class='card'>
+                    <h3>Monitoring Module (Celery)</h3>
+                    <p><strong>Core Tasks:</strong></p>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>run_daily_health_check()</li>
+                        <li style='margin-bottom:.4rem'>monitor_user_activity(user_id)</li>
+                        <li style='margin-bottom:.4rem'>increment_missed_checkins(user_id)</li>
+                        <li style='margin-bottom:.4rem'>reset_activity_status(user_id)</li>
+                        <li style='margin-bottom:.4rem'>dispatch_checkin_alert(user_id)</li>
+                    </ul>
+                    <p><strong>Django Models:</strong> UserActivityLog</p>
+                </div>
+                <div class='card'>
+                    <h3>Emergency Module</h3>
+                    <p><strong>Core Methods:</strong></p>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>trigger_dead_man_switch(user_id)</li>
+                        <li style='margin-bottom:.4rem'>generate_secure_access_link(doc_id, nominee_id)</li>
+                        <li style='margin-bottom:.4rem'>notify_emergency_contacts(user_id)</li>
+                        <li style='margin-bottom:.4rem'>log_emergency_audit(user_id)</li>
+                        <li style='margin-bottom:.4rem'>revoke_emergency_access(event_id)</li>
+                    </ul>
+                    <p><strong>Django Models:</strong> EmergencyEvent, AccessAudit</p>
+                </div>
+                <div class='card'>
+                    <h3>Notification Module</h3>
+                    <p><strong>Core Methods:</strong></p>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>send_sms_alert(phone, message)</li>
+                        <li style='margin-bottom:.4rem'>send_email_alert(email, context)</li>
+                        <li style='margin-bottom:.4rem'>dispatch_checkin_sms(user)</li>
+                        <li style='margin-bottom:.4rem'>dispatch_vault_access_email(nominee, link)</li>
+                    </ul>
+                    <p><strong>Services Used:</strong> Twilio, SendGrid, AWS SES</p>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!--===========System Design===============-->
+        <section id="diagrams" class="reveal">
+            <h2>System Diagrams</h2>
+            <div class='arch-wrap' style='margin-bottom:2rem'>
+                <h3 style='margin-bottom:1rem'>Class Diagram (Simplified Django Models)</h3>
+                <div style='overflow-x:auto'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Django Model</th>
+                                <th>Fields / Attributes</th>
+                                <th>Key Methods</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CustomUser</td>
+                                <td>id, email, phone, password_hash, last_active, missed_checkins</td>
+                                <td>register_user(), login_user(), add_nominee()</td>
+                            </tr>
+                            <tr>
+                                <td>Nominee</td>
+                                <td>id, user_id, full_name, email, phone, role, is_verified</td>
+                                <td>verify_otp(), get_permitted_docs()</td>
+                            </tr>
+                            <tr>
+                                <td>Document</td>
+                                <td>id, user_id, filename, s3_key, aes_encrypted_key, doc_type</td>
+                                <td>encrypt_file(), store_to_cloud(), download_and_decrypt()</td>
+                            </tr>
+                            <tr>
+                                <td>DocumentPermission</td>
+                                <td>id, document_id, nominee_id, can_view</td>
+                                <td>grant_access(), revoke_access()</td>
+                            </tr>
+                            <tr>
+                                <td>EmergencyEvent</td>
+                                <td>id, user_id, triggered_at, status</td>
+                                <td>trigger_switch(), notify_contacts(), revoke_event()</td>
+                            </tr>
+                            <tr>
+                                <td>UserActivityLog</td>
+                                <td>id, user_id, action_type, timestamp</td>
+                                <td>log_activity(), fetch_history()</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class='arch-wrap'>
+                <h3 style='margin-bottom:1.5rem'>Sequence Diagram: Dead-Man Switch Flow</h3>
+                <div class='code-block'>
+                    <pre>CeleryBeat      User            DjangoApp       NotifyAPI       Nominee
+  |               |               |               |               |
+  |--daily_health_check()-->      |               |               |
+  |               |               |               |               |
+  |           monitor_activity(user_id)           |               |
+  |               |               |               |               |
+  |           [gap > threshold]   |               |               |
+  |               |         missed_checkins += 1  |               |
+  |               |               |               |               |
+  |               |       [missed >= 3]           |               |
+  |               |     trigger_dead_man_switch() |               |
+  |               |               |--generate_secure_links()      |
+  |               |               |--notify_emergency_contacts()  |
+  |               |               |               |--dispatch_email()->
+  |               |               |               |--dispatch_sms()-->|
+  |               |               |               |               |
+  |               |               |               |       access_secure_link()
+  |               |               |               |       filter_permitted_docs()
+</pre>
+                </div>
+            </div>
+            <div class='arch-wrap' style='margin-top:2rem'>
+                <h3 style='margin-bottom:1.5rem'>State Diagram: User Account States</h3>
+                <div style='display:flex;flex-direction:column;align-items:center;gap:1rem'>
+                    <div style='display:flex;gap:2rem;flex-wrap:wrap;justify-content:center'>
+                        <div
+                            style='background:#ffffff;color:#1f2937;border-radius:8px;padding:1rem 1.5rem;border:2px solid #2563eb;text-align:center'>
+                            <strong>ACTIVE</strong><br><small style='color:#6b7280'>Regular logins & activity</small>
+                        </div>
+                        <div
+                            style='background:#ffffff;color:#1f2937;border-radius:8px;padding:1rem 1.5rem;border:2px solid #eab308;text-align:center'>
+                            <strong>WARNING</strong><br><small style='color:#6b7280'>1-2 missed check-ins</small>
+                        </div>
+                        <div
+                            style='background:#ffffff;color:#1f2937;border-radius:8px;padding:1rem 1.5rem;border:2px solid #ef4444;text-align:center'>
+                            <strong>EMERGENCY</strong><br><small style='color:#6b7280'>3+ missed, switch
+                                triggered</small>
+                        </div>
+                        <div
+                            style='background:#ffffff;color:#1f2937;border-radius:8px;padding:1rem 1.5rem;border:2px solid #9ca3af;text-align:center'>
+                            <strong>RESOLVED</strong><br><small style='color:#6b7280'>User responds / access
+                                revoked</small>
+                        </div>
+                    </div>
+                    <p style='color:#6b7280;font-size:.9rem;text-align:center'>ACTIVE &rarr; WARNING (miss 1-2) &rarr;
+                        EMERGENCY (miss 3) | EMERGENCY &rarr; RESOLVED (user responds)</p>
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <!--========= Data Flow Diagram =========-->
+        <section id="dfd" class="reveal" class="sec-alt">
+            <h2>Data Flow Diagram (DFD)</h2>
+            <div class='arch-wrap'>
+                <h3 style='margin-bottom:1.5rem'>Level 0 DFD (Context Diagram)</h3>
+                <div
+                    style='display:flex;justify-content:center;align-items:center;gap:2rem;flex-wrap:wrap;margin-bottom:2rem'>
+                    <div
+                        style='background:#ffffff;border:1px solid #e5e7eb;color:#1f2937;border-radius:50%;width:120px;height:120px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700'>
+                        Vault Owner<br><small style="font-weight:400">(User)</small>
+                    </div>
+                    <div style='text-align:center;color:#2563eb'>&#8594; Register, Upload, Manage &#8594;<br>&#8592;
+                        Dashboard, Alerts &#8592;</div>
+                    <div
+                        style='background:#1e40af;color:#fff;border-radius:12px;padding:2rem 2.5rem;font-weight:800;font-size:1.2rem;box-shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1)'>
+                        SecureAfter<br>System<br><span style='font-size:.8rem;font-weight:400;color:#bfdbfe'>0</span>
+                    </div>
+                    <div style='text-align:center;color:#10b981'>&#8594; Secure Access Link &#8594;<br>&#8592; Access
+                        Documents &#8592;</div>
+                    <div
+                        style='background:#ffffff;border:1px solid #e5e7eb;color:#1f2937;border-radius:50%;width:120px;height:120px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700'>
+                        Nominee
+                    </div>
+                </div>
+                <h3 style='margin-bottom:1.5rem'>Level 1 DFD</h3>
+                <div style='overflow-x:auto'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Process</th>
+                                <th>Input Data</th>
+                                <th>Output Data</th>
+                                <th>Data Store (Models)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1.0 User Authentication</td>
+                                <td>email, phone, password, OTP</td>
+                                <td>Session Token, User Profile</td>
+                                <td>CustomUser, OTPToken</td>
+                            </tr>
+                            <tr>
+                                <td>2.0 Document Vault</td>
+                                <td>raw file, document_type, user_id</td>
+                                <td>AES-256 encrypted file key</td>
+                                <td>Document</td>
+                            </tr>
+                            <tr>
+                                <td>3.0 Nominee Management</td>
+                                <td>nominee details, verification OTP</td>
+                                <td>verified nominee record</td>
+                                <td>Nominee</td>
+                            </tr>
+                            <tr>
+                                <td>4.0 Activity Monitor</td>
+                                <td>Celery Beat trigger, user_id</td>
+                                <td>updated missed check-ins count</td>
+                                <td>CustomUser, UserActivityLog</td>
+                            </tr>
+                            <tr>
+                                <td>5.0 Emergency Engine</td>
+                                <td>missed_checkins &gt;= 3 event</td>
+                                <td>secure access links, SMS alerts</td>
+                                <td>EmergencyEvent</td>
+                            </tr>
+                            <tr>
+                                <td>6.0 Nominee Access</td>
+                                <td>secure link, OTP verification</td>
+                                <td>decrypted document data</td>
+                                <td>Document, DocumentPermission</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <!--======= ER Diagram==============-->
+        <section id="erdiagram" class="reveal">
+            <h2>ER Diagram</h2>
+            <div class='arch-wrap'>
+                <p style='text-align:center;color:#6b7280;margin-bottom:1.5rem'>Entity-Relationship model showing table
+                    relationships</p>
+                <div style='overflow-x:auto'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Entity</th>
+                                <th>Attributes</th>
+                                <th>Relationship</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>USER</td>
+                                <td>user_id (PK), name, email, phone, password_hash, last_active, missed_checkins,
+                                    is_active
+                                </td>
+                                <td>1 User has MANY Nominees; 1 User has MANY Documents</td>
+                            </tr>
+                            <tr>
+                                <td>NOMINEE</td>
+                                <td>nominee_id (PK), user_id (FK), name, email, phone, role, is_verified</td>
+                                <td>Many Nominees belong to 1 User; 1 Nominee has MANY Permissions</td>
+                            </tr>
+                            <tr>
+                                <td>DOCUMENT</td>
+                                <td>doc_id (PK), user_id (FK), filename, s3_key, encrypted_key, doc_type, upload_date
+                                </td>
+                                <td>Many Documents belong to 1 User; 1 Document has MANY Permissions</td>
+                            </tr>
+                            <tr>
+                                <td>DOC_PERMISSION</td>
+                                <td>perm_id (PK), doc_id (FK), nominee_id (FK), can_view</td>
+                                <td>Bridges Document and Nominee (M:M)</td>
+                            </tr>
+                            <tr>
+                                <td>EMERGENCY_EVENT</td>
+                                <td>event_id (PK), user_id (FK), triggered_at, status, notified_at</td>
+                                <td>1 User can have MANY Emergency Events</td>
+                            </tr>
+                            <tr>
+                                <td>EMERGENCY_MSG</td>
+                                <td>msg_id (PK), user_id (FK), nominee_id (FK), message_encrypted</td>
+                                <td>1 User writes MANY Messages for different Nominees</td>
+                            </tr>
+                            <tr>
+                                <td>ACTIVITY_LOG</td>
+                                <td>log_id (PK), user_id (FK), action, timestamp, ip_address</td>
+                                <td>1 User has MANY Activity Log entries</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style='margin-top:1rem;color:#6b7280;font-size:.9rem'><strong>Key Relationships:</strong> USER (1)
+                    &rarr;
+                    NOMINEE (M) &rarr; DOC_PERMISSION (M) &larr; DOCUMENT (1) &larr; USER (1)</p>
+            </div>
+        </section>
+
+        <!--=====Business model ======-->
+        <section id="business" class="reveal" class="sec-alt">
+            <h2>Business Model &amp; Revenue</h2>
+            <div class='grid2'>
+                <div class='card'>
+                    <h3>Revenue Streams (SaaS Model)</h3>
+                    <div style='overflow-x:auto'>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Subscription Tier</th>
+                                    <th>Pricing</th>
+                                    <th>Core Features</th>
+                                    <th>Target Audience</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Free Starter</strong></td>
+                                    <td>₹0 / month</td>
+                                    <td>Up to 3 nominees, 3GB secure storage, standard notification priority</td>
+                                    <td>Individuals testing the platform</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Personal Plus</strong></td>
+                                    <td>₹99 / month</td>
+                                    <td>Up to 10 nominees, 5GB storage, priority background tasks</td>
+                                    <td>Working professionals &amp; parents</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Family Vault</strong></td>
+                                    <td>₹249 / month</td>
+                                    <td>Up to 25 nominees, 20GB storage, joint account tracking, SMS alerts</td>
+                                    <td>Families &amp; high-net-worth individuals</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Enterprise / B2B</strong></td>
+                                    <td>₹999 / month</td>
+                                    <td>Unlimited nominees, API access, white-label custom branding</td>
+                                    <td>Hospitals, Law Firms, Wealth Managers</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class='dark-card'>
+                    <h3 style="color:#ffffff; margin-bottom: 1rem;">Go-to-Market Strategy</h3>
+                    <ul style='margin-left:1.5rem;color:#082f6b'>
+                        <li style='margin-bottom:.6rem'><strong>B2B Partnerships:</strong> Collaborate with insurance
+                            companies, banks, and legal advisors to offer SecureAfter as a value-add service for their
+                            premium clients.</li>
+                        <li style='margin-bottom:.6rem'><strong>Targeted Digital Marketing:</strong> Run ad campaigns
+                            focused on wealth-holders, professionals, and parents (aged 30-60) who are actively planning
+                            their digital legacy.</li>
+                        <li style='margin-bottom:.6rem'><strong>Content &amp; SEO Marketing:</strong> Publish
+                            educational blogs and guides surrounding "digital wills," data inheritance, and the
+                            importance of secure asset transfers.</li>
+                        <li style='margin-bottom:.6rem'><strong>Referral Ecosystem:</strong> Implement a growth loop
+                            where inviting nominees or family members securely to the platform unlocks additional free
+                            vault storage.</li>
+                        <li style='margin-bottom:.6rem'><strong>Institutional Awareness:</strong> Partner with
+                            government or legal bodies to promote public awareness around digital asset protection and
+                            modern inheritance laws.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <!--==========Future enhancement===========-->
+        <!--==========Future Enhancements===========-->
+        <section id="future" class="reveal">
+            <h2>Future Enhancements</h2>
+            <div class='grid3'>
+                <div class='card'>
+                    <h3>Phase 2 (6-12 months)</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Native mobile applications (React Native/Flutter integration)
+                        </li>
+                        <li style='margin-bottom:.4rem'>WhatsApp Business API for seamless check-ins &amp; alerts</li>
+                        <li style='margin-bottom:.4rem'>Biometric Vault Authentication (FaceID / Fingerprint)</li>
+                        <li style='margin-bottom:.4rem'>Support for Voice and Video emergency messages</li>
+                        <li style='margin-bottom:.4rem'>Multi-language UI for broader regional accessibility</li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>Phase 3 (1-2 years)</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Blockchain hashing for mathematically immutable audit trails
+                        </li>
+                        <li style='margin-bottom:.4rem'>Government identity integration (e.g., DigiLocker, Aadhaar)</li>
+                        <li style='margin-bottom:.4rem'>Wearable device integration (e.g., Apple Watch heart-rate
+                            failure triggers)</li>
+                        <li style='margin-bottom:.4rem'>Public API marketplace for authorized estate planners</li>
+                        <li style='margin-bottom:.4rem'>Machine Learning models to detect unusual account inactivity
+                        </li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>Phase 4 (2-5 years)</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Smart contracts for autonomous, legally-binding digital will
+                            execution</li>
+                        <li style='margin-bottom:.4rem'>Direct automated claim integrations with major insurance
+                            providers</li>
+                        <li style='margin-bottom:.4rem'>AI-powered intelligent document categorization and sorting</li>
+                        <li style='margin-bottom:.4rem'>Geo-fenced automated emergency triggers</li>
+                        <li style='margin-bottom:.4rem'>Global expansion adhering strictly to localized data hosting
+                            laws</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!--========= Challenges of the Project =========-->
+        <section id="challenges" class="reveal" class="sec-alt">
+            <h2>Challenges of the Project</h2>
+            <div style='overflow-x:auto'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Challenge</th>
+                            <th>Category</th>
+                            <th>Impact</th>
+                            <th>Mitigation Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>False Emergency Triggers</td>
+                            <td>Operational</td>
+                            <td>Unnecessary panic among nominees</td>
+                            <td>Multi-stage Celery validation (3-strikes) + multi-channel warnings</td>
+                        </tr>
+                        <tr>
+                            <td>AES Key Management</td>
+                            <td>Technical</td>
+                            <td>Total data loss if decryption keys are compromised</td>
+                            <td>Zero-knowledge architecture; user master password acts as the primary key</td>
+                        </tr>
+                        <tr>
+                            <td>Outdated Nominee Contacts</td>
+                            <td>Operational</td>
+                            <td>Critical failure in delivering emergency links</td>
+                            <td>Automated bi-annual "Contact Verification" campaigns via email/SMS</td>
+                        </tr>
+                        <tr>
+                            <td>Data Privacy Compliance</td>
+                            <td>Legal</td>
+                            <td>Fines or shutdown due to strict global regulations</td>
+                            <td>Rigorous GDPR/IT Act compliance layers with localized data hosting</td>
+                        </tr>
+                        <tr>
+                            <td>Platform Scalability</td>
+                            <td>Technical</td>
+                            <td>Sluggish dashboard load times and delayed background tasks</td>
+                            <td>Django horizontal scaling, Redis caching, and robust task queues</td>
+                        </tr>
+                        <tr>
+                            <td>Establishing Initial Trust</td>
+                            <td>Business</td>
+                            <td>Low adoption rates for a highly sensitive product</td>
+                            <td>Independent third-party security audits and transparent cryptography docs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <!--========= Social Impact =========-->
+        <section id="social" class="reveal">
+            <h2>Social Impact</h2>
+            <div class='grid3'>
+                <div class='card'>
+                    <h3>Securing Family Legacy</h3>
+                    <p>Every year, families face immense stress due to lost access to critical documents following
+                        sudden tragedies. SecureAfter ensures <strong>zero loss of vital information</strong>,
+                        mitigating familial anxiety and preventing lengthy legal disputes over estates.</p>
+                </div>
+                <div class='card'>
+                    <h3>Emergency Healthcare</h3>
+                    <p>By empowering trusted nominees to instantly access a user's <strong>complete medical history and
+                            health insurance</strong> during crises, SecureAfter facilitates faster, more accurate
+                        medical interventions that can ultimately save lives.</p>
+                </div>
+                <div class='card'>
+                    <h3>Financial Preservation</h3>
+                    <p>Billions of dollars remain locked in unclaimed bank accounts and investments due to a lack of
+                        documentation. SecureAfter ensures that wealth is <strong>seamlessly transferred to rightful
+                            heirs</strong>, protecting the long-term financial stability of vulnerable families.</p>
+                </div>
+            </div>
+            <div class='dark-card' style='margin-top:1.5rem'>
+                <h3 style="color:#3e3e3e; margin-bottom: 1rem;">Market Validation Survey (50 Respondents)</h3>
+                <div style='overflow-x:auto'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="color:#bfdbfe">Key Questions</th>
+                                <th style="color:#10b981">Yes</th>
+                                <th style="color:#ef4444">No</th>
+                                <th style="color:#bc9411">Maybe</th>
+                            </tr>
+                        </thead>
+                        <tbody style="color:#3c3d3e">
+                            <tr>
+                                <td>Do you currently store critical personal documents digitally?</td>
+                                <td>78%</td>
+                                <td>12%</td>
+                                <td>10%</td>
+                            </tr>
+                            <tr>
+                                <td>Do your immediate family members know exactly how to access them?</td>
+                                <td>34%</td>
+                                <td>54%</td>
+                                <td>12%</td>
+                            </tr>
+                            <tr>
+                                <td>Have you ever struggled to find vital documents during a sudden emergency?</td>
+                                <td>62%</td>
+                                <td>38%</td>
+                                <td>&mdash;</td>
+                            </tr>
+                            <tr>
+                                <td>Would you utilize an automated "Dead-Man Switch" vault to protect your legacy?</td>
+                                <td>82%</td>
+                                <td>8%</td>
+                                <td>10%</td>
+                            </tr>
+                            <tr>
+                                <td>Would you subscribe to a premium tier (₹99/month) for priority security alerts?</td>
+                                <td>68%</td>
+                                <td>20%</td>
+                                <td>12%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!--========= SWOT Analysis =========-->
+        <section id="swot" class="reveal" class="sec-alt">
+            <h2>SWOT Analysis</h2>
+            <div class='swot'>
+                <div class='swot-box sw'>
+                    <h4><i class='fa fa-arrow-trend-up'></i> Strengths</h4>
+                    <ul style='margin-left:1.5rem;color:#4b5563'>
+                        <li style='margin-bottom:.4rem'>Automated Dead-Man Switch via reliable Celery tasks</li>
+                        <li style='margin-bottom:.4rem'>Military-grade AES-256 zero-knowledge encryption</li>
+                        <li style='margin-bottom:.4rem'>Granular role-based document access controls</li>
+                        <li style='margin-bottom:.4rem'>Robust &amp; scalable Django backend architecture</li>
+                        <li style='margin-bottom:.4rem'>Low operational costs utilizing open-source infrastructure</li>
+                        <li style='margin-bottom:.4rem'>First-mover advantage in specialized digital vault niches</li>
+                    </ul>
+                </div>
+                <div class='swot-box sw'>
+                    <h4 style='color:#ef4444'><i class='fa fa-arrow-trend-down'></i> Weaknesses</h4>
+                    <ul style='margin-left:1.5rem;color:#4b5563'>
+                        <li style='margin-bottom:.4rem'>Heavy dependency on continuous cloud uptime (Redis/Celery)</li>
+                        <li style='margin-bottom:.4rem'>Zero-knowledge means if users forget their passphrase, data is
+                            lost</li>
+                        <li style='margin-bottom:.4rem'>Gaining initial user trust for highly sensitive data is
+                            difficult</li>
+                        <li style='margin-bottom:.4rem'>Risk of false-positive emergency triggers alarming nominees</li>
+                        <li style='margin-bottom:.4rem'>Requires consistent internet access to register user check-ins
+                        </li>
+                    </ul>
+                </div>
+                <div class='swot-box ot'>
+                    <h4 style='color:#10b981'><i class='fa fa-binoculars'></i> Opportunities</h4>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Rapidly growing public awareness around digital inheritance</li>
+                        <li style='margin-bottom:.4rem'>B2B integrations with law firms, life insurers, and wealth
+                            managers</li>
+                        <li style='margin-bottom:.4rem'>Aging populations increasingly adopting digital estate tools
+                        </li>
+                        <li style='margin-bottom:.4rem'>Integration with national identity platforms (e.g.,
+                            Aadhaar/DigiLocker)</li>
+                        <li style='margin-bottom:.4rem'>Global expansion potential through localized compliance (e.g.,
+                            GDPR)</li>
+                    </ul>
+                </div>
+                <div class='swot-box ot'>
+                    <h4 style='color:#ef4444'><i class='fa fa-shield-halved'></i> Threats</h4>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Big Tech (Apple/Google) expanding built-in legacy contact
+                            features</li>
+                        <li style='margin-bottom:.4rem'>Constant threat of sophisticated cyberattacks or data breaches
+                        </li>
+                        <li style='margin-bottom:.4rem'>User inertia: high psychological resistance to planning for
+                            death</li>
+                        <li style='margin-bottom:.4rem'>Evolving, complex data privacy laws increasing compliance costs
+                        </li>
+                        <li style='margin-bottom:.4rem'>Sudden API pricing changes from SMS or email gateway vendors
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!--========= Project Timeline & Gantt Chart =========-->
+        <section id="timeline" class="reveal">
+            <h2>Project Timeline &amp; Gantt Chart</h2>
+            <div class='gantt'>
+                <div style='overflow-x:auto'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Phase</th>
+                                <th>Tasks</th>
+                                <th>Duration</th>
+                                <th>Week</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Planning</td>
+                                <td>System Architecture, DB Schema, Wireframes</td>
+                                <td>2 weeks</td>
+                                <td>Week 1-2</td>
+                                <td>Complete</td>
+                            </tr>
+                            <tr>
+                                <td>UI Design</td>
+                                <td>Figma Prototypes, UI Component System</td>
+                                <td>2 weeks</td>
+                                <td>Week 3-4</td>
+                                <td>Complete</td>
+                            </tr>
+                            <tr>
+                                <td>Frontend Dev</td>
+                                <td>Django Templates, Dashboards, Responsive UI</td>
+                                <td>3 weeks</td>
+                                <td>Week 5-7</td>
+                                <td>Complete</td>
+                            </tr>
+                            <tr>
+                                <td>Backend Dev</td>
+                                <td>Django Models, AES Encryption, Custom Auth</td>
+                                <td>3 weeks</td>
+                                <td>Week 8-10</td>
+                                <td>Complete</td>
+                            </tr>
+                            <tr>
+                                <td>Integration</td>
+                                <td>Celery Workers, Notification APIs, Testing</td>
+                                <td>2 weeks</td>
+                                <td>Week 11-12</td>
+                                <td>In Progress</td>
+                            </tr>
+                            <tr>
+                                <td>Security QA</td>
+                                <td>Unit Tests, Penetration Testing, Code Audit</td>
+                                <td>1 week</td>
+                                <td>Week 13</td>
+                                <td>Planned</td>
+                            </tr>
+                            <tr>
+                                <td>Deployment</td>
+                                <td>AWS EC2, PostgreSQL, Redis, Cloud Storage</td>
+                                <td>1 week</td>
+                                <td>Week 14</td>
+                                <td>Planned</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tbl-wrap" style='margin-top:1.5rem'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>W1</th>
+                            <th>W2</th>
+                            <th>W3</th>
+                            <th>W4</th>
+                            <th>W5</th>
+                            <th>W6</th>
+                            <th>W7</th>
+                            <th>W8</th>
+                            <th>W9</th>
+                            <th>W10</th>
+                            <th>W11</th>
+                            <th>W12</th>
+                            <th>W13</th>
+                            <th>W14</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Planning</td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Design</td>
+                            <td></td>
+                            <td></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Frontend</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Backend</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Integration</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Security QA</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Deployment</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class='bar'>&#9608;</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <!--========= Abbreviations & Acronyms =========-->
+        <section id="abbreviations" class="reveal sec-alt">
+            <h2>Abbreviations &amp; Acronyms</h2>
+            <div style='overflow-x:auto'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Abbreviation</th>
+                            <th>Full Form</th>
+                            <th>Context</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AES-256</td>
+                            <td>Advanced Encryption Standard</td>
+                            <td>Military-grade zero-knowledge encryption used to secure user vaults</td>
+                        </tr>
+                        <tr>
+                            <td>OTP</td>
+                            <td>One-Time Password</td>
+                            <td>Used for secure email and SMS identity verification workflows</td>
+                        </tr>
+                        <tr>
+                            <td>RBAC</td>
+                            <td>Role-Based Access Control</td>
+                            <td>Security model that dictates which nominee can view specific documents</td>
+                        </tr>
+                        <tr>
+                            <td>SSR</td>
+                            <td>Server-Side Rendering</td>
+                            <td>Method Django uses to securely render dynamic HTML templates</td>
+                        </tr>
+                        <tr>
+                            <td>ORM</td>
+                            <td>Object-Relational Mapping</td>
+                            <td>Django's secure, Pythonic method for querying the relational database</td>
+                        </tr>
+                        <tr>
+                            <td>DRF</td>
+                            <td>Django REST Framework</td>
+                            <td>Architecture used for secure backend API endpoints</td>
+                        </tr>
+                        <tr>
+                            <td>Celery</td>
+                            <td>Distributed Task Queue</td>
+                            <td>Handles critical asynchronous background jobs like the Dead-Man Switch</td>
+                        </tr>
+                        <tr>
+                            <td>Redis</td>
+                            <td>Remote Dictionary Server</td>
+                            <td>Acts as the high-speed message broker for Celery tasks and data caching</td>
+                        </tr>
+                        <tr>
+                            <td>SMTP</td>
+                            <td>Simple Mail Transfer Protocol</td>
+                            <td>Protocol utilized for dispatching OTPs and automated emergency emails</td>
+                        </tr>
+                        <tr>
+                            <td>PBKDF2</td>
+                            <td>Password-Based Key Derivation Function 2</td>
+                            <td>Django's robust built-in algorithm used for hashing user passwords</td>
+                        </tr>
+                        <tr>
+                            <td>HTTPS / TLS</td>
+                            <td>HyperText Transfer Protocol Secure / Transport Layer Security</td>
+                            <td>End-to-end encrypted web communication preventing data interception</td>
+                        </tr>
+                        <tr>
+                            <td>MFA</td>
+                            <td>Multi-Factor Authentication</td>
+                            <td>Extra security layer required for high-risk vault actions and document access</td>
+                        </tr>
+                        <tr>
+                            <td>SDLC</td>
+                            <td>Software Development Life Cycle</td>
+                            <td>The Agile development methodology used to build and deploy SecureAfter</td>
+                        </tr>
+                        <tr>
+                            <td>MVP</td>
+                            <td>Minimum Viable Product</td>
+                            <td>The initial, core-functional version of the platform deployed to users</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+
+        <!--========= Project Limitations =========-->
+        <section id="limitations" class="reveal">
+            <h2>Project Limitations</h2>
+            <div class='grid3'>
+                <div class='card'>
+                    <h3>Technical Limitations</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Strict dependency on continuous Redis and Celery worker uptime
+                            for the Dead-Man Switch to function.</li>
+                        <li style='margin-bottom:.4rem'>Zero-knowledge architecture means if a user loses their master
+                            passphrase, data cannot be recovered by admins.</li>
+                        <li style='margin-bottom:.4rem'>File upload sizes are constrained by server memory limits and
+                            synchronous request timeouts in Django.</li>
+                        <li style='margin-bottom:.4rem'>No offline functionality; document decryption and access
+                            requires a constant server connection.</li>
+                        <li style='margin-bottom:.4rem'>Notification delivery is entirely dependent on third-party API
+                            reliability (Twilio/SendGrid).</li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>Operational Limitations</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>The system infers status through digital inactivity; it cannot
+                            detect physical emergencies in real-time.</li>
+                        <li style='margin-bottom:.4rem'>Users taking extended offline vacations must manually pause the
+                            switch to avoid false-positive triggers.</li>
+                        <li style='margin-bottom:.4rem'>The burden of maintaining accurate and updated nominee contact
+                            details lies entirely on the user.</li>
+                        <li style='margin-bottom:.4rem'>OTP-based nominee verification confirms device access but cannot
+                            verify the physical identity of the person.</li>
+                    </ul>
+                </div>
+                <div class='card'>
+                    <h3>Legal &amp; Ethical Limitations</h3>
+                    <ul style='margin-left:1.5rem;color:#1f2937'>
+                        <li style='margin-bottom:.4rem'>Digital documents stored on the platform may still require
+                            physical notarization to be court-admissible.</li>
+                        <li style='margin-bottom:.4rem'>SecureAfter acts only as a vault; it cannot resolve real-world
+                            legal disputes regarding asset inheritance.</li>
+                        <li style='margin-bottom:.4rem'>Strict data privacy regulations (like GDPR) restrict how
+                            encrypted backups can be retained.</li>
+                        <li style='margin-bottom:.4rem'>Different countries have vastly different laws regarding the
+                            validity of "digital wills" and inheritance.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!--========= FAQ & User Guide =========-->
+        <section id="faq" class="reveal sec-alt">
+            <h2>FAQ &amp; User Guide</h2>
+            <div style='max-width:800px;margin:0 auto' id='faqwrap'>
+
+                <!-- General / Concept -->
+                <div class='faq-item'>
+                    <div class='faq-q'>What exactly is SecureAfter?<i class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>SecureAfter is an automated, high-security document vault. It safely encrypts your most
+                            critical documents and automatically transfers access to your verified nominees if you
+                            become permanently inactive or unreachable.</p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>How does the "Dead-Man Switch" work?<i class='fa fa-chevron-down faq-icon'></i>
+                    </div>
+                    <div class='faq-a'>
+                        <p>You set a custom check-in interval (e.g., every 30 days). The system will email or SMS you to
+                            verify you are active. If you miss 3 consecutive check-ins, our automated background engine
+                            assumes an emergency and securely dispatches document access links to your nominees.</p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>Can I temporarily pause the Dead-Man Switch?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>Yes. If you are going on a vacation, traveling off-grid, or will be without internet access,
+                            you can activate "Vacation Mode" in your dashboard to temporarily pause check-ins and
+                            prevent false emergency triggers.</p>
+                    </div>
+                </div>
+
+                <!-- Security & Privacy -->
+                <div class='faq-item'>
+                    <div class='faq-q'>How is my data secured?<i class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>Documents are secured using AES-256 military-grade encryption before being saved to private
+                            cloud storage. Passwords are hashed using Django's PBKDF2 algorithm, and all network traffic
+                            is secured via strict HTTPS/TLS protocols.</p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>Can SecureAfter administrators or hackers read my documents?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>No. We use a zero-knowledge architecture. Your documents are encrypted using your master
+                            passphrase before they even reach our servers. We do not store your passphrase, which means
+                            we cannot decrypt your files even if we wanted to.</p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>What happens if I lose my master passphrase?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>Because of our strict zero-knowledge encryption, if you lose your master passphrase, your
+                            documents cannot be recovered by anyone. We highly recommend keeping a physical backup of
+                            your passphrase in a secure location, like a home safe.</p>
+                    </div>
+                </div>
+
+                <!-- Nominee & Access Control -->
+                <div class='faq-item'>
+                    <div class='faq-q'>Can my nominees view my documents right now?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>No. Your nominees are only granted access after the emergency protocol has been fully
+                            triggered. Until that moment, your documents remain completely inaccessible to everyone but
+                            you.</p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>How does Role-Based Access Control (RBAC) help me?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>RBAC allows you to compartmentalize your life. You can assign medical records strictly to
+                            your doctor, bank details to your spouse, and your digital will to your lawyer. A nominee
+                            will only ever see the specific files you have explicitly granted them permission to view.
+                        </p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>How are nominees verified before they get access?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>When you add a nominee, the system sends an OTP (One-Time Password) to both their email and
+                            mobile number. They must verify both to become active. When an emergency is triggered, they
+                            will again need to verify their identity via OTP to unlock their access link.</p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>What if my nominee changes their email or phone number?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>It is your responsibility to keep your nominee's contact details up-to-date via your User
+                            Dashboard. If their contact information is outdated when an emergency triggers, they will
+                            not receive the access link. We send automated bi-annual reminders to help you verify these
+                            details.</p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>Can I remove or change a nominee later?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>Yes, you maintain full control over your vault. Through your dashboard, you can revoke a
+                            nominee's access, delete them entirely, or reassign their document permissions at any time.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Document Management -->
+                <div class='faq-item'>
+                    <div class='faq-q'>What types of documents can I upload?<i class='fa fa-chevron-down faq-icon'></i>
+                    </div>
+                    <div class='faq-a'>
+                        <p>You can upload any critical file, including medical records, financial statements, property
+                            deeds, crypto wallet recovery phrases, insurance policies, and digital wills. Standard
+                            formats like PDF, JPG, PNG, and DOCX are supported.</p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>Is there a file size limit for uploads?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>Yes. Depending on your subscription tier (Free vs. Premium), individual file uploads are
+                            capped (e.g., 10MB per file for Free users). This ensures fast, synchronous encryption and
+                            upload speeds to our AWS S3 buckets.</p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>Can I update a document after it is uploaded?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>Yes. You can log into your vault, delete an outdated document, and upload the newest version.
+                            You can then instantly update which nominees have permission to view the new file.</p>
+                    </div>
+                </div>
+
+                <!-- Triggers & Legal -->
+                <div class='faq-item'>
+                    <div class='faq-q'>What happens if I just forget to check in?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>To prevent false alarms, the system requires 3 consecutive missed check-ins across multiple
+                            days before triggering. Furthermore, if the switch is accidentally triggered, you can log in
+                            immediately to revoke access links before nominees view the files.</p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>How exactly are nominees notified during an emergency?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>Once the 3-strike check-in failure occurs, our background workers automatically dispatch
+                            secure alerts via Email and SMS to your verified nominees. These alerts contain a secure,
+                            time-sensitive link to access the specific documents you assigned to them.</p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>Is SecureAfter legal to use, and are digital wills valid?<i
+                            class='fa fa-chevron-down faq-icon'></i></div>
+                    <div class='faq-a'>
+                        <p>SecureAfter complies with data privacy laws like GDPR and the IT Act 2000. However, laws
+                            regarding the legal validity of "digital wills" vary wildly by country. We recommend
+                            consulting a legal professional to ensure your digital documents meet local notarization
+                            requirements.</p>
+                    </div>
+                </div>
+                <div class='faq-item'>
+                    <div class='faq-q'>What if I decide to delete my account?<i class='fa fa-chevron-down faq-icon'></i>
+                    </div>
+                    <div class='faq-a'>
+                        <p>We respect your Right to be Forgotten. If you delete your account, your encrypted files are
+                            permanently wiped from our storage buckets, and all personal metadata is scrubbed from our
+                            PostgreSQL databases following a 30-day grace period.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!--========= References =========-->
+        <section id="references" class="reveal sec-alt">
+            <h2>References</h2>
+            <div class='card'>
+                <div style='overflow-x:auto'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Reference</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>NIST Special Publication 800-38A - AES-256 Encryption Standard</td>
+                                <td>Security Standard</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Django Official Documentation - djangoproject.com</td>
+                                <td>Framework Documentation</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Celery: Distributed Task Queue - docs.celeryq.dev</td>
+                                <td>Task Engine Documentation</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Redis Documentation - redis.io/docs</td>
+                                <td>Database Documentation</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>PostgreSQL Official Documentation - postgresql.org</td>
+                                <td>Database Documentation</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>AWS S3 Developer Guide - Bucket Encryption</td>
+                                <td>Cloud Documentation</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>RFC 2898 - Password-Based Cryptography Specification (PBKDF2)</td>
+                                <td>Technical RFC</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>Twilio SMS API Documentation</td>
+                                <td>API Reference</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>SendGrid Email API Documentation</td>
+                                <td>API Reference</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>GDPR Official Text - European Parliament</td>
+                                <td>Legal Reference</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>Indian IT Act 2000 - Information Technology Act</td>
+                                <td>Legal Reference</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>MDN Web Docs - Web Security &amp; HTTPS Guidelines</td>
+                                <td>Security Reference</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <footer>
+            <h3><i class="fa fa-shield-halved"></i> SecureAfter</h3>
+            <p>Emergency Document Management System &mdash; Final Year Project</p>
+            <p style="margin-top:1rem;font-size:.85rem">&copy; 2026 SecureAfter Team. All Rights Reserved.</p>
+        </footer>
+    </div><!-- /page-wrap -->
+    <button id="scrolltop" aria-label="Scroll to top"><i class="fa fa-arrow-up"></i></button>
+    <script>
+        const mbtn = document.getElementById('mbtn');
+        const sclose = document.getElementById('sclose');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const body = document.body;
+
+        function openSidebar() {
+            sidebar.classList.add('open');
+            overlay.classList.add('show');
+            body.classList.add('sidebar-open');
+            mbtn.querySelector('i').className = 'fa fa-xmark';
+        }
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('show');
+            body.classList.remove('sidebar-open');
+            mbtn.querySelector('i').className = 'fa fa-braille';
+        }
+        function toggleSidebar() { sidebar.classList.contains('open') ? closeSidebar() : openSidebar(); }
+
+        mbtn.addEventListener('click', toggleSidebar);
+        if (sclose) sclose.addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+        document.querySelectorAll('.slink').forEach(l => l.addEventListener('click', closeSidebar));
+
+        // Close sidebar on Escape key
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        function doReveal() { reveals.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('on'); }); }
+        window.addEventListener('scroll', doReveal, { passive: true }); doReveal();
+
+        // Active section highlight in sidebar
+        const sections = document.querySelectorAll('section[id]');
+        const sideLinks = document.querySelectorAll('.sidebar a.slink');
+        function setActive() {
+            let cur = '';
+            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+            sideLinks.forEach(l => {
+                l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
+            });
+        }
+        window.addEventListener('scroll', setActive, { passive: true }); setActive();
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-q').forEach(q => {
+            q.addEventListener('click', () => {
+                const item = q.parentElement;
+                document.querySelectorAll('.faq-item.open').forEach(o => { if (o !== item) o.classList.remove('open'); });
+                item.classList.toggle('open');
+            });
+        });
+
+        // Scroll-to-top + navbar shadow
+        const st = document.getElementById('scrolltop');
+        window.addEventListener('scroll', () => {
+            st.classList.toggle('show', window.scrollY > 400);
+            document.getElementById('navbar').style.boxShadow = window.scrollY > 10 ? '0 2px 15px rgba(0,0,0,.08)' : 'none';
+        }, { passive: true });
+        st.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        function toggleReadMore(btn) {
+            const content = btn.previousElementSibling;
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                btn.innerHTML = 'Learn More <i class="fa fa-chevron-down"></i>';
+            } else {
+                content.classList.add('expanded');
+                btn.innerHTML = 'Show Less <i class="fa fa-chevron-up"></i>';
+            }
+        }
+    </script>
+</body>
+
+</html>

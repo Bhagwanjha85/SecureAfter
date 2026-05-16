@@ -11,6 +11,7 @@ urlpatterns = [
     path('document/<int:document_id>/download/', views.download_document, name='download_document'),
     path('download-all/', views.download_all_documents, name='download_all_documents'),
     path('document/<int:document_id>/delete/', views.delete_document, name='delete_document'),
+    path('document/<int:document_id>/edit/', views.edit_document, name='edit_document'),
     path('emergency-settings/', views.emergency_settings, name='emergency_settings'),
     path('emergency-settings/add-nominee/', views.add_nominee, name='add_nominee'),
     path('emergency-settings/verify-nominee-email-otp/', views.verify_nominee_email_otp, name='verify_nominee_email_otp'),

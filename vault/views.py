@@ -7,12 +7,13 @@ from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ValidationError
 from django.utils.html import escape
+from django.utils.safestring import mark_safe
 import os
 import logging
 import zipfile
 import io
 from .models import Vault, Document, EmergencyInstructions, SiteStatistics
-from accounts.models import Nominee
+from accounts.models import Nominee, EmergencySettings, NomineeAccessRequest
 from accounts.otp_utils import create_otp, verify_otp, send_otp_email, resend_otp
 from emergency.models import EmergencyTrigger, EmergencyAccess
 from reminders.models import Reminder
@@ -41,8 +42,20 @@ def user_dashboard(request):
         
         # Get statistics
         total_documents = Document.objects.filter(user=request.user).count()
-        categories = Document.objects.filter(user=request.user).values('category').annotate(count=Count('id'))
+        total_size = Document.objects.filter(user=request.user).aggregate(total=Sum('file_size'))['total'] or 0
         
+        # Data for chart
+        category_storage_qs = Document.objects.filter(user=request.user).values('category').annotate(total_size=Sum('file_size')).order_by('-total_size')
+        category_display_names = dict(Document.CATEGORY_CHOICES)
+        chart_labels = [category_display_names.get(item['category'], item['category']) for item in category_storage_qs]
+        chart_data = [item['total_size'] or 0 for item in category_storage_qs]
+        
+        category_storage_list = []
+        for item in category_storage_qs:
+            category_storage_list.append({
+                'name': category_display_names.get(item['category'], item['category']),
+                'size': item['total_size'] or 0
+            })
 
         # Get recent documents (paginated)
         recent_documents = Document.objects.filter(user=request.user).order_by('-created_at')[:5]
@@ -60,14 +73,31 @@ def user_dashboard(request):
         # Get emergency triggers
         emergency_triggers = EmergencyTrigger.objects.filter(user=request.user, is_active=True)
         
+        # Get new emergency settings (Dead Man's Switch)
+        try:
+            emergency_settings = EmergencySettings.objects.get(user=request.user)
+        except EmergencySettings.DoesNotExist:
+            emergency_settings = None
+            
+        # Get pending access requests count
+        pending_requests_count = NomineeAccessRequest.objects.filter(
+            user=request.user,
+            status__in=['pending', 'user_notified']
+        ).count()
+        
         context = {
             'vault': vault,
             'total_documents': total_documents,
-            'categories': categories,
+            'total_size': total_size,
             'recent_documents': recent_documents,
+            'chart_labels': mark_safe(json.dumps(chart_labels)),
+            'chart_data': mark_safe(json.dumps(chart_data)),
+            'category_storage_list': category_storage_list,
             'nominees': nominees,
             'upcoming_reminders': upcoming_reminders,
             'emergency_triggers': emergency_triggers,
+            'emergency_settings': emergency_settings,
+            'pending_requests_count': pending_requests_count,
             'last_login': request.user.last_login,
         }
         
@@ -270,10 +300,16 @@ def download_document(request, document_id):
         return redirect('vault:my_vault')
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def download_all_documents(request):
-    """Download all user documents as a ZIP file"""
+    """Download selected or all user documents as a ZIP file"""
     try:
         documents = Document.objects.filter(user=request.user)
+        
+        if request.method == 'POST':
+            document_ids = request.POST.getlist('document_ids')
+            if document_ids:
+                documents = documents.filter(id__in=document_ids)
         
         if not documents.exists():
             messages.warning(request, 'No documents to download.')
@@ -357,24 +393,109 @@ def delete_document(request, document_id):
         messages.error(request, 'Error deleting document.')
         return redirect('vault:my_vault')
 
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def edit_document(request, document_id):
+    """Edit document metadata — only the document owner can access this."""
+    try:
+        document = get_object_or_404(Document, id=document_id, user=request.user)
+
+        if request.method == 'POST':
+            title = request.POST.get('title', '').strip()
+            category = request.POST.get('category', '').strip()
+            description = request.POST.get('description', '').strip()
+            accessible_by_nominee = request.POST.get('accessible_by_nominee') == 'on'
+            new_file = request.FILES.get('file')
+
+            # Validate title
+            if not title or len(title) < 3:
+                messages.error(request, 'Document title must be at least 3 characters.')
+                return render(request, 'vault/edit_document.html', {
+                    'document': document,
+                    'categories': Document.CATEGORY_CHOICES,
+                })
+
+            if len(title) > 255:
+                messages.error(request, 'Document title is too long.')
+                return render(request, 'vault/edit_document.html', {
+                    'document': document,
+                    'categories': Document.CATEGORY_CHOICES,
+                })
+
+            # Sanitize inputs
+            title = InputValidator.sanitize_text(title)
+            description = InputValidator.sanitize_text(description)
+
+            # Validate category
+            valid_categories = [choice[0] for choice in Document.CATEGORY_CHOICES]
+            if category not in valid_categories:
+                messages.error(request, 'Invalid category selected.')
+                return render(request, 'vault/edit_document.html', {
+                    'document': document,
+                    'categories': Document.CATEGORY_CHOICES,
+                })
+
+            # Apply updates
+            document.title = title
+            document.category = category
+            document.description = description
+            document.is_accessible_by_nominee = accessible_by_nominee
+
+            # Replace file only if a new one was uploaded
+            if new_file:
+                ALLOWED_TYPES = [
+                    'application/pdf', 'image/jpeg', 'image/png',
+                    'application/msword',
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    'text/plain', 'application/zip',
+                ]
+                InputValidator.validate_file_type(new_file, ALLOWED_TYPES)
+                document.file = new_file
+                document.file_size = new_file.size
+                document.file_type = new_file.content_type
+
+            document.save()
+
+            # Update vault totals
+            vault, _ = Vault.objects.get_or_create(user=request.user)
+            vault.total_size = Document.objects.filter(user=request.user).aggregate(
+                total=Sum('file_size')
+            )['total'] or 0
+            vault.save()
+
+            # Audit log
+            AuditLog.objects.create(
+                user=request.user,
+                action='document_edit',
+                description=f'Edited document: {escape(title)}',
+                metadata={'document_id': document.id, 'category': category},
+                ip_address=get_client_ip(request),
+                user_agent=request.META.get('HTTP_USER_AGENT', '')
+            )
+
+            audit_logger.info(f"Document edited by {escape(request.user.username)}: {escape(title)}")
+            messages.success(request, 'Document updated successfully!')
+            return redirect('vault:view_document', document_id=document.id)
+
+        context = {
+            'document': document,
+            'categories': Document.CATEGORY_CHOICES,
+        }
+        return render(request, 'vault/edit_document.html', context)
+
+    except Exception as e:
+        logger.error(f"Document edit error: {str(e)}")
+        messages.error(request, 'Error updating document. Please try again.')
+        return redirect('vault:my_vault')
+
+
+
 @login_required
 def emergency_settings(request):
     """Emergency settings view"""
-    try:
-        nominees = Nominee.objects.filter(user=request.user, is_active=True)
-        triggers = EmergencyTrigger.objects.filter(user=request.user)
-        
-        context = {
-            'nominees': nominees,
-            'triggers': triggers,
-        }
-        
-        return render(request, 'vault/emergency_settings.html', context)
-    
-    except Exception as e:
-        logger.error(f"Emergency settings error: {str(e)}")
-        messages.error(request, 'Error loading emergency settings.')
-        return redirect('vault:user_dashboard')
+    # Redirect to the fully functional emergency settings view in accounts
+    return redirect('/accounts/emergency-settings/')
 
 @login_required
 @require_http_methods(["GET", "POST"])
@@ -387,6 +508,7 @@ def add_nominee(request):
             phone = request.POST.get('phone', '').strip()
             relationship = request.POST.get('relationship', '').strip()
             access_level = request.POST.get('access_level', '').strip()
+            can_add_nominees = request.POST.get('can_add_nominees') == 'on'
             
             # Validate inputs
             if not name or len(name) < 3:
@@ -417,6 +539,7 @@ def add_nominee(request):
                 nominee_phone=phone,
                 relationship=relationship,
                 access_level=access_level,
+                can_add_nominees=can_add_nominees,
                 is_verified=False
             )
             
