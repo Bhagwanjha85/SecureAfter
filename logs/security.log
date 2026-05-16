@@ -1,0 +1,1526 @@
+WARNING 2026-01-16 14:41:54,843 views 35940 14980 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-01-16 16:23:06,219 views 28004 6492 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-01-16 19:26:36,268 views 44580 23052 Registration validation error: ['Password must be at least 12 characters']
+ERROR 2026-01-16 19:29:06,870 otp_utils 44580 43728 Error resending OTP: type object 'OTPGenerator' has no attribute 'send_otp_email'
+ERROR 2026-01-16 19:29:15,845 otp_utils 44580 44956 Error resending OTP: type object 'OTPGenerator' has no attribute 'send_otp_email'
+WARNING 2026-01-16 23:29:12,653 views 49416 29384 Registration validation error: ['Password must be at least 12 characters']
+ERROR 2026-01-17 01:07:19,931 views 11992 49956 Login error: no such column: users.profile_image
+ERROR 2026-01-17 01:07:40,803 views 11992 49956 Login error: no such column: users.profile_image
+ERROR 2026-01-17 01:08:04,914 views 11992 49956 Login error: no such column: users.profile_image
+ERROR 2026-01-17 01:13:24,898 views 37564 18476 Login error: no such column: users.profile_image
+ERROR 2026-01-17 01:13:30,932 views 37564 18476 Login error: no such column: users.profile_image
+ERROR 2026-01-17 01:13:36,975 views 37564 18476 Login error: no such column: users.profile_image
+ERROR 2026-01-17 01:13:54,776 views 37564 28728 Login error: no such column: users.profile_image
+ERROR 2026-01-17 01:14:04,165 views 37564 39436 Login error: no such column: users.profile_image
+ERROR 2026-01-17 01:21:26,452 views 42396 38968 Login error: no such column: users.profile_image
+ERROR 2026-01-17 01:22:02,011 views 42396 38968 Error in registration: table users has no column named profile_image
+WARNING 2026-01-17 01:22:32,616 views 42396 28700 Registration validation error: ['Password must be at least 12 characters']
+WARNING 2026-01-17 01:23:08,584 views 42396 28700 Registration attempt with existing username: admin from 127.0.0.1
+ERROR 2026-01-17 01:23:40,288 views 42396 43728 Error in registration: table users has no column named profile_image
+WARNING 2026-01-17 13:35:02,397 views 15832 16840 Registration attempt with existing email from 127.0.0.1
+WARNING 2026-01-17 13:35:51,246 views 15832 23136 Registration attempt with existing phone from 127.0.0.1
+WARNING 2026-01-17 13:47:02,156 views 24036 1592 Registration validation error: ['Invalid phone number format']
+ERROR 2026-01-17 14:27:06,676 otp_utils 17896 22724 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-81fa1291fbcsm3946092b3a.55 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 14:29:25,541 otp_utils 17896 25028 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2a7193fc8d9sm41068565ad.79 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 14:29:34,915 otp_utils 17896 25028 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 41be03b00d2f7-c5edf24dd2bsm4041865a12.10 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 14:30:35,460 otp_utils 17896 25028 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-35274445a04sm1045912a91.7 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 14:35:42,632 otp_utils 22760 25200 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-81fa108bf0bsm4084385b3a.9 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 14:37:18,110 otp_utils 23728 27488 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 41be03b00d2f7-c5edf249c24sm4089916a12.11 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 14:38:07,619 otp_utils 23728 21276 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2a7193dae08sm41982215ad.51 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 15:32:28,014 otp_utils 27232 7036 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-81fa108c275sm4169557b3a.2 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 15:34:20,143 otp_utils 26556 24020 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2a7190aa312sm43861305ad.10 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 16:04:26,809 otp_utils 28872 28644 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2a7190ab959sm42869605ad.20 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 16:05:37,999 otp_utils 28872 28852 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-81fa108bf0bsm4311003b3a.9 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 16:17:10,383 otp_utils 32328 21316 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-81fa10e6ec7sm4255843b3a.28 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 16:19:40,244 otp_utils 30452 26668 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-81fa12b2bb2sm4260477b3a.59 - gsmtp', 'noreply@lifedocs.com')
+WARNING 2026-01-17 16:34:51,481 views 21664 28368 Registration validation error: ['Invalid phone number format']
+WARNING 2026-01-17 16:35:33,619 views 21664 31460 Registration attempt with existing phone from 127.0.0.1
+WARNING 2026-01-17 16:36:05,981 views 21664 26888 Registration validation error: ['Invalid phone number format']
+ERROR 2026-01-17 16:36:53,181 otp_utils 21664 24356 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-81fa129199dsm4279478b3a.51 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 16:46:47,280 otp_utils 28940 25020 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-81fa108c233sm4391023b3a.11 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 17:18:00,956 otp_utils 34284 29748 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-352678af047sm6809526a91.10 - gsmtp', 'noreply@lifedocs.com')
+ERROR 2026-01-17 17:20:52,241 otp_utils 34480 32048 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2a7193df75bsm28455155ad.54 - gsmtp', 'j73400884@gmail.com')
+ERROR 2026-01-17 17:21:28,095 otp_utils 34480 32228 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2a7190c9edesm44944525ad.23 - gsmtp', 'j73400884@gmail.com')
+ERROR 2026-01-17 17:26:44,554 otp_utils 26040 31860 Error sending OTP email to bhagwanjijha050@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-35273121a65sm4396127a91.13 - gsmtp', 'j73400884@gmail.com')
+ERROR 2026-01-17 17:28:56,232 otp_utils 5632 2732 Error sending OTP email to j73400884@gmail.com: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 41be03b00d2f7-c5edf24dd2bsm4466989a12.10 - gsmtp', 'j73400884@gmail.com')
+WARNING 2026-01-17 17:36:33,570 views 22884 22148 Registration validation error: ['Invalid phone number format']
+ERROR 2026-01-17 17:37:06,560 otp_utils 22884 22148 EMAIL_HOST_USER is not set. Cannot send authenticated email via Gmail.
+ERROR 2026-01-17 17:41:05,182 otp_utils 23304 18308 EMAIL_HOST_USER is not set. Cannot send authenticated email via Gmail.
+WARNING 2026-01-17 17:51:45,352 base 31032 28652 Session data corrupted
+WARNING 2026-01-17 18:45:30,222 views 33316 34660 Registration attempt with existing phone from 127.0.0.1
+ERROR 2026-01-17 19:25:10,896 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:11,307 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:11,548 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:11,883 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:12,322 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:12,609 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:12,781 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:12,933 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:13,172 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:13,329 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:14,872 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:16,094 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:16,574 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:16,866 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:17,710 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:17,904 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:18,110 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:18,303 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:19,692 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:25:19,892 views 21772 28480 Dashboard error for user rajkumar: base.html
+ERROR 2026-01-17 19:30:23,650 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:24,200 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:24,667 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:24,916 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:25,213 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:25,662 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:25,901 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:26,076 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:26,235 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:26,406 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:27,777 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:27,937 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:28,376 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:29,097 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:29,285 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:29,445 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:29,606 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:30,240 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:30,430 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:30:31,466 views 28892 28172 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:12,129 views 15628 35548 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:12,408 views 15628 35548 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:12,604 views 15628 35548 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:12,822 views 15628 35548 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:13,072 views 15628 35548 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:13,562 views 15628 35548 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:13,856 views 15628 35548 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:14,340 views 15628 35548 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:14,602 views 15628 35548 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:15,192 views 15628 35548 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:15,218 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:15,561 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:15,811 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:16,021 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:16,240 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:16,513 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:16,824 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:17,034 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:17,219 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:17,414 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:19,753 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:20,568 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:20,968 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:21,147 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:21,307 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:21,497 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:21,740 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:21,895 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:22,059 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:22,217 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:27,479 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:28,113 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:28,327 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:28,612 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:29,139 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:29,309 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:29,572 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:29,767 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:29,923 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:52:30,252 views 15628 35460 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:53:01,710 views 15628 33764 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:53:02,080 views 15628 33764 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:53:02,331 views 15628 33764 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:53:02,871 views 15628 33764 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:53:15,085 views 28308 32636 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:53:17,084 views 28308 28540 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:53:19,133 views 28308 28540 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:53:20,024 views 28308 28540 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:53:20,468 views 28308 28540 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:53:20,643 views 28308 28540 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+ERROR 2026-01-17 19:53:20,956 views 28308 28540 Dashboard error for user rajkumar: <ExtendsNode: extends 'base.html'> must be the first tag in the template.
+WARNING 2026-01-17 23:32:59,217 views 30780 35336 Failed login attempt for username: rajkumar from 127.0.0.1
+ERROR 2026-01-18 01:04:42,660 views 4324 22700 Profile update error: 'User' object has no attribute 'about_me'
+ERROR 2026-01-18 01:04:57,214 views 4324 44948 Profile update error: 'User' object has no attribute 'about_me'
+ERROR 2026-01-18 01:27:40,270 views 29404 41812 Profile update error: 'User' object has no attribute 'about_me'
+ERROR 2026-01-18 01:27:53,030 views 29404 41584 Profile update error: 'User' object has no attribute 'about_me'
+ERROR 2026-01-18 01:30:29,262 views 43236 43868 Profile update error: 'User' object has no attribute 'about_me'
+ERROR 2026-01-18 01:30:55,787 views 43236 44480 Profile update error: 'User' object has no attribute 'about_me'
+ERROR 2026-01-18 01:32:40,234 views 43236 34688 Profile update error: 'User' object has no attribute 'about_me'
+ERROR 2026-01-18 01:32:56,417 views 43236 39284 Profile update error: 'User' object has no attribute 'about_me'
+ERROR 2026-01-18 01:33:18,855 views 43236 35232 Profile update error: 'User' object has no attribute 'about_me'
+ERROR 2026-01-18 01:35:13,381 views 21288 36776 Profile update error: 'User' object has no attribute 'about_me'
+ERROR 2026-01-18 22:51:46,090 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:46,501 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:46,755 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:47,318 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:47,577 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:47,829 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:48,050 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:48,306 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:48,615 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:48,868 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:50,382 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:50,596 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:51,407 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:51,907 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:52,197 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:52,379 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:52,550 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:52,726 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:52,918 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:53,165 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:58,486 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:59,257 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:59,478 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+ERROR 2026-01-18 22:51:59,968 views 11168 20896 Dashboard error for user rajkumar: includes/footer.html
+WARNING 2026-01-18 22:58:32,242 log 8608 17288 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 22:58:38,840 log 8608 10040 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:16:35,961 log 8608 16264 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:21:08,701 log 8608 11576 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:21:11,596 log 8608 11576 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:21:30,889 log 8608 13388 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:21:36,182 log 8608 13388 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:21:47,669 log 8608 19740 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:21:52,333 log 8608 17636 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:21:56,067 log 8608 17636 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:22:01,862 log 8608 18752 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:23:12,348 log 8608 24488 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:23:21,265 log 8608 24488 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:24:30,761 log 8608 22712 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:27:32,757 log 8608 21972 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:29:06,278 log 8608 24344 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:29:09,929 log 8608 24344 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:33:21,182 log 8608 11512 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:33:22,815 log 8608 10912 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:33:27,595 log 8608 10912 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:33:36,466 log 8608 20980 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:33:39,446 log 8608 20980 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:33:56,351 log 8608 10912 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:35:01,010 log 8608 13988 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:38:46,138 log 8608 18152 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:39:04,334 log 8608 15136 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:40:27,315 log 8608 22952 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:42:21,001 log 8608 23748 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:43:00,567 log 8608 24768 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:43:55,914 log 8608 24768 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:44:48,203 log 8608 23748 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:44:59,914 log 8608 24148 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:45:28,948 log 8608 11576 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:45:41,840 log 8608 5692 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:45:49,641 log 8608 11576 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:51:17,389 log 8608 3796 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:51:29,935 log 8608 3796 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:51:36,573 log 8608 3796 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:58:35,416 log 8608 12864 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-18 23:58:46,953 log 8608 3372 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+ERROR 2026-01-18 23:58:55,476 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:56,089 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:56,305 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:56,447 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:56,596 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:56,808 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:56,947 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:57,110 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:57,246 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:57,391 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:58,857 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:59,009 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:59,155 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:59,612 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:59,762 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:58:59,900 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:00,042 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:00,196 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:00,341 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:00,500 views 8608 24796 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+WARNING 2026-01-18 23:59:01,209 log 8608 24796 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+ERROR 2026-01-18 23:59:07,347 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:07,522 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:07,670 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:07,824 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:07,996 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:08,138 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:08,298 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:08,471 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:08,660 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:08,811 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:10,001 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:10,505 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:10,666 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:10,831 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:10,975 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:11,150 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:11,361 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:11,514 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:11,652 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:11,879 views 8608 3372 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:17,621 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:17,808 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:17,987 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:18,140 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:18,295 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:18,441 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:18,581 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:18,741 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:18,897 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:19,041 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:20,308 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:21,004 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:21,183 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:21,327 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:21,484 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:21,668 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:21,876 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:22,039 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:22,198 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:22,360 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:23,670 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:23,823 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:23,980 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:24,153 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:24,395 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:24,563 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:24,727 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:24,879 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:25,100 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:25,252 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:30,393 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:30,879 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:31,038 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:31,198 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:31,350 views 8608 18636 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+WARNING 2026-01-18 23:59:31,646 log 8608 25496 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+ERROR 2026-01-18 23:59:40,816 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:40,988 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:41,154 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:41,294 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:41,447 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:41,592 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:41,735 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:41,869 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:42,020 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:42,180 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:43,369 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:43,569 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:43,737 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:43,903 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:44,068 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:44,231 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:44,368 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:44,533 views 8608 15836 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+WARNING 2026-01-18 23:59:44,829 log 8608 18440 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+ERROR 2026-01-18 23:59:55,204 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:55,353 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:55,521 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:55,668 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:55,827 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:55,995 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:56,140 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:56,279 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:56,438 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:56,577 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:57,725 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:57,904 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:58,056 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:58,203 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-18 23:59:58,341 views 8608 18440 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+WARNING 2026-01-18 23:59:58,623 log 8608 24420 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+ERROR 2026-01-19 00:00:06,567 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:07,045 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:07,193 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:07,644 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:07,816 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:08,075 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:08,248 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:08,391 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:08,531 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:08,678 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:10,074 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:10,245 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:10,393 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:10,945 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:11,210 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:11,456 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:11,632 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:11,845 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:12,106 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+ERROR 2026-01-19 00:00:12,273 views 8608 19156 Dashboard error for user rajkumar: Unclosed tag on line 853: 'if'. Looking for one of: endif.
+WARNING 2026-01-19 00:07:23,893 log 8988 23228 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:07:32,063 log 8988 15836 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:07:35,416 log 8988 15836 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:07:45,387 log 8988 24808 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:08:06,432 log 8988 23668 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:08:59,961 log 8988 11252 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:10:00,951 log 8988 2748 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:10:38,096 log 8988 26212 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:11:15,500 log 8988 9832 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:11:38,137 log 8988 3600 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:11:44,018 log 8988 9832 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:11:59,057 log 8988 3600 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:14:02,954 log 8988 23356 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:14:05,334 log 8988 23356 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:14:22,339 log 8988 26468 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:14:23,969 log 8988 26468 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:14:48,510 log 8988 1716 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:18:19,865 log 8988 27512 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:18:44,121 log 8988 26748 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:18:52,212 log 8988 26884 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:18:59,341 log 8988 24932 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:19:05,323 log 8988 26884 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:19:11,701 log 8988 24932 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:22:15,074 log 8988 7516 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:53:56,042 log 8988 24556 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:54:08,568 log 8988 7968 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+ERROR 2026-01-19 00:56:36,290 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:36,679 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:36,938 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:37,141 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:37,324 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:37,509 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:37,705 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:37,954 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:38,368 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:39,698 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:41,600 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:41,835 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:42,079 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:42,288 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:42,485 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:42,693 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:42,980 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:43,208 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:43,434 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:43,624 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:45,910 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:46,397 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:47,809 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:48,021 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:48,216 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:48,425 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:48,696 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:49,504 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:49,728 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:56:49,947 views 8988 27388 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+WARNING 2026-01-19 00:56:53,844 log 8988 27388 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+ERROR 2026-01-19 00:56:58,283 views 8988 4904 Login error: database is locked
+ERROR 2026-01-19 00:57:05,930 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:06,163 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:06,373 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:06,649 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:06,876 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:07,084 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:07,275 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:07,492 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:07,703 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:08,079 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:09,747 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:10,192 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:10,391 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:10,565 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:10,728 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:10,911 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:11,122 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:11,280 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:11,588 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:11,768 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 959: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:16,331 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:17,480 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:17,760 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:17,997 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:18,213 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:18,445 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:18,659 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:19,036 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:19,278 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:19,485 views 8988 28116 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+WARNING 2026-01-19 00:57:49,869 log 23416 23728 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+ERROR 2026-01-19 00:57:57,471 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:57,882 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:58,119 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:58,543 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:58,753 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:58,986 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:59,212 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:57:59,419 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:58:00,108 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:58:00,360 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:58:01,758 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:58:01,932 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:58:02,125 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:58:02,358 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:58:02,606 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:58:03,203 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:58:03,706 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:58:03,938 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:58:04,133 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-19 00:58:04,344 views 23416 25252 Dashboard error for user rajkumar: Invalid block tag on line 960: 'endblock'. Did you forget to register or load this tag?
+WARNING 2026-01-19 00:58:07,519 log 23416 25252 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:58:21,138 log 23416 27836 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:58:22,876 log 23416 25088 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:58:29,166 log 23416 19216 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:58:34,847 log 23416 21012 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:58:38,725 log 23416 24832 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:58:43,484 log 23416 28616 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:59:11,445 log 23416 25828 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:59:21,804 log 23416 10696 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:59:23,908 log 23416 10696 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:59:29,445 log 23416 10696 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 00:59:30,948 log 23416 27448 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:02:53,721 log 23416 1968 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:02:56,684 log 23416 1968 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:03:30,991 log 23416 20572 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:04:21,623 log 23416 23568 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:04:26,221 log 23416 23568 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:04:44,442 log 23416 23568 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:05:09,847 log 23416 28632 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:05:17,420 log 23416 28632 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:05:19,948 log 23416 25716 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:05:53,158 log 23416 28632 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:06:13,571 log 23416 25716 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:06:48,082 log 23416 23828 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:06:50,784 log 23416 24684 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:07:16,624 log 23416 27744 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:07:24,789 log 23416 27820 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:07:30,027 log 23416 28096 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:07:34,972 log 23416 28096 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:07:42,233 log 23416 18668 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:08:05,228 log 23416 24560 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:08:09,344 log 23416 26340 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:08:14,178 log 23416 24600 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:08:20,000 log 23416 24600 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:08:25,015 log 23416 26268 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:24:21,055 log 23416 1760 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:26:46,751 log 23416 24556 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:26:54,774 log 23416 28108 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:27:09,529 log 23416 28108 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:27:28,289 log 23416 28108 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:27:36,556 log 23416 14520 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:27:46,027 log 23416 14520 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:28:18,383 log 23416 14520 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:28:24,160 log 23416 14520 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:30:24,133 log 23416 22400 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:31:09,440 log 23416 23992 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:31:13,237 log 23416 23992 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:31:23,593 log 23416 23992 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:32:59,025 log 23416 29104 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:33:08,215 log 23416 29104 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:33:11,642 log 23416 29120 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:33:32,955 log 23416 25716 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:33:57,780 log 23416 23860 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:34:01,899 log 23416 23860 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:34:03,571 log 23416 23860 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:35:19,373 log 23416 27564 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:35:35,694 log 23416 28788 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:35:41,027 log 23416 27516 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:35:59,266 log 23416 26996 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:36:36,797 log 23416 29640 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:36:41,017 log 23416 30100 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:36:41,762 log 23416 30100 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:36:42,115 log 23416 27652 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:36:42,464 log 23416 29640 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:36:42,749 log 23416 29640 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:36:52,366 log 23416 29640 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:37:07,962 log 23416 29640 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:37:39,272 log 23416 29640 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:37:40,260 log 23416 29640 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:37:40,519 log 23416 29640 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:37:40,923 log 23416 29640 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:37:41,096 log 23416 30100 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:37:41,352 log 23416 29640 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:37:41,542 log 23416 30100 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:37:41,766 log 23416 30100 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:44:40,198 log 23416 30308 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:46:33,808 log 23416 31492 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:46:39,832 log 23416 31496 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:46:43,134 log 23416 31492 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:46:50,030 log 23416 31492 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:47:07,565 log 23416 31148 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:47:12,246 log 23416 29712 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:49:16,194 log 23416 13800 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:49:18,972 log 23416 13800 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:49:42,382 log 23416 16024 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:50:00,666 log 23416 28476 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:53:55,508 log 23416 29148 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:54:00,876 log 23416 29148 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:54:05,563 log 23416 29148 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:54:08,108 log 23416 29148 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:54:27,802 log 23416 30476 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:54:49,147 log 23416 24368 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:54:53,963 log 23416 12336 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:54:59,019 log 23416 28340 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:55:06,993 log 23416 25004 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:57:55,794 log 23416 21904 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:57:59,806 log 23416 21904 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:58:14,122 log 23416 21904 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:58:21,147 log 23416 21904 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:58:25,255 log 23416 21904 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:58:41,316 log 23416 21904 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:58:44,861 log 23416 21904 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:58:50,875 log 23416 21904 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:58:55,883 log 23416 21904 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:59:00,711 log 23416 30844 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:59:04,874 log 23416 30844 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:59:26,489 log 23416 29956 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:59:30,455 log 23416 29144 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:59:44,023 log 23416 29732 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:59:47,871 log 23416 21904 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 01:59:52,575 log 23416 21904 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:00:03,986 log 23416 20780 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:01:08,409 log 23416 28936 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:01:15,123 log 23416 29704 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:01:20,716 log 23416 29704 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:01:32,175 log 23416 31580 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:01:57,956 log 23416 30620 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:07:26,494 log 23416 30800 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:07:29,297 log 23416 30800 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:07:39,844 log 23416 31648 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:07:51,148 log 23416 30452 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:08:28,514 log 23416 30116 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:09:55,294 log 23416 31420 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:09:56,521 log 23416 31704 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:10:00,507 log 23416 31704 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:10:12,880 log 23416 30788 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:10:16,432 log 23416 29392 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:11:44,337 log 23416 29820 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:11:47,047 log 23416 29820 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:12:37,518 log 23416 29820 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:12:43,278 log 23416 31448 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:12:51,633 log 23416 31448 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:13:12,783 log 23416 31448 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:13:15,310 log 23416 31448 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:16:41,822 log 23416 25128 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:16:45,040 log 23416 25128 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:17:28,362 log 23416 25128 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+ERROR 2026-01-19 02:17:29,796 views 23416 31648 Document view error: database is locked
+ERROR 2026-01-19 02:17:29,959 views 23416 25128 Document view error: database is locked
+ERROR 2026-01-19 02:17:30,607 views 23416 27660 Document view error: database is locked
+WARNING 2026-01-19 02:17:31,423 log 23416 27660 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:17:32,293 log 23416 27660 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:17:36,603 log 23416 27660 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:18:18,478 log 23416 31764 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:19:04,489 log 23416 31764 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:19:10,149 log 23416 31764 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:19:11,462 log 23416 31764 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:19:17,322 log 23416 31764 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:19:26,836 log 23416 31764 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:19:50,456 log 23416 30996 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+WARNING 2026-01-19 02:20:02,654 log 23416 31760 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vault/api/visitor-count/
+ERROR 2026-01-19 02:24:18,616 views 30672 32300 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:24:23,740 views 30672 31592 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:24:32,803 views 30672 25592 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:24:36,660 views 30672 25592 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:24:40,335 views 30672 30476 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:24:49,827 views 30672 28960 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:26:04,263 views 30672 31608 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:26:05,345 views 30672 31608 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:26:09,507 views 30672 31608 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:26:44,091 views 30672 18664 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:26:45,544 views 30672 18664 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:26:47,043 views 30672 18664 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:26:47,758 views 30672 18664 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:26:48,781 views 30672 18664 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:28:34,703 views 30672 4524 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:30:45,936 views 30672 28384 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:30:49,681 views 30672 29528 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 02:30:52,008 views 30672 29528 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 21:59:11,801 views 21680 16088 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 22:00:12,242 views 21680 3312 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:12:58,322 views 18520 23176 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:13:03,974 views 18520 23176 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:13:07,201 views 18520 20836 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:13:31,174 views 18520 20752 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:16:27,868 views 18520 24712 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:16:30,226 views 18520 24712 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:16:33,932 views 18520 24712 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:19:13,763 views 18520 23480 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:19:17,793 views 18520 18820 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:19:42,920 views 18520 24396 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:19:45,940 views 18520 24396 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:45:38,151 views 18520 9960 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:45:40,148 views 18520 9960 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:46:02,127 views 18520 12476 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:46:03,237 views 18520 12476 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:46:19,258 views 18520 12640 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:46:45,286 views 18520 26124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:46:47,223 views 18520 26124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:47:09,968 views 18520 26124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:47:18,668 views 18520 18580 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:47:24,951 views 18520 26512 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:54:00,386 views 18520 21816 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:55:49,347 views 18520 26184 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-19 23:58:41,212 views 18520 21532 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:00:27,274 views 18520 352 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:00:47,102 views 18520 17772 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:01:00,175 views 18520 25440 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:01:23,181 views 18520 24752 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:02:33,618 views 18520 25424 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:03:52,184 views 18520 12844 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:03:56,029 views 18520 26208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:07:07,825 views 18520 20504 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:07:09,146 views 18520 13080 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:07:21,367 views 18520 2444 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:07:36,405 views 18520 25960 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:08:47,687 views 18520 17588 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:09:20,589 views 18520 4064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:09:24,051 views 18520 4064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:09:42,786 views 18520 26424 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:09:44,570 views 18520 26424 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:09:46,936 views 18520 26424 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:11:30,197 views 18520 25700 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:11:55,499 views 18520 18352 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:15:29,865 views 18520 10668 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:17:35,770 views 18520 16344 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:17:44,519 views 18520 17548 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:17:47,735 views 18520 17548 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:17:51,048 views 18520 17548 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:17:55,759 views 18520 17548 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:19:58,057 views 18520 22116 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:21:51,939 views 18520 4064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:22:00,483 views 18520 4064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:22:08,584 views 18520 4064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:22:10,118 views 18520 4064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:22:51,351 views 18520 4064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:23:04,856 views 18520 4064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:23:10,231 views 18520 4064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:23:30,762 views 18520 4064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:25:18,699 views 18520 23520 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:25:21,572 views 18520 308 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:25:34,865 views 18520 308 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:25:42,503 views 18520 7360 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:26:04,283 views 18520 27588 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:26:11,690 views 18520 9864 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:26:18,038 views 18520 9864 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:26:24,946 views 18520 19128 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:26:31,563 views 18520 8396 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:27:17,232 views 18520 27912 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:27:21,217 views 18520 27912 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 00:27:38,466 views 18520 27912 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:05:00,422 views 4604 17456 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:05:50,365 views 4604 2664 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:06:39,865 views 4604 20492 Visitor count error: no such table: vault_sitestatistics
+WARNING 2026-01-20 09:06:56,198 log 4604 21340 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-01-20 09:07:06,252 log 4604 21340 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+ERROR 2026-01-20 09:07:24,541 views 4604 20220 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:07:25,506 views 4604 20220 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:07:56,078 views 4604 22084 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:08:07,995 views 4604 21936 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:08:14,379 views 4604 21936 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:13:58,890 views 4604 1860 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:27:37,966 views 8088 11744 Visitor count error: no such table: vault_sitestatistics
+WARNING 2026-01-20 09:28:41,966 log 8088 5932 Forbidden (CSRF token from POST incorrect.): /admin/login/
+ERROR 2026-01-20 09:30:01,795 views 12764 10336 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:30:15,012 views 12764 10336 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:30:15,693 views 12764 10336 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:30:16,803 views 12764 10336 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:30:18,357 views 12764 10336 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:30:19,678 views 12764 10336 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:30:53,654 views 12764 25056 Profile update error for bhagwan: UNIQUE constraint failed: users.phone
+ERROR 2026-01-20 09:33:15,660 views 12764 22760 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:33:53,295 views 12764 476 Profile update error for bhagwan: UNIQUE constraint failed: users.phone
+ERROR 2026-01-20 09:42:31,816 views 12764 17480 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:42:34,569 views 12764 17480 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:42:42,558 views 12764 2300 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:42:45,737 views 12764 2300 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:42:48,222 views 12764 12204 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:42:51,631 views 12764 12204 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:42:58,731 views 12764 6584 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:01,926 views 12764 6584 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:03,839 views 12764 6584 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:05,956 views 12764 6584 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:07,217 views 12764 3956 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:09,295 views 12764 3956 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:23,547 views 12764 1148 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:26,580 views 12764 1148 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:31,694 views 12764 1148 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:38,648 views 12764 19124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:42,405 views 12764 19124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:44,833 views 12764 19124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:46,802 views 12764 19124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:43:51,548 views 12764 19124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:44:28,036 views 12764 24572 Profile update error for bhagwan: UNIQUE constraint failed: users.phone
+ERROR 2026-01-20 09:45:52,081 views 12764 4116 Profile update error for bhagwan: UNIQUE constraint failed: users.phone
+WARNING 2026-01-20 09:47:07,258 views 1196 7212 IntegrityError updating profile for bhagwan: UNIQUE constraint failed: users.phone
+ERROR 2026-01-20 09:47:07,708 views 1196 25392 Visitor count error: no such table: vault_sitestatistics
+WARNING 2026-01-20 09:47:13,818 views 1196 156 IntegrityError updating profile for bhagwan: UNIQUE constraint failed: users.phone
+ERROR 2026-01-20 09:47:14,267 views 1196 156 Visitor count error: no such table: vault_sitestatistics
+WARNING 2026-01-20 09:47:29,609 views 1196 23708 IntegrityError updating profile for bhagwan: UNIQUE constraint failed: users.phone
+ERROR 2026-01-20 09:47:29,792 views 1196 14276 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:47:52,338 views 1196 23708 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:48:15,664 views 1196 16640 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 09:48:28,957 views 1196 15844 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-20 17:01:55,086 views 28320 11312 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:32:38,311 views 21532 21984 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:34:47,654 views 21532 21768 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:34:50,772 views 21532 21768 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:38:36,950 views 21532 22716 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:38:41,627 views 21532 22716 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:39:04,435 views 21532 22716 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:39:08,922 views 21532 22716 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:39:22,255 views 21532 12568 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:39:28,716 views 21532 12568 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:39:44,451 views 21532 2812 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:40:08,346 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:40:12,357 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:40:15,232 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:40:17,238 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:40:19,404 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:40:22,114 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:40:33,639 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:40:38,784 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:40:54,820 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:40:58,598 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:41:13,817 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:41:22,845 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:42:01,526 views 21532 10124 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:42:10,748 views 21532 19824 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:43:12,326 views 21532 11328 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:43:16,052 views 21532 11328 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-21 23:43:29,635 views 21532 11328 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:07:58,659 views 21416 8860 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:24:45,785 views 21416 22656 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:26:11,970 views 21416 10456 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:31:11,729 views 21416 21536 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:34:47,932 views 21416 10820 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:35:31,363 views 21416 23064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:35:31,737 views 21416 23408 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:39:42,966 views 21416 10940 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:44:38,799 views 21416 12040 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:44:56,775 views 21416 12040 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:48:39,662 views 21416 8628 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:49:25,351 views 21416 17024 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:49:37,876 views 21416 17024 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:50:45,612 views 21416 14440 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:52:17,470 views 21416 24744 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:52:48,239 views 21416 25524 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:53:53,283 views 21416 25048 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:54:19,791 views 21416 24092 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:54:40,158 views 21416 24092 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:56:16,110 views 21416 24092 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:56:41,700 views 21416 25956 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:57:04,858 views 21416 25956 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:57:06,303 views 21416 25956 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:57:23,123 views 21416 25956 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:57:25,253 views 21416 25956 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:57:26,622 views 21416 25956 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:57:28,858 views 21416 25956 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:57:44,067 views 21416 25956 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:57:54,937 views 21416 25956 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:58:06,361 views 21416 26272 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:58:25,020 views 21416 26212 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:58:43,433 views 21416 26212 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:58:52,083 views 21416 26212 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:59:04,748 views 21416 26212 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-24 23:59:20,936 views 21416 25152 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 00:00:14,240 views 21416 25152 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 00:00:32,092 views 21416 25152 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 00:00:52,098 views 21416 27280 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 00:01:11,272 views 21416 25152 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 00:12:13,985 views 21416 30964 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 00:12:51,318 views 21416 30928 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 00:13:01,015 views 21416 30928 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 00:13:12,107 views 21416 30148 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 00:13:20,084 views 21416 30148 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 11:46:15,212 views 1352 18808 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 11:47:46,266 views 1352 13464 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 11:56:42,316 views 1352 20400 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:07:28,174 views 1352 18604 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:11:34,097 views 1352 2400 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:16:03,541 views 1352 1260 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:17:58,651 views 1352 19572 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:18:09,423 views 1352 19572 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:28:10,981 views 1352 28908 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:28:39,006 views 1352 28908 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:28:40,966 views 1352 26732 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:32:37,932 views 1352 24284 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:34:30,911 views 1352 27668 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:36:33,871 views 1352 28864 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:37:24,587 views 1352 29920 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:37:28,034 views 1352 29920 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:37:47,834 views 1352 26276 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:37:53,904 views 1352 26276 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:38:03,871 views 1352 14508 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:38:11,982 views 1352 20760 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 12:38:19,322 views 1352 20760 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:06:35,321 views 1352 32228 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:06:43,185 views 1352 29684 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:10:48,311 views 1352 7744 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:12:18,053 views 1352 31224 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:12:30,764 views 1352 11348 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:13:18,535 views 1352 23280 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:14:45,635 views 1352 1232 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:15:12,361 views 1352 32356 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:15:21,208 views 1352 32356 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:15:31,331 views 1352 32356 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:20:37,349 views 1352 30360 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:21:13,428 views 1352 19988 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:25:28,835 views 1352 24592 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:26:12,341 views 1352 24592 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:29:11,782 views 1352 24588 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:36:02,670 views 1352 14776 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:37:09,357 views 1352 24776 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:37:19,319 views 1352 11488 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:37:40,240 views 1352 29596 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:37:47,557 views 1352 29596 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:42:16,480 views 1352 19668 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:44:11,669 views 1352 23280 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:50:27,122 views 1352 26028 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:50:43,817 views 1352 33632 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:51:05,949 views 1352 33008 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:53:06,967 views 1352 23508 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 15:54:47,885 views 1352 27104 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:06:26,292 views 1352 35096 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:07:40,707 views 1352 35200 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:07:51,658 views 1352 33448 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:08:17,703 views 1352 2968 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:08:45,416 views 1352 28616 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:09:04,557 views 1352 30484 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:09:07,807 views 1352 30484 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:10:16,515 views 1352 35044 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:10:25,828 views 1352 26228 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:11:10,857 views 1352 35460 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:11:36,821 views 1352 31508 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:11:45,832 views 1352 34600 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:11:58,997 views 1352 12836 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:16:21,874 views 1352 33112 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:16:26,936 views 1352 33112 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:16:34,481 views 1352 29536 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:17:04,461 views 1352 33396 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:17:09,880 views 1352 33396 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:17:23,177 views 1352 11016 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:17:30,704 views 1352 11016 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:17:36,539 views 1352 35000 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:18:14,727 views 1352 6612 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:19:55,304 views 1352 26244 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:19:58,064 views 1352 26244 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:24:49,821 views 1352 19684 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:24:52,253 views 1352 19684 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:29:53,382 views 1352 33196 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:31:48,966 views 1352 34328 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 16:32:37,707 views 1352 30896 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:00:25,060 views 1352 36108 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:01:03,018 views 1352 35140 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:01:23,456 views 1352 35492 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:01:46,908 views 1352 35492 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:02:02,163 views 1352 35492 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:02:35,124 views 1352 31692 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:09:41,960 views 1352 27976 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:11:18,491 views 1352 34860 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:12:41,507 views 1352 37308 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:14:11,441 views 1352 14168 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:19:37,443 views 1352 39500 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:20:41,312 views 1352 20228 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:21:29,555 views 1352 18080 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:22:00,315 views 1352 37244 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:22:43,957 views 1352 41596 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 17:22:56,293 views 1352 37496 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:19:37,537 views 17976 22092 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:20:13,843 views 17976 22892 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:20:16,536 views 17976 22892 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:20:18,187 views 17976 22892 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:20:19,000 views 17976 22892 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:20:19,186 views 17976 22892 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:20:19,337 views 17976 22892 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:20:20,001 views 17976 22892 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:20:20,786 views 17976 22892 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:21:43,198 views 17976 22892 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:21:45,247 views 17976 27532 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:21:47,219 views 17976 27532 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:21:48,672 views 17976 27532 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:21:49,200 views 17976 27532 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:21:56,173 views 17976 11316 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:22:06,625 views 17976 8764 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:22:15,367 views 17976 8764 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:22:23,415 views 17976 8764 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:22:38,133 views 17976 8764 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-25 23:22:43,968 views 17976 8764 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:13:59,670 views 17976 12064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:14:02,063 views 17976 12064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:14:05,688 views 17976 12064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:14:14,316 views 17976 21856 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:14:21,407 views 17976 27640 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:14:30,215 views 17976 17516 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:14:37,091 views 17976 17516 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:14:39,844 views 17976 17516 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:16:10,286 views 17976 12180 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:16:11,017 views 17976 12180 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:17:09,020 views 17976 28632 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:17:31,307 views 17976 24428 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:41:38,710 views 17976 27636 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:41:41,404 views 17976 27636 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:41:49,786 views 17976 18736 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:42:33,132 views 17976 18472 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:42:38,402 views 17976 18472 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:42:45,412 views 17976 25680 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:42:53,022 views 17976 27716 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:42:54,574 views 17976 27716 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:42:56,906 views 17976 27716 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:44:41,242 views 17976 26332 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:44:53,565 views 17976 26332 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:44:55,858 views 17976 26332 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:45:22,262 views 17976 26332 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:45:25,265 views 17976 26332 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:45:26,429 views 17976 26332 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:45:27,422 views 17976 26332 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:45:34,272 views 17976 26332 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:47:22,525 views 17976 26332 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:47:46,311 views 17976 23036 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:47:48,021 views 17976 23036 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:47:49,015 views 17976 23036 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:47:54,359 views 17976 23036 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:48:39,570 views 17976 10432 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:48:46,478 views 17976 10432 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:50:08,429 views 17976 8784 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:50:14,933 views 17976 8784 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:50:54,030 views 17976 8784 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:51:23,750 views 17976 8784 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:51:31,086 views 17976 27904 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:54:10,509 views 17976 28228 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:54:20,032 views 17976 28228 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:54:22,378 views 17976 28228 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:54:34,974 views 17976 28228 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:54:37,487 views 17976 28228 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:54:46,292 views 17976 28228 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:54:49,721 views 17976 6684 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:54:51,818 views 17976 6684 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:55:02,858 views 17976 6684 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:55:27,431 views 17976 6684 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:55:30,579 views 17976 27128 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:55:31,041 views 17976 11360 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:55:31,520 views 17976 11360 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:55:31,653 views 17976 18744 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:55:31,865 views 17976 18744 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:55:46,847 views 17976 10432 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:01,453 views 17976 22008 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:06,635 views 17976 22008 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:07,615 views 17976 7384 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:07,811 views 17976 22584 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:08,004 views 17976 26876 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:08,182 views 17976 21540 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:08,402 views 17976 22008 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:08,509 views 17976 21540 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:08,695 views 17976 27068 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:10,061 views 17976 28032 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:10,444 views 17976 28032 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:10,835 views 17976 28032 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:11,000 views 17976 28032 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:11,191 views 17976 28032 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:11,391 views 17976 28032 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:11,582 views 17976 28032 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:11,772 views 17976 28032 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:11,975 views 17976 28032 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:31,298 views 17976 26364 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:32,460 views 17976 5956 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:32,578 views 17976 26364 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:33,562 views 17976 26364 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:56:38,889 views 17976 26364 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:57:08,829 views 17976 26568 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:57:14,673 views 17976 26132 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:03,762 views 17976 13256 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:09,182 views 17976 13256 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:23,459 views 17976 28208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:24,343 views 17976 28208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:24,541 views 17976 28208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:24,786 views 17976 28208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:24,988 views 17976 28208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:25,173 views 17976 28208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:26,965 views 17976 28208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:27,204 views 17976 28208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:27,488 views 17976 28208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:27,929 views 17976 28208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:28,102 views 17976 9612 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 00:58:32,501 views 17976 27636 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:02:33,714 views 17976 24792 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:02:41,001 views 17976 27460 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:04:21,784 views 17976 26232 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:05:27,064 views 17976 17792 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:05:32,786 views 17976 17792 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:05:58,467 views 17976 18372 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:06:04,304 views 17976 18372 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:06:20,689 views 17976 12064 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:07:57,401 views 17976 25868 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:08:03,369 views 17976 3624 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:11:10,153 views 17976 17544 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:11:29,972 views 17976 26544 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:11:40,089 views 17976 18048 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:12:08,207 views 17976 25644 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:12:10,135 views 17976 25644 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:12:34,199 views 17976 13304 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:12:40,194 views 17976 13304 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:13:15,553 views 17976 24888 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:13:20,986 views 17976 24888 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:13:23,600 views 17976 19160 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:13:47,530 views 17976 13256 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:13:57,458 views 17976 25108 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:14:16,973 views 17976 14768 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:14:23,126 views 17976 22628 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:14:44,415 views 17976 6680 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:14:50,950 views 17976 6680 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:14:53,613 views 17976 28360 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:15:12,350 views 17976 25784 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:15:28,857 views 17976 700 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:16:10,257 views 17976 21852 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:19:18,965 views 17976 27892 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:20:46,987 views 17976 20636 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:20:50,916 views 17976 26980 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:21:41,278 views 17976 29512 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:24:52,774 views 17976 14972 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:25:01,245 views 17976 14972 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:26:21,789 views 17976 16456 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:26:27,721 views 17976 28720 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:33:52,819 views 17976 27424 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:34:21,991 views 17976 29436 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:34:27,503 views 17976 29436 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:34:29,031 views 17976 29436 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:34:39,182 views 17976 29436 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:34:45,414 views 17976 29436 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:35:08,992 views 17976 29348 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:35:20,698 views 17976 29348 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:35:30,470 views 17976 29348 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:37:39,427 views 17976 29116 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:37:51,640 views 17976 29116 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:38:33,503 views 17976 29116 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:39:00,917 views 17976 29116 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:39:06,429 views 17976 29116 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:39:14,171 views 17976 19860 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:40:13,679 views 17976 29116 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:40:20,343 views 17976 29116 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:40:59,980 views 17976 26236 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:41:20,098 views 17976 26236 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:42:02,652 views 17976 26236 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:42:49,027 views 17976 7488 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:43:03,040 views 17976 30288 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:44:30,504 views 17976 30288 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:45:01,577 views 17976 30288 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:45:06,805 views 17976 30288 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:45:38,433 views 17976 30288 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:46:59,628 views 17976 30288 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:48:47,250 views 17976 30016 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:50:13,920 views 17976 30016 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:50:29,136 views 17976 30016 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:50:53,132 views 17976 30016 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:50:54,382 views 17976 30016 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:50:57,264 views 17976 30288 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:51:32,727 views 17976 8940 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:53:12,418 views 17976 31168 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:53:18,315 views 17976 31168 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:53:44,719 views 17976 28248 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:53:49,533 views 17976 28248 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:55:32,289 views 17976 28888 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:55:53,309 views 17976 1572 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:56:00,309 views 17976 26920 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:57:44,284 views 17976 28724 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:58:23,615 views 17976 31216 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:58:28,339 views 17976 31216 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:58:46,271 views 17976 13256 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:58:48,903 views 17976 13256 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:58:49,489 views 17976 30516 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:58:52,637 views 17976 31316 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:59:24,764 views 17976 30456 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:59:27,088 views 17976 8940 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:59:33,799 views 17976 25604 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:59:36,962 views 17976 25604 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:59:39,942 views 17976 25604 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:59:42,657 views 17976 25604 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:59:45,040 views 17976 25604 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 01:59:46,584 views 17976 25604 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:30,243 views 29804 20808 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:40,479 views 29804 19496 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:40,686 views 29804 19496 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:40,949 views 29804 19496 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:41,180 views 29804 19496 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:41,379 views 29804 19496 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:41,566 views 29804 19496 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:41,753 views 29804 19496 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:41,959 views 29804 19496 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:42,144 views 29804 19496 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:42,328 views 29804 19496 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:43,754 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:43,937 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:44,125 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:44,316 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:44,498 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:44,700 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:44,882 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:45,062 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:45,280 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:45,499 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:50,715 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:50,963 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:51,131 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:51,291 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:51,841 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:52,139 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:52,326 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:52,503 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:52,670 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:05:52,852 views 29804 30668 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:06:23,337 views 29804 28552 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:06:23,509 views 29804 28552 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:06:23,866 views 29804 28552 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:06:24,065 views 29804 28552 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:06:24,229 views 29804 28552 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:06:24,404 views 29804 28552 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:06:24,608 views 29804 28552 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:06:25,174 views 29804 28552 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:06:25,408 views 29804 28552 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:06:25,582 views 29804 28552 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:25,534 views 26464 29044 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:35,047 views 26464 29044 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:37,058 views 26464 30248 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:39,757 views 26464 30248 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:41,167 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:41,507 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:41,730 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:41,924 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:42,129 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:42,329 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:42,539 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:42,737 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:42,942 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:43,136 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:44,519 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:44,709 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:44,923 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:45,123 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:45,985 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:46,425 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:46,652 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:46,806 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:46,984 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:47,206 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:52,427 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:52,612 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:52,825 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:53,006 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:53,201 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:53,409 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:53,650 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:53,842 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:54,014 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:07:54,543 views 26464 30248 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:08:25,032 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:08:25,810 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:08:26,108 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:08:26,298 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:08:26,479 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:08:26,679 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:08:26,858 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:08:27,008 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:08:27,176 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:08:27,343 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:09:27,565 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:09:28,491 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:09:29,169 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:09:29,810 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:09:30,003 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:09:30,171 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:09:30,341 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:09:30,508 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:09:30,680 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:09:30,866 views 26464 14752 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:27,776 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:28,236 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:28,457 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:28,628 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:28,793 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:29,068 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:29,286 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:29,485 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:29,684 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:29,865 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:32,194 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:32,443 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:32,637 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:32,815 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:33,024 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:33,315 views 26464 12076 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:33,542 views 26464 32216 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:33,776 views 26464 32216 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:33,946 views 26464 32216 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:34,127 views 26464 32216 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:38,127 views 26464 32272 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:39,326 views 26464 32216 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:39,527 views 26464 32216 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:39,739 views 26464 32216 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:39,956 views 26464 32216 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:40,172 views 26464 32216 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:40,394 views 26464 32216 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:40,955 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:41,168 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:41,361 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:41,545 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:41,761 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:41,966 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:42,153 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:42,331 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:42,970 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:43,320 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:44,870 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:45,071 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:45,288 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:45,508 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:45,712 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:45,880 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:46,068 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:46,578 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:46,757 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:46,924 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:52,114 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:52,660 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:52,847 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:53,028 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:53,211 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:53,380 views 26464 32272 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:53,571 views 26464 2408 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:53,741 views 26464 2408 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:53,944 views 26464 2408 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:13:54,912 views 26464 2408 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:25,848 views 26464 24984 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:26,282 views 26464 24984 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:26,465 views 26464 24984 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:27,014 views 26464 24984 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:27,280 views 26464 24984 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:27,593 views 26464 24984 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:27,777 views 26464 24984 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:27,994 views 26464 24984 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:28,194 views 26464 24984 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:28,377 views 26464 31260 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:28,589 views 26464 31260 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:28,800 views 26464 31260 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:29,000 views 26464 31260 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:29,187 views 26464 31260 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:29,397 views 26464 31260 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:30,027 views 26464 31260 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:30,284 views 26464 31260 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:30,474 views 26464 31260 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:14:30,655 views 26464 31260 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:15:30,887 views 26464 32760 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:15:31,127 views 26464 32760 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:15:31,277 views 26464 32760 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:15:31,451 views 26464 32760 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:15:31,628 views 26464 32760 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:15:31,834 views 26464 32760 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:15:32,165 views 26464 32760 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:15:32,332 views 26464 32760 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:15:32,487 views 26464 32760 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:15:32,977 views 26464 32760 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:16:26,351 views 32260 18400 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:16:26,561 views 32260 18400 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:16:26,759 views 32260 18400 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:16:26,965 views 32260 18400 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:16:27,148 views 32260 18400 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:16:27,336 views 32260 18400 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:16:27,535 views 32260 18400 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:16:27,753 views 32260 18400 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:16:27,953 views 32260 18400 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:16:28,144 views 32260 18400 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:46,342 views 32260 32188 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:47,888 views 32260 32180 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:48,095 views 32260 32180 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:48,270 views 32260 32180 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:48,470 views 32260 32180 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:48,666 views 32260 32180 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:48,865 views 32260 32180 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:49,058 views 32260 32180 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:49,258 views 32260 32180 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:49,449 views 32260 32180 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:49,700 views 32260 32180 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:51,507 views 32260 32180 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:51,922 views 32260 32180 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:52,189 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:52,388 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:52,624 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:52,839 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:53,052 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:53,238 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:53,491 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:53,963 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:54,755 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:17:54,968 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:00,181 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:00,993 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:01,542 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:01,833 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:02,026 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:02,222 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:02,408 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:03,271 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:03,509 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:03,724 views 32260 32188 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:28,869 views 32260 31808 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:29,072 views 32260 31808 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:29,256 views 32260 31808 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:29,433 views 32260 31808 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:29,638 views 32260 31808 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:29,843 views 32260 31808 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:30,035 views 32260 31808 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:30,217 views 32260 31808 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:30,449 views 32260 31808 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:30,683 views 32260 31808 Dashboard error for user rajkumar: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:44,851 views 23804 25680 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:18:45,425 views 23804 31848 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:19:47,503 views 23804 7516 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:19:56,560 views 23804 7516 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:23:19,550 views 23804 30808 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:23:31,974 views 23804 36112 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:23:39,519 views 23804 36112 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:23:44,048 views 23804 36380 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:24:49,500 views 23804 34360 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:25:05,002 views 23804 36052 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:25:12,099 views 23804 29960 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:25:19,326 views 23804 29912 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:25:27,255 views 23804 29912 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:25:32,717 views 23804 29912 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:26:03,606 views 23804 33460 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:26:37,083 views 23804 33460 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:26:38,736 views 23804 33460 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:27:02,891 views 23804 33460 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:27:11,837 views 23804 33460 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:29:07,498 views 23804 15320 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:29:15,707 views 23804 12988 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:29:17,767 views 23804 12988 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:29:48,873 views 23804 37620 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:29:58,050 views 23804 37604 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:30:05,208 views 23804 37604 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 02:34:01,004 views 23804 33572 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 14:47:25,945 views 3692 22404 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 14:47:26,276 views 3692 22404 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 14:47:26,593 views 3692 22404 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:42:24,986 views 3692 476 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:42:29,090 views 3692 476 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:42:37,546 views 3692 1856 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:42:39,567 views 3692 1856 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:42:43,198 views 3692 1856 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:42:59,135 views 3692 14332 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:43:04,279 views 3692 20812 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:43:11,186 views 3692 19948 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:43:16,762 views 3692 22016 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:49:58,016 views 3692 24500 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:50:03,750 views 3692 13072 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:50:05,201 views 3692 13072 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:50:08,034 views 3692 13072 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:51:02,933 views 3692 21200 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:52:49,382 views 3692 24896 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:54:44,342 views 3692 9336 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:55:16,809 views 3692 9336 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:55:23,613 views 3692 9336 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:55:43,586 views 3692 9336 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:57:13,642 views 3692 21208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:57:33,447 views 3692 21208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:57:59,915 views 3692 21208 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:58:08,948 views 3692 11424 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:58:27,466 views 3692 26428 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:58:32,334 views 3692 26428 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:58:38,602 views 3692 19196 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:59:07,689 views 3692 19196 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 15:59:34,147 views 3692 19196 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:00:08,734 views 3692 19196 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:00:14,438 views 3692 19196 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:00:17,462 views 3692 19196 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:00:27,885 views 3692 19196 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:01:00,541 views 3692 19196 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:01:20,970 views 3692 19196 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:01:37,512 views 3692 19196 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:02:06,295 views 3692 21824 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:03:53,915 views 3692 23728 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:04:24,992 views 3692 23728 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:04:45,747 views 3692 22800 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:05:27,204 views 3692 23460 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:05:53,481 views 3692 2564 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:06:04,102 views 3692 2564 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:10:44,092 views 3692 16304 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:10:49,299 views 3692 27640 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:11:01,289 views 3692 27596 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:11:20,557 views 3692 27596 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:11:23,974 views 3692 27596 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:11:38,550 views 3692 25492 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:11:42,639 views 3692 25492 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:11:45,716 views 3692 25492 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:17:03,975 views 3692 24540 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:17:12,740 views 3692 25820 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:17:18,678 views 3692 25820 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:17:19,294 views 3692 14332 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:17:25,004 views 3692 25384 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:17:57,014 views 3692 24684 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:18:23,395 views 3692 27432 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:18:31,639 views 3692 27432 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:18:51,320 views 3692 26768 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:44:22,657 views 3692 28216 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:44:26,231 views 3692 28216 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:45:09,280 views 3692 28236 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:46:59,183 views 3692 30412 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:47:29,710 views 3692 13256 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:48:30,734 views 3692 13256 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:48:57,530 views 3692 13256 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:49:38,387 views 3692 13256 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:50:17,609 views 3692 30488 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:50:20,753 views 3692 30488 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:50:46,278 views 3692 11192 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:51:11,297 views 3692 11192 Visitor count error: no such table: vault_sitestatistics
+ERROR 2026-01-26 16:51:22,176 views 3692 11192 Visitor count error: no such table: vault_sitestatistics
+WARNING 2026-01-26 19:36:12,870 log 22664 30056 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-01-26 19:39:12,983 log 22664 35400 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+ERROR 2026-01-26 22:19:22,003 views 23744 29272 Video transcoding failed for user rajkumar: 'InMemoryUploadedFile' object has no attribute 'path'
+WARNING 2026-01-27 15:46:45,623 views 22672 18588 Registration attempt with mismatched passwords from 127.0.0.1
+WARNING 2026-01-27 15:48:18,011 views 22672 26272 Registration attempt with mismatched passwords from 127.0.0.1
+WARNING 2026-01-27 15:51:08,429 views 27196 18700 Registration attempt with mismatched passwords from 127.0.0.1
+WARNING 2026-01-27 15:51:41,382 views 27196 22672 Registration attempt with mismatched passwords from 127.0.0.1
+WARNING 2026-01-27 15:51:49,701 views 27196 27564 Registration attempt with mismatched passwords from 127.0.0.1
+WARNING 2026-01-27 15:52:14,669 views 27196 27564 Registration attempt with mismatched passwords from 127.0.0.1
+WARNING 2026-01-27 18:46:23,704 log 22484 1596 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-01-27 18:46:30,730 log 22484 29176 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-01-29 00:54:24,765 log 27756 27572 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-01-29 00:54:32,572 log 27756 20184 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-01-29 16:04:59,140 otp_utils 23896 9024 Invalid OTP attempt for rsb7838@gmail.com
+WARNING 2026-02-27 18:26:15,904 views 4044 27904 Registration validation error: ['Password must be at least 12 characters']
+WARNING 2026-02-28 17:48:58,339 views 22160 21704 Failed login attempt for username: bhagwan from 127.0.0.1
+WARNING 2026-03-02 15:17:16,121 views 21040 9440 Failed login attempt for username: bhagwan from 127.0.0.1
+WARNING 2026-03-02 15:17:30,732 views 21040 9440 Failed login attempt for username: bhagwan from 127.0.0.1
+WARNING 2026-03-02 15:17:36,475 views 21040 9440 Failed login attempt for username: bhagwan85 from 127.0.0.1
+WARNING 2026-03-02 15:56:10,109 views 21040 20616 Failed login attempt for username: bhagwan from 127.0.0.1
+WARNING 2026-03-14 18:35:50,848 views 30680 6096 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-14 18:36:15,579 views 30680 6096 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-14 18:36:21,891 views 30680 6096 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-14 18:36:32,067 views 30680 6096 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-14 18:36:38,951 views 30680 6096 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-14 18:36:46,785 views 30680 6096 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-14 18:37:02,175 views 30680 6096 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-14 18:37:11,083 views 30680 6096 Failed login attempt for username: Bhagwan85 from 127.0.0.1
+WARNING 2026-03-14 18:37:22,458 views 30680 6096 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-14 18:37:30,270 views 30680 6096 Failed login attempt for username: Bhagwan85 from 127.0.0.1
+WARNING 2026-03-14 18:37:46,354 views 30680 6096 Failed login attempt for username: Bhagwan85 from 127.0.0.1
+WARNING 2026-03-14 18:38:43,137 views 30680 6096 Password reset requested for non-existent email: bhagwanjijha050@gmail.com from 127.0.0.1
+WARNING 2026-03-14 18:39:14,750 views 30680 6096 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-14 18:39:19,370 views 30680 6096 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-14 18:39:26,926 views 30680 6096 Failed login attempt for username: Bhagwanjha from 127.0.0.1
+WARNING 2026-03-14 18:39:44,746 views 30680 6096 Failed login attempt for username: Bhagwanjha from 127.0.0.1
+WARNING 2026-03-14 18:39:52,732 views 30680 6096 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-14 18:40:06,713 views 30680 6096 Failed login attempt for username: Bhagwanjha from 127.0.0.1
+WARNING 2026-03-16 22:22:01,529 views 23572 8800 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-16 22:22:33,436 views 23572 8800 Failed login attempt for username: jrs from 127.0.0.1
+WARNING 2026-03-16 22:22:45,504 views 23572 8800 Failed login attempt for username: jrs from 127.0.0.1
+WARNING 2026-03-16 23:35:38,350 views 23572 25316 Failed login attempt for username: jrs from 127.0.0.1
+WARNING 2026-03-16 23:35:51,101 views 23572 25316 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-16 23:39:09,203 views 23572 25316 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-18 15:10:40,400 views 3208 28856 Failed login attempt for username: Bhagwanjha85 from 127.0.0.1
+WARNING 2026-03-25 22:20:50,101 views 26512 5964 Registration validation error: ['Password must be at least 12 characters']
+WARNING 2026-03-25 22:21:19,311 views 26512 5964 Registration attempt with existing phone from 127.0.0.1
+WARNING 2026-03-25 22:21:48,313 views 26512 5964 Registration validation error: ['Password must contain uppercase letters']
+ERROR 2026-05-04 00:20:48,334 otp_utils 19288 19100 Error sending OTP email to hs54hs@gmail.com: cannot access local variable 'subject' where it is not associated with a value
+ERROR 2026-05-04 00:22:19,097 otp_utils 13940 18936 Error sending OTP email to hs54hs@gmail.com: cannot access local variable 'subject' where it is not associated with a value
+ERROR 2026-05-04 00:23:24,965 otp_utils 13940 18936 Error sending OTP email to hs54hs@gmail.com: cannot access local variable 'subject' where it is not associated with a value
+ERROR 2026-05-04 00:25:14,625 otp_utils 6324 5864 Error sending OTP email to hs54hs@gmail.com: cannot access local variable 'subject' where it is not associated with a value
+WARNING 2026-05-04 00:28:22,971 otp_utils 24764 23152 No OTP record found for hs54hs@gmail.com
+WARNING 2026-05-04 00:29:11,707 otp_utils 24764 23152 No OTP record found for hs54hs@gmail.com
+ERROR 2026-05-04 00:30:19,124 otp_utils 23760 22532 Error sending OTP email to hs54hs@gmail.com: cannot access local variable 'subject' where it is not associated with a value
+WARNING 2026-05-07 23:04:42,377 views 38204 25744 Failed login attempt for username: zakir@gmail.com from 127.0.0.1
+WARNING 2026-05-07 23:04:50,640 views 38204 25744 Password reset requested for non-existent email: zakir@gmail.com from 127.0.0.1
+WARNING 2026-05-07 23:05:00,027 views 38204 25744 Password reset requested for non-existent email: zakir@gmail.com from 127.0.0.1
+ERROR 2026-05-11 17:26:09,753 views 18652 11852 Login error: no such column: users.unique_id
+ERROR 2026-05-11 17:26:16,488 views 18652 11852 Login error: no such column: users.unique_id
+ERROR 2026-05-11 17:26:20,992 views 18652 11852 Login error: no such column: users.unique_id
+ERROR 2026-05-11 18:40:52,158 views 18652 11092 Login error: no such column: users.unique_id
+ERROR 2026-05-11 18:40:57,606 views 18652 11092 Login error: no such column: users.unique_id
+ERROR 2026-05-11 18:40:59,173 views 18652 11092 Login error: no such column: users.unique_id
+ERROR 2026-05-11 18:41:05,894 views 18652 11092 Login error: no such column: users.unique_id

@@ -9,34 +9,19 @@ def home_view(request):
         'page_title': 'LifeDocs - Secure Document Management',
         'features': [
             {
-                'icon': '🔐',
+                'icon': 'fas fa-lock',
                 'title': 'Secure Vault',
-                'description': 'Store your important documents safely with encryption'
+                'description': 'Store your most important documents safely with military-grade encryption.'
             },
             {
-                'icon': '👥',
+                'icon': 'fas fa-users',
                 'title': 'Trusted Nominees',
-                'description': 'Add family members or trusted contacts with OTP verification'
+                'description': 'Securely assign family members or contacts who can access your vault.'
             },
             {
-                'icon': '📋',
-                'title': 'Emergency Instructions',
-                'description': 'Leave important instructions for your nominees'
-            },
-            {
-                'icon': '🔔',
-                'title': 'Smart Reminders',
-                'description': 'Get reminders about important documents and deadlines'
-            },
-            {
-                'icon': '📱',
-                'title': 'Mobile Ready',
-                'description': 'Access your vault anytime, anywhere from any device'
-            },
-            {
-                'icon': '✅',
-                'title': 'Peace of Mind',
-                'description': 'Ensure your loved ones are protected and informed'
+                'icon': 'fas fa-shield-heart',
+                'title': 'Emergency Access',
+                'description': 'Leave critical instructions and grant access automatically when it matters most.'
             },
         ]
     }
