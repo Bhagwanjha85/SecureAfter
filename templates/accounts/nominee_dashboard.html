@@ -1,0 +1,651 @@
+{% extends 'base.html' %}
+{% block title %}Nominee Dashboard — SecureAfter{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* ── THEME TOKENS (match home.html) ── */
+  :root {
+    --blue: #2d5277;
+    --blue-dark: #315293;
+    --blue-light: #eff6ff;
+    --blue-faint: #f0f4f9;
+    --text: #111827;
+    --text-2: #374151;
+    --text-3: #6b7280;
+    --border: #e5e7eb;
+    --bg: #f9fafb;
+    --white: #ffffff;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 32px rgba(0, 0, 0, 0.10);
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+    --amber: #b45309;
+    --amber-bg: #fffbeb;
+    --red: #dc2626;
+    --red-bg: #fef2f2;
+  }
+
+  /* ── PAGE SHELL ── */
+  .nd-page {
+    background: var(--bg);
+    min-height: calc(100vh - 64px);
+    padding: 2.5rem 0 4rem;
+  }
+
+  .nd-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ── PAGE HEADER ── */
+  .nd-header {
+    margin-bottom: 2rem;
+  }
+
+  .nd-header-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--blue);
+    background: var(--blue-light);
+    border: 1px solid #bfdbfe;
+    padding: 0.3rem 0.75rem;
+    border-radius: 99px;
+    margin-bottom: 0.75rem;
+  }
+
+  .nd-header h1 {
+    font-size: clamp(1.65rem, 3vw, 2.1rem);
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin: 0 0 0.4rem;
+  }
+
+  .nd-header p {
+    color: var(--text-3);
+    font-size: 1rem;
+    margin: 0;
+    max-width: 540px;
+    line-height: 1.6;
+  }
+
+  /* ── LAYOUT GRID ── */
+  .nd-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 1.75rem;
+    align-items: start;
+  }
+
+  /* ── SECTION CARD ── */
+  .nd-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .nd-card-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .nd-card-header-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--blue-light);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .nd-card-header h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .nd-card-header p {
+    font-size: 0.82rem;
+    color: var(--text-3);
+    margin: 0.15rem 0 0;
+  }
+
+  .nd-card-body {
+    padding: 1.5rem;
+  }
+
+  /* ── VAULT ITEM ── */
+  .vault-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    overflow: hidden;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    margin-bottom: 1.25rem;
+  }
+
+  .vault-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .vault-item:hover {
+    box-shadow: var(--shadow-md);
+    border-color: #bfdbfe;
+  }
+
+  .vault-item-top {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .vault-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--blue);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+
+  .vault-meta {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .vault-meta h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .vault-meta p {
+    font-size: 0.83rem;
+    color: var(--text-3);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .vault-badge {
+    flex-shrink: 0;
+    padding: 0.3rem 0.7rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--blue-light);
+    color: var(--blue);
+    border: 1px solid #bfdbfe;
+    white-space: nowrap;
+  }
+
+  .vault-tags-row {
+    padding: 0 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .vault-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-2);
+    background: var(--blue-faint);
+    border: 1px solid var(--border);
+    padding: 0.28rem 0.65rem;
+    border-radius: 6px;
+  }
+
+  .vault-tag i {
+    color: var(--blue);
+    font-size: 0.72rem;
+  }
+
+  .vault-instructions {
+    margin: 0 1.5rem 1.25rem;
+    background: var(--blue-faint);
+    border: 1px dashed #bfdbfe;
+    border-radius: var(--radius);
+    padding: 0.9rem 1rem;
+  }
+
+  .vault-instructions-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--blue);
+    margin-bottom: 0.4rem;
+  }
+
+  .vault-instructions p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--text-2);
+    line-height: 1.55;
+  }
+
+  .vault-actions {
+    padding: 1rem 1.5rem;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1.15rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: var(--blue);
+    color: var(--white);
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn-primary:hover {
+    background: var(--blue-dark);
+    transform: translateY(-1px);
+    color: var(--white);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: var(--white);
+    color: var(--text-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    transform: translateY(-1px);
+  }
+
+  /* ── REQUEST SIDEBAR ── */
+  .req-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .req-item {
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .req-item:last-child {
+    border-bottom: none;
+  }
+
+  .req-item:hover {
+    background: var(--bg);
+  }
+
+  .req-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .req-item h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .req-item p {
+    font-size: 0.8rem;
+    color: var(--text-3);
+    margin: 0 0 0.5rem;
+  }
+
+  .req-date {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* ── STATUS BADGES ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 99px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .badge-pending {
+    background: var(--amber-bg);
+    color: var(--amber);
+  }
+
+  .badge-approved {
+    background: var(--green-bg);
+    color: var(--green);
+  }
+
+  .badge-rejected {
+    background: var(--red-bg);
+    color: var(--red);
+  }
+
+  .badge-access_granted {
+    background: var(--blue-light);
+    color: var(--blue);
+  }
+
+  /* ── HELP CARD ── */
+  .help-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+
+  .help-card h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .help-card h4 i {
+    color: var(--blue);
+  }
+
+  .help-card p {
+    font-size: 0.83rem;
+    color: var(--text-3);
+    margin: 0 0 1rem;
+    line-height: 1.55;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    color: var(--text-3);
+  }
+
+  .empty-state .empty-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: var(--blue-faint);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 1.1rem;
+  }
+
+  .empty-state h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-2);
+    margin: 0 0 0.35rem;
+  }
+
+  .empty-state p {
+    font-size: 0.85rem;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .empty-state a {
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .nd-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .nd-page {
+      padding: 1.5rem 0 3rem;
+    }
+
+    .vault-item-top {
+      flex-direction: column;
+    }
+
+    .vault-actions {
+      flex-direction: column;
+    }
+
+    .vault-actions a,
+    .vault-actions button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="nd-page">
+  <div class="nd-inner">
+
+    <!-- Page Header -->
+    <div class="nd-header">
+      <div class="nd-header-label">
+        <i class="fas fa-user-shield"></i> Nominee Portal
+      </div>
+      <h1>Nominee Dashboard</h1>
+      <p>Access shared vaults, review emergency instructions, and manage your access requests in one secure place.</p>
+    </div>
+
+    <div class="nd-grid">
+
+      <!-- LEFT: Shared Vaults -->
+      <div>
+        <div class="nd-card">
+          <div class="nd-card-header">
+            <div class="nd-card-header-icon">
+              <i class="fas fa-folder-open"></i>
+            </div>
+            <div>
+              <h2>Shared Vaults</h2>
+              <p>Vaults shared with you based on your nominee relationship</p>
+            </div>
+          </div>
+
+          <div class="nd-card-body">
+            {% if shared_vaults %}
+            {% for item in shared_vaults %}
+            <div class="vault-item">
+
+              <div class="vault-item-top">
+                <div class="vault-avatar">
+                  {{ item.nominee.user.username|make_list|first }}
+                </div>
+                <div class="vault-meta">
+                  <h3>{{ item.nominee.user.username }}</h3>
+                  <p>{{ item.nominee.user.email }}</p>
+                </div>
+                <span class="vault-badge">{{ item.nominee.get_access_level_display }}</span>
+              </div>
+
+              <div class="vault-tags-row">
+                <span class="vault-tag">
+                  <i class="fas fa-user-tag"></i> {{ item.nominee.relationship|title }}
+                </span>
+                <span class="vault-tag">
+                  <i class="fas fa-file-alt"></i> {{ item.shared_count }} Document{{ item.shared_count|pluralize }}
+                </span>
+              </div>
+
+              <div class="vault-instructions">
+                <div class="vault-instructions-label">
+                  <i class="fas fa-exclamation-circle"></i> Emergency Instructions
+                </div>
+                <p>{{ item.emergency_instructions.emergency_message|default:"No specific emergency instructions have been provided yet." }}</p>
+              </div>
+
+              <div class="vault-actions">
+                <a href="{% url 'accounts:nominee_documents' item.nominee.id %}" class="btn-primary">
+                  <i class="fas fa-folder-open"></i> View Vault
+                </a>
+                <a href="{% url 'accounts:request_vault_access' item.nominee.id %}" class="btn-outline">
+                  <i class="fas fa-key"></i> Request Access
+                </a>
+                {% if item.nominee.can_add_nominees %}
+                <a href="{% url 'accounts:nominee_add_nominee' item.nominee.id %}" class="btn-outline" style="border-color: var(--blue); color: var(--blue);">
+                  <i class="fas fa-user-plus"></i> Add Nominee
+                </a>
+                {% endif %}
+              </div>
+
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="empty-state">
+              <div class="empty-icon"><i class="fas fa-folder-minus"></i></div>
+              <h4>No Shared Vaults</h4>
+              <p>No vaults have been shared with you yet.<br>Ask a vault owner to add you as a nominee or <a href="{% url 'home' %}#contact">contact support</a>.</p>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Sidebar -->
+      <div>
+
+        <!-- Access Requests -->
+        <div class="nd-card">
+          <div class="nd-card-header">
+            <div class="nd-card-header-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div>
+              <h2>Access Requests</h2>
+              <p>Status of your submitted requests</p>
+            </div>
+          </div>
+
+          {% if my_requests %}
+          <div class="req-list">
+            {% for req in my_requests %}
+            <div class="req-item">
+              <div class="req-item-top">
+                <h4>{{ req.user.username }}</h4>
+                <span class="badge badge-{{ req.status }}">
+                  {% if req.status == 'pending' %}<i class="fas fa-hourglass-half"></i>
+                  {% elif req.status == 'approved' %}<i class="fas fa-check"></i>
+                  {% elif req.status == 'rejected' %}<i class="fas fa-times"></i>
+                  {% else %}<i class="fas fa-shield-alt"></i>{% endif %}
+                  {{ req.get_status_display }}
+                </span>
+              </div>
+              <p>{{ req.get_reason_display }}</p>
+              <span class="req-date">
+                <i class="far fa-calendar-alt"></i> {{ req.created_at|date:"M d, Y" }}
+              </span>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="empty-state" style="padding: 2rem 1.5rem;">
+            <div class="empty-icon"><i class="fas fa-inbox"></i></div>
+            <h4>No Requests Yet</h4>
+            <p>Use vault cards to request additional access when needed.</p>
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Help Card -->
+        <div class="help-card">
+          <h4><i class="fas fa-life-ring"></i> Need Assistance?</h4>
+          <p>If you cannot access a shared vault, ask the owner to verify your nominee status or update your permission level.</p>
+          <a href="{% url 'home' %}#contact" class="btn-outline" style="width: 100%; justify-content: center;">
+            <i class="fas fa-envelope"></i> Contact Support
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

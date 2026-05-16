@@ -1,1009 +1,671 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      {% block title %}SecureAfter - Secure Document Management{% endblock %}
-    </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    {% block title %}SecureAfter - Secure Document Management{% endblock %}
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #303030;
+      --secondary-color: #e7e7f0;
+      --text-color: #18181b;
+      --text-secondary: #52525b;
+      --light-bg: #ffffff;
+      --border-color: #e4e4e7;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+      background: #f6f6f7;
+      min-height: 100vh;
+      color: var(--text-color);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    .main-content {
+      width: 100%;
+      flex: 1;
+    }
+
+    /* Global page spacing */
+    .page-wrapper {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      margin-bottom: 40px;
+    }
+
+    /* Full-width sections support */
+    .full-width {
+      width: 100%;
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    /* Mobile spacing */
+    @media (max-width: 768px) {
+      .page-wrapper {
+        padding: 0 1rem;
+      }
+    }
+
+    @media (max-width: 475px) {
+
+      /* Global spacing */
+      .page-wrapper {
+        padding: 0 0.75rem;
+      }
+    }
+
+    .btn {
+      padding: 0.625rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+      font-size: 0.95rem;
+      white-space: nowrap;
+      min-height: 42px;
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-secondary {
+      background: var(--secondary-color);
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .btn-danger {
+      background: #ef4444;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 2rem;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Messages */
+    .messages {
+      position: fixed;
+      top: 130px;
+      right: 1rem;
+      z-index: 1001;
+      max-width: 420px;
+    }
+
+    .alert {
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 0.95rem;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-left: 4px solid;
+    }
+
+
+
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(120%);
+        opacity: 0;
       }
 
-      :root {
-        --primary-color: #a78bfa;
-        --secondary-color: #e9d5ff;
-        --text-color: #1f2937;
-        --text-secondary: #6b7280;
-        --light-bg: #f9fafb;
-        --border-color: #e5e7eb;
-        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      to {
+        transform: translateX(0);
+        opacity: 1;
       }
+    }
 
-      /* Theme Variants */
-      body.theme-purple {
-        --primary-color: #a78bfa;
-        --secondary-color: #e9d5ff;
+    @keyframes slideOut {
+      to {
+        transform: translateX(120%);
+        opacity: 0;
       }
+    }
 
-      body.theme-blue {
-        --primary-color: #60a5fa;
-        --secondary-color: #dbeafe;
-      }
+    .alert-success {
+      background: #ecfdf5;
+      color: #065f46;
+      border-left-color: #10b981;
+    }
 
-      body.theme-green {
-        --primary-color: #34d399;
-        --secondary-color: #d1fae5;
-      }
+    .alert-error {
+      background: #fef2f2;
+      color: #991b1b;
+      border-left-color: #ef4444;
+    }
 
-      body.theme-red {
-        --primary-color: #f87171;
-        --secondary-color: #fee2e2;
-      }
+    .alert-info {
+      background: #eff6ff;
+      color: #1e40af;
+      border-left-color: #3b82f6;
+    }
 
-      body.theme-orange {
-        --primary-color: #fb923c;
-        --secondary-color: #fed7aa;
-      }
+    .alert-warning {
+      background: #fffbeb;
+      color: #92400e;
+      border-left-color: #f59e0b;
+    }
 
-      body.theme-black {
-        --primary-color: #374151;
-        --secondary-color: #e5e7eb;
-      }
+    .alert i {
+      font-size: 1.25rem;
+    }
 
-      html {
-        font-size: 16px;
-        scroll-behavior: smooth;
-      }
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
 
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          "Helvetica Neue", Arial, sans-serif;
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        min-height: 100vh;
-        color: var(--text-color);
-        line-height: 1.6;
-        transition: var(--transition);
-        padding-top: 120px;
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text-color);
+      font-size: 0.95rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      min-height: 44px;
+      background: white;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(107, 104, 114, 0.1);
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+      margin-bottom: 1.5rem;
+      list-style: none;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .breadcrumb-item+.breadcrumb-item::before {
+      display: inline-block;
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+      color: var(--text-secondary);
+      content: "/";
+    }
+
+    .breadcrumb-item a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .breadcrumb-item a:hover {
+      color: var(--primary-color);
+    }
+
+    .breadcrumb-item.active {
+      color: var(--text-color);
+      font-weight: 600;
+    }
+
+    /* App Navbar & Footer */
+    .app-navbar {
+      background: white;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-color);
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .nav-brand {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Sidebar Desktop Styles */
+    @media (min-width: 1024px) {
+      .app-navbar {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        height: 100vh;
+        border-right: 1px solid var(--border-color);
+        border-bottom: none;
+        padding: 2rem 1.5rem;
         display: flex;
         flex-direction: column;
-        overflow-x: hidden;
       }
 
-.main-content {
-  width: 100%;
-  flex: 1;
-}
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
 
-/* Global page spacing */
-.page-wrapper {
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  margin-bottom: 40px;
-}
+      .nav-brand {
+        margin-bottom: 2.5rem;
+        font-size: 1.5rem;
+        width: 100%;
+      }
 
-/* Full-width sections support */
-.full-width {
-  width: 100%;
-  max-width: none;
-  padding-left: 0;
-  padding-right: 0;
-}
+      .nav-menu {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+        align-items: stretch;
+        flex: 1;
+      }
 
-/* Mobile spacing */
-@media (max-width: 768px) {
-  .page-wrapper {
-    padding: 0 1rem;
-  }
-}
+      .nav-link {
+        padding: 0.875rem 1rem;
+        border-radius: 8px;
+        justify-content: flex-start;
+      }
 
-/* Mobile footer fix */
-@media (max-width: 768px) {
-  body {
-    overflow-y: auto !important;
-  }
+      .nav-link i {
+        width: 24px;
+        text-align: center;
+        margin-right: 0.5rem;
+      }
 
-  .hero-section,
-  .benefits-section,
-  .testimonials-section,
-  .cta-section,
-  .contact-container {
-    overflow: visible !important;
-    
-  }
-}
+      .nav-link:hover,
+      .nav-link.active {
+        background: var(--secondary-color);
+        color: var(--primary-color);
+        transform: translateX(4px);
+      }
 
+      /* Push content right */
+      .app-navbar~.main-content,
+      .app-navbar~.app-footer {
+        margin-left: 260px;
+        width: calc(100% - 260px);
+      }
 
-      /* Fixed Header Container */
-      .fixed-header {
-        position: fixed;
-        top: 0;
+      .app-navbar~.messages {
+        left: 280px;
+      }
+
+      .nav-spacer {
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+      }
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.875rem;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: 8px;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--primary-color);
+    }
+
+    .app-footer {
+      background: var(--secondary-color);
+      border-top: 1px solid var(--border-color);
+      padding: 4rem 2rem 2rem;
+      margin-top: auto;
+      color: var(--text-secondary);
+    }
+
+    .foot-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .foot-brand p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-top: 1rem;
+      max-width: 300px;
+    }
+
+    .foot-col h4 {
+      font-weight: 700;
+      color: var(--text-color);
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+    }
+
+    .foot-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .foot-links li {
+      margin-bottom: 0.75rem;
+    }
+
+    .foot-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .foot-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .foot-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 1023px) {
+      .app-navbar {
+        padding: 0.75rem 0;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
         left: 0;
         right: 0;
-        z-index: 1000;
-        background: transparent;
-      }
-
-      /* Top Header with Contact & Themes */
-      .top-header {
-        background: var(--primary-color);
-        padding: 0.875rem 1rem;
-        color: #ffffff;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-        font-size: 0.875rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        transition: var(--transition);
-      }
-
-      .contact-info {
-        display: flex;
-        gap: 2rem;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-
-      .contact-info a {
-        color: #ffffff;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: var(--transition);
-        font-weight: 500;
-      }
-
-      .contact-info a:hover {
-        opacity: 0.85;
-        transform: translateY(-1px);
-      }
-
-      .contact-info i {
-        font-size: 1rem;
-      }
-
-      .social-icons {
-        display: flex;
-        gap: 0.75rem;
-        align-items: center;
-      }
-
-      .social-icons a {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 36px;
-        height: 36px;
-        background: rgba(255, 255, 255, 0.15);
-        border-radius: 50%;
-        color: #ffffff;
-        transition: var(--transition);
-        backdrop-filter: blur(10px);
-      }
-
-      .social-icons a:hover {
-        background: rgba(255, 255, 255, 0.25);
-        transform: translateY(-2px);
-      }
-
-      .theme-selector {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-        background: rgba(255, 255, 255, 0.1);
-        padding: 0.5rem 1rem;
-        border-radius: 50px;
-        backdrop-filter: blur(10px);
-      }
-
-      .theme-selector label {
-        font-weight: 600;
-        white-space: nowrap;
-        color: #ffffff;
-        font-size: 0.875rem;
-        margin-right: 0.5rem;
-      }
-
-      .theme-btn {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        cursor: pointer;
-        transition: var(--transition);
-        position: relative;
-      }
-
-      .theme-btn:hover {
-        transform: scale(1.15);
-        border-color: rgba(255, 255, 255, 0.6);
-      }
-
-      .theme-btn.active {
-        border-width: 3px;
-        border-color: #ffffff;
-        box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
-      }
-
-      .theme-purple {
-        background: #a78bfa;
-      }
-
-      .theme-blue {
-        background: #60a5fa;
-      }
-
-      .theme-green {
-        background: #34d399;
-      }
-
-      .theme-red {
-        background: #f87171;
-      }
-
-      .theme-orange {
-        background: #fb923c;
-      }
-
-      .theme-black {
-        background: #374151;
-      }
-
-      /* Navbar */
-      .navbar {
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(20px);
-        padding: 1rem 1.5rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        background: white;
+        flex-direction: column;
+        padding: 1.5rem;
         border-bottom: 1px solid var(--border-color);
+        gap: 1rem;
+        box-shadow: var(--shadow-lg);
+        align-items: stretch;
       }
 
-      .navbar-content {
-        max-width: 1400px;
-        margin: 0 auto;
+      .nav-menu.active {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+      }
+
+      .nav-container {
+        padding: 0 1.5rem;
+      }
+
+      .foot-grid {
+        grid-template-columns: 1fr;
         gap: 2rem;
       }
 
-      .logo {
-        font-size: 1.5rem;
-        font-weight: 800;
-        background: linear-gradient(135deg, var(--primary-color), #6366f1);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-decoration: none;
-        white-space: nowrap;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        letter-spacing: -0.02em;
+      .foot-bottom {
+        flex-direction: column;
+        text-align: center;
       }
-
-      .logo i {
-        font-size: 1.75rem;
-        background: linear-gradient(135deg, var(--primary-color), #6366f1);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .menu-toggle {
-        display: none;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--text-color);
-        padding: 0.5rem;
-        border-radius: 8px;
-        transition: var(--transition);
-      }
-
-      .menu-toggle:hover {
-        background: var(--light-bg);
-      }
-
-      .options-toggle {
-        display: none;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--text-color);
-        padding: 0.5rem;
-        border-radius: 8px;
-        transition: var(--transition);
-        margin-left: auto;
-        margin-right: 0.5rem;
-      }
-
-      .options-toggle:hover {
-        background: var(--light-bg);
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 0.5rem;
-        list-style: none;
-        align-items: center;
-      }
-
-      .nav-links a {
-        color: var(--text-color);
-        text-decoration: none;
-        font-weight: 600;
-        transition: var(--transition);
-        font-size: 0.95rem;
-        padding: 0.625rem 1.25rem;
-        border-radius: 10px;
-        position: relative;
-      }
-
-      .nav-links a::after {
-        content: "";
-        position: absolute;
-        bottom: 0.25rem;
-        left: 1.25rem;
-        right: 1.25rem;
-        height: 2px;
-        background: var(--primary-color);
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-      }
-
-      .nav-links a:hover {
-        color: var(--primary-color);
-        background: var(--secondary-color);
-      }
-
-      .nav-links a:hover::after {
-        transform: scaleX(1);
-      }
-
-      .user-info {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        font-size: 0.95rem;
-      }
-
-      .user-badge {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        background: var(--secondary-color);
-        border-radius: 50px;
-        font-weight: 600;
-        color: var(--text-color);
-      }
-
-      .user-badge i {
-        color: var(--primary-color);
-      }
-
-      .btn {
-        padding: 0.625rem 1.5rem;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: 600;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        transition: var(--transition);
-        font-size: 0.95rem;
-        white-space: nowrap;
-        min-height: 42px;
-      }
-
-      .btn-primary {
-        background: linear-gradient(135deg, var(--primary-color), #6366f1);
-        color: white;
-        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-      }
-
-      .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
-      }
-
-      .btn-secondary {
-        background: var(--secondary-color);
-        color: var(--primary-color);
-        border: 2px solid var(--primary-color);
-      }
-
-      .btn-secondary:hover {
-        background: var(--primary-color);
-        color: white;
-      }
-
-      .btn-danger {
-        background: #ef4444;
-        color: white;
-      }
-
-      .btn-danger:hover {
-        background: #dc2626;
-      }
-
-      .card {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        box-shadow: var(--shadow-md);
-        margin-bottom: 2rem;
-        border: 1px solid var(--border-color);
-      }
-
-      /* Messages */
-      .messages {
-        position: fixed;
-        top: 130px;
-        right: 1rem;
-        z-index: 1001;
-        max-width: 420px;
-      }
-
-      .alert {
-        padding: 1rem 1.25rem;
-        border-radius: 12px;
-        margin-bottom: 1rem;
-        animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        font-size: 0.95rem;
-        box-shadow: var(--shadow-lg);
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        border-left: 4px solid;
-      }
-
-
-      
-
-      @keyframes slideIn {
-        from {
-          transform: translateX(120%);
-          opacity: 0;
-        }
-
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
-      }
-
-      @keyframes slideOut {
-        to {
-          transform: translateX(120%);
-          opacity: 0;
-        }
-      }
-
-      .alert-success {
-        background: #ecfdf5;
-        color: #065f46;
-        border-left-color: #10b981;
-      }
-
-      .alert-error {
-        background: #fef2f2;
-        color: #991b1b;
-        border-left-color: #ef4444;
-      }
-
-      .alert-info {
-        background: #eff6ff;
-        color: #1e40af;
-        border-left-color: #3b82f6;
-      }
-
-      .alert-warning {
-        background: #fffbeb;
-        color: #92400e;
-        border-left-color: #f59e0b;
-      }
-
-      .alert i {
-        font-size: 1.25rem;
-      }
-
-      /* Form Styles */
-      .form-group {
-        margin-bottom: 1.5rem;
-      }
-
-      .form-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-        color: var(--text-color);
-        font-size: 0.95rem;
-      }
-
-      .form-control {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        border: 2px solid var(--border-color);
-        border-radius: 10px;
-        font-size: 0.95rem;
-        transition: var(--transition);
-        min-height: 44px;
-        background: white;
-      }
-
-      .form-control:focus {
-        outline: none;
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.1);
-      }
-
-      /* Responsive Design */
-      @media (max-width: 1024px) {
-        .navbar-content {
-          gap: 1rem;
-        }
-
-        .nav-links {
-          gap: 0.25rem;
-        }
-
-        .nav-links a {
-          padding: 0.5rem 1rem;
-          font-size: 0.9rem;
-        }
-      }
-
-      @media (max-width: 768px) {
-        body {
-          padding-top: 80px;
-        }
-
-        .top-header {
-          max-height: 0;
-          padding: 0 1rem;
-          overflow: hidden;
-          opacity: 0;
-          visibility: hidden;
-          transform: translateY(-10px);
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .top-header.active {
-          max-height: 500px;
-          padding: 1rem;
-          opacity: 1;
-          visibility: visible;
-          transform: translateY(0);
-        }
-
-        .contact-info {
-          flex-direction: column;
-          gap: 0.5rem;
-          width: 100%;
-          text-align: center;
-        }
-
-        .social-icons {
-          order: -1;
-        }
-
-        .theme-selector {
-          width: 100%;
-          justify-content: center;
-        }
-
-        .options-toggle {
-          display: block;
-        }
-
-        .menu-toggle {
-          display: block;
-        }
-
-        .navbar-content {
-          flex-wrap: wrap;
-        }
-
-        .nav-links {
-          flex-basis: 100%;
-          flex-direction: column;
-          gap: 0;
-          max-height: 0;
-          overflow: hidden;
-          transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .nav-links.active {
-          max-height: 500px;
-          padding: 1rem 0;
-          border-top: 1px solid var(--border-color);
-          margin-top: 1rem;
-        }
-
-        .nav-links a {
-          width: 100%;
-          text-align: center;
-          padding: 0.75rem 1rem;
-        }
-
-        .user-info {
-          flex-basis: 100%;
-          justify-content: center;
-          flex-wrap: wrap;
-        }
-
-        .messages {
-          top: auto;
-          bottom: 1rem;
-          left: 1rem;
-          right: 1rem;
-          max-width: none;
-        }
-
-      }
-
-      @media (max-width: 480px) {
-        .logo {
-          font-size: 1.25rem;
-        }
-
-        .logo i {
-          font-size: 1.5rem;
-        }
-
-        .btn {
-          padding: 0.5rem 1rem;
-          font-size: 0.875rem;
-        }
-
-        .user-badge {
-          padding: 0.375rem 0.875rem;
-          font-size: 0.875rem;
-        }
-
-        .contact-info a {
-          font-size: 0.8rem;
-        }
-
-        .theme-btn {
-          width: 24px;
-          height: 24px;
-        }
-
-        .social-icons a {
-          width: 32px;
-          height: 32px;
-        }
-      }
-
-      /* Desktop / Mobile visibility */
-      .desktop-only {
-        display: flex;
-      }
-
-      .mobile-menu {
-        display: none;
-      }
-
-      .mobile-menu.active {
-        display: flex;
-      }
-
-      /* Mobile behavior */
-      @media (max-width: 768px) {
-        .desktop-only {
-          display: none;
-        }
-
-        .navbar-content {
-          flex-wrap: nowrap;
-        }
-
-        .nav-links,
-        .user-info {
-          display: none;
-        }
-
-        .mobile-menu {
-          display: none;
-          flex-direction: column;
-          background: white;
-          width: 100%;
-          padding: 1rem;
-          border-top: 1px solid var(--border-color);
-          animation: slideDown 0.3s ease;
-        }
-
-        .mobile-menu.active {
-          display: flex;
-        }
-
-        .mobile-section {
-          margin-bottom: 1rem;
-        }
-
-        .mobile-section a {
-          display: block;
-          padding: 0.75rem;
-          border-radius: 8px;
-          text-decoration: none;
-          color: var(--text-color);
-          font-weight: 600;
-        }
-
-        .mobile-section a:hover {
-          background: var(--secondary-color);
-        }
-      }
-
-      @keyframes slideDown {
-        from {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-
-
-
-
-
-    </style>
-  </head>
-
-  <body class="theme-purple">
-    <!-- Fixed Header Container -->
-    <div class="fixed-header">
-      <!-- Top Header with Contact & Themes -->
-      <div class="top-header desktop-only">
-        <div class="contact-info">
-          <a href="tel:+919905498038">
-            <i class="fas fa-phone"></i> +91-9905498038
-          </a>
-          <a href="mailto:support@secureafter.com">
-            <i class="fas fa-envelope"></i> support@secureafter.com
-          </a>
-        </div>
-
-        <div class="social-icons">
-          <a href="https://facebook.com" target="_blank" title="Facebook">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="https://twitter.com" target="_blank" title="Twitter">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="https://linkedin.com" target="_blank" title="LinkedIn">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="https://instagram.com" target="_blank" title="Instagram">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://youtube.com" target="_blank" title="YouTube">
-            <i class="fab fa-youtube"></i>
-          </a>
-        </div>
-
-        <div class="theme-selector">
-          <label><i class="fas fa-palette"></i> Theme:</label>
-          <button class="theme-btn theme-purple active" onclick="setTheme('purple')" title="Purple"></button>
-          <button class="theme-btn theme-blue" onclick="setTheme('blue')" title="Blue"></button>
-          <button class="theme-btn theme-green" onclick="setTheme('green')" title="Green"></button>
-          <button class="theme-btn theme-red" onclick="setTheme('red')" title="Red"></button>
-          <button class="theme-btn theme-orange" onclick="setTheme('orange')" title="Orange"></button>
-          <button class="theme-btn theme-black" onclick="setTheme('black')" title="Black"></button>
-        </div>
-      </div>
-
-      <!-- Navbar -->
-      <nav class="navbar">
-        <div class="navbar-content">
-          <a href="{% if user.is_authenticated %}{% url 'vault:user_dashboard' %}{% else %}{% url 'home' %}{% endif %}"
-            class="logo">
-            <i class="fas fa-shield-alt"></i>SecureAfter
-          </a>
-
-          <button class="menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-          </button>
-
-
-
-          <ul class="nav-links" id="navLinks">
-            <li>
-              <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
-            </li>
-            {% if user.is_authenticated %}
-            <li>
-              <a href="{% url 'vault:user_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            </li>
-            <li>
-              <a href="{% url 'vault:my_vault' %}"><i class="fas fa-folder-open"></i> My Vault</a>
-            </li>
-            <li>
-              <a href="{% url 'vault:emergency_settings' %}"><i class="fas fa-exclamation-triangle"></i> Emergency</a>
-            </li>
-            <li>
-              <a href="{% url 'accounts:profile' %}"><i class="fas fa-user"></i> Profile</a>
-            </li>
-            {% endif %}
-          </ul>
-          <!-- Mobile Menu Panel -->
-          <div class="mobile-menu" id="mobileMenu">
-            <div class="mobile-section">
-              <div class="user-badge">
-                <i class="fas fa-user-circle"></i> {{ user.username }}
-              </div>
-            </div>
-
-            <div class="mobile-section">
-              <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
-              <a href="{% url 'vault:user_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-              <a href="{% url 'vault:my_vault' %}"><i class="fas fa-folder-open"></i> My Vault</a>
-              <a href="{% url 'vault:emergency_settings' %}"><i class="fas fa-exclamation-triangle"></i> Emergency</a>
-              <a href="{% url 'accounts:profile' %}"><i class="fas fa-user"></i> Profile</a>
-            </div>
-
-            <div class="mobile-section">
-              <strong>Theme</strong>
-              <div class="theme-selector">
-                <button class="theme-btn theme-purple" onclick="setTheme('purple')"></button>
-                <button class="theme-btn theme-blue" onclick="setTheme('blue')"></button>
-                <button class="theme-btn theme-green" onclick="setTheme('green')"></button>
-                <button class="theme-btn theme-red" onclick="setTheme('red')"></button>
-                <button class="theme-btn theme-orange" onclick="setTheme('orange')"></button>
-                <button class="theme-btn theme-black" onclick="setTheme('black')"></button>
-              </div>
-            </div>
-
-            <div class="mobile-section">
-              <a href="{% url 'accounts:logout' %}" class="btn btn-danger">
-                <i class="fas fa-sign-out-alt"></i> Logout
-              </a>
-            </div>
-          </div>
-
-          {% if user.is_authenticated %}
-          <div class="user-info">
-            <div class="user-badge">
-              <i class="fas fa-user-circle"></i>
-              {{ user.username }}
-            </div>
-            <a href="{% url 'accounts:logout' %}" class="btn btn-secondary">
-              <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
-          </div>
-          {% else %}
-          <div class="user-info">
-            <a href="{% url 'accounts:login' %}" class="btn btn-secondary">
-              <i class="fas fa-sign-in-alt"></i> Login
-            </a>
-            <a href="{% url 'accounts:register' %}" class="btn btn-primary">
-              <i class="fas fa-user-plus"></i> Sign Up
-            </a>
-          </div>
-          {% endif %}
-        </div>
-      </nav>
+    }
+  </style>
+  {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+  {% block navbar %}
+  <nav class="app-navbar">
+    <div class="nav-container">
+      <a href="{% url 'home' %}" class="nav-brand">
+        <i class="fas fa-shield-alt"></i> SecureAfter
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+      <ul class="nav-menu" id="navMenu">
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'vault:user_dashboard' %}"
+            class="nav-link {% if request.resolver_match.view_name == 'vault:user_dashboard' %}active{% endif %}"><i
+              class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+
+        {% if user.user_type == 'nominee' %}
+        <li><a href="{% url 'accounts:nominee_dashboard' %}"
+            class="nav-link {% if request.resolver_match.view_name == 'accounts:nominee_dashboard' %}active{% endif %}"><i
+              class="fas fa-user-shield"></i> Nominee Dashboard</a></li>
+        {% endif %}
+
+        <li><a href="{% url 'vault:my_vault' %}"
+            class="nav-link {% if request.resolver_match.view_name == 'vault:my_vault' %}active{% endif %}"><i
+              class="fas fa-folder-open"></i> Vault</a></li>
+        <li><a href="{% url 'vault:emergency_settings' %}"
+            class="nav-link {% if request.resolver_match.view_name == 'vault:emergency_settings' %}active{% endif %}"><i
+              class="fas fa-exclamation-triangle"></i> Emergency</a></li>
+        <li><a href="{% url 'accounts:profile' %}"
+            class="nav-link {% if request.resolver_match.view_name == 'accounts:profile' %}active{% endif %}"><i
+              class="fas fa-user"></i> Profile</a></li>
+        <li class="nav-spacer">
+          <a href="{% url 'accounts:logout' %}" class="nav-link" style="color: #ef4444;"><i
+              class="fas fa-sign-out-alt"></i> Logout</a>
+        </li>
+        {% else %}
+        <li><a href="{% url 'accounts:login' %}" class="nav-link">Login</a></li>
+        <li><a href="{% url 'accounts:register' %}" class="btn btn-primary"
+            style="min-height: 36px; padding: 0.4rem 1rem;">Get Started</a></li>
+        {% endif %}
+      </ul>
     </div>
+  </nav>
+  {% endblock %}
 
-    <!-- Messages -->
-    {% if messages %}
-    <div class="messages">
-      {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">
-        <i
-          class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}exclamation-circle{% elif message.tags == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %}"></i>
-        <span>{{ message }}</span>
-      </div>
-      {% endfor %}
+  <!-- Messages -->
+  {% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      <i
+        class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}exclamation-circle{% elif message.tags == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %}"></i>
+      <span>{{ message }}</span>
     </div>
-    {% endif %}
-
-    <!-- Main Content -->
-<main class="main-content">
-  <div class="page-wrapper">
-    {% block content %}{% endblock %}
+    {% endfor %}
   </div>
-</main>
+  {% endif %}
 
-    <!-- Footer -->
-    {% include 'footer.html' %}
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="page-wrapper">
+      {% block breadcrumbs %}{% endblock %}
+      {% block content %}{% endblock %}
+    </div>
+  </main>
 
-    <script>
-      // Theme switching
-      function setTheme(themeName) {
-        document.body.className = "theme-" + themeName;
-        localStorage.setItem("selectedTheme", themeName);
+  {% block footer %}
+  <footer class="app-footer">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="nav-brand" style="margin-bottom:0"><i class="fas fa-shield-alt"></i> SecureAfter</div>
+        <p>The most secure platform for digital legacy management. Protect what matters most for the people who matter
+          most.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Product</h4>
+        <ul class="foot-links">
+          <li><a href="{% url 'home' %}#features">Features</a></li>
+          <li><a href="{% url 'home' %}#security">Security</a></li>
+          <li><a href="{% url 'home' %}#how-it-works">How It Works</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul class="foot-links">
+          <li><a href="{% url 'about' %}">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="{% url 'home' %}#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <ul class="foot-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">GDPR</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>&copy; {% now "Y" %} SecureAfter. All rights reserved.</p>
+      <div style="display:flex;gap:1rem">
+        <a href="#" style="color:inherit"><i class="fab fa-twitter"></i></a>
+        <a href="#" style="color:inherit"><i class="fab fa-linkedin"></i></a>
+        <a href="#" style="color:inherit"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+  </footer>
+  {% endblock %}
 
-        // Update active button
-        document.querySelectorAll(".theme-btn").forEach((btn) => {
-          btn.classList.remove("active");
-        });
-        event.target.classList.add("active");
-      }
-
-      // Load saved theme
-      window.addEventListener("load", function () {
-        const savedTheme = localStorage.getItem("selectedTheme") || "purple";
-        document.body.className = "theme-" + savedTheme;
-        document.querySelectorAll(".theme-btn").forEach(btn => {
-          btn.classList.remove("active");
-          if (btn.classList.contains("theme-" + savedTheme)) {
-            btn.classList.add("active");
-          }
-        });
+  <script>
+    // Auto-hide messages
+    setTimeout(() => {
+      const messages = document.querySelectorAll(".alert");
+      messages.forEach((msg) => {
+        msg.style.animation = "slideOut 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
+        setTimeout(() => msg.remove(), 400);
       });
+    }, 5000);
 
-
-      // Mobile menu toggle
-      document.addEventListener("DOMContentLoaded", function () {
-        const mobileMenuToggle = document.getElementById("mobileMenuToggle");
-        const mobileMenu = document.getElementById("mobileMenu");
-
-        console.log("Toggle:", mobileMenuToggle);
-        console.log("Menu:", mobileMenu);
-
-        if (!mobileMenuToggle || !mobileMenu) {
-          console.error("Mobile menu elements missing");
-          return;
+    // Mobile Nav Toggle
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        const icon = navToggle.querySelector('i');
+        if (navMenu.classList.contains('active')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
         }
-
-        mobileMenuToggle.addEventListener("click", function () {
-          mobileMenu.classList.toggle("active");
-
-          const icon = mobileMenuToggle.querySelector("i");
-          if (icon) {
-            icon.classList.toggle("fa-bars");
-            icon.classList.toggle("fa-times");
-          }
-        });
       });
-
-      // Close menu when clicking a link
-      const links = navLinks.querySelectorAll("a");
-      links.forEach((link) => {
-        link.addEventListener("click", () => {
-          navLinks.classList.remove("active");
-          const icon = menuToggle.querySelector("i");
-          icon.classList.remove("fa-times");
-          icon.classList.add("fa-bars");
-        });
-      });
-
-
-      // Auto-hide messages
-      setTimeout(() => {
-        const messages = document.querySelectorAll(".alert");
-        messages.forEach((msg) => {
-          msg.style.animation = "slideOut 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
-          setTimeout(() => msg.remove(), 400);
-        });
-      }, 5000);
-    </script>
-    {% block extra_js %}{% endblock %}
-  </body>
+    }
+  </script>
+  {% block extra_js %}{% endblock %}
+</body>
 
 </html>

@@ -60,11 +60,11 @@
 
     /* Header */
     .emergency-header {
-        background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+        background: linear-gradient(135deg, #f00808b6 0%, #dc26269c 50%, #b91c1c 100%);
         padding: 3rem 2.5rem;
-        border-radius: 24px;
+        border-radius: 10px;
         margin-bottom: 2.5rem;
-        color: white;
+        color: rgb(251, 246, 246);
         position: relative;
         overflow: hidden;
         box-shadow: 0 20px 40px -10px rgba(239, 68, 68, 0.4);
@@ -301,7 +301,7 @@
     /* Instructions Card */
     .instructions-preview {
         background: var(--light-bg);
-        border-radius: 16px;
+        border-radius: 6px;
         padding: 2rem;
         border: 2px solid var(--border-color);
     }
@@ -414,157 +414,176 @@
 
         <!-- Settings Grid -->
         <div class="settings-grid">
-            <!-- Trusted Nominees -->
+            <!-- System Status -->
             <div class="settings-card">
                 <div class="card-header-modern">
                     <div class="card-title-group">
-                        <i class="fas fa-users"></i>
-                        <h2>Trusted Nominees</h2>
+                        <i class="fas fa-heartbeat"></i>
+                        <h2>System Status</h2>
                     </div>
-                    <a href="{% url 'vault:add_nominee' %}" class="btn btn-primary btn-add">
-                        <i class="fas fa-user-plus"></i>
-                        Add Nominee
-                    </a>
+                    <form method="POST" style="margin: 0;">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="check_in">
+                        <button type="submit" class="btn btn-primary btn-add" {% if not emergency_settings.is_enabled %}disabled{% endif %}>
+                            <i class="fas fa-user-check"></i>
+                            Check-in Now
+                        </button>
+                    </form>
                 </div>
                 
-                {% if nominees %}
-                <div class="table-responsive">
-                    <table class="modern-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Relationship</th>
-                                <th>Access Level</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for nominee in nominees %}
-                            <tr>
-                                <td>
-                                    <i class="fas fa-user-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
-                                    {{ nominee.nominee_name }}
-                                </td>
-                                <td>
-                                    <i class="fas fa-envelope" style="color: var(--text-tertiary); margin-right: 0.5rem;"></i>
-                                    {{ nominee.nominee_email }}
-                                </td>
-                                <td>
-                                    <i class="fas fa-heart" style="color: var(--text-tertiary); margin-right: 0.5rem;"></i>
-                                    {{ nominee.get_relationship_display }}
-                                </td>
-                                <td>
-                                    <span class="badge-modern badge-info">
-                                        <i class="fas fa-key"></i>
-                                        {{ nominee.get_access_level_display }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge-modern badge-success">
-                                        <i class="fas fa-check-circle"></i>
-                                        Active
-                                    </span>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                {% if emergency_settings.is_enabled %}
+                <div class="info-box" style="margin-bottom: 0; background: {% if check_in_status == 'on_track' %}linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%){% elif check_in_status == 'emergency' %}linear-gradient(135deg, #fee2e2 0%, #fecaca 100%){% else %}linear-gradient(135deg, #fef3c7 0%, #fde68a 100%){% endif %}; border-left-color: {% if check_in_status == 'on_track' %}#059669{% elif check_in_status == 'emergency' %}#dc2626{% else %}#d97706{% endif %};">
+                    <i class="fas fa-{% if check_in_status == 'on_track' %}check-circle{% elif check_in_status == 'emergency' %}exclamation-triangle{% else %}clock{% endif %}" style="color: {% if check_in_status == 'on_track' %}#059669{% elif check_in_status == 'emergency' %}#dc2626{% else %}#d97706{% endif %};"></i>
+                    <div class="info-box-content">
+                        <h3 style="color: {% if check_in_status == 'on_track' %}#065f46{% elif check_in_status == 'emergency' %}#991b1b{% else %}#92400e{% endif %};">
+                            Status: 
+                            {% if check_in_status == 'on_track' %}On Track
+                            {% elif check_in_status == 'upcoming' %}Upcoming
+                            {% elif check_in_status == 'reminder' %}Reminder Sent
+                            {% elif check_in_status == 'urgent' %}Urgent Action Required
+                            {% elif check_in_status == 'emergency' %}Emergency Triggered
+                            {% else %}On Track{% endif %}
+                        </h3>
+                        <p style="color: {% if check_in_status == 'on_track' %}#065f46{% elif check_in_status == 'emergency' %}#991b1b{% else %}#92400e{% endif %};">
+                            <strong>Next Check-in Due:</strong> {{ emergency_settings.next_check_in_due|date:"M d, Y, h:i a"|default:"Not set" }}<br>
+                            <strong>Last Check-in:</strong> {{ emergency_settings.last_check_in|date:"M d, Y, h:i a"|default:"Never" }}
+                        </p>
+                    </div>
                 </div>
                 {% else %}
-                <div class="empty-state">
-                    <i class="fas fa-user-friends"></i>
-                    <h3>No Nominees Added</h3>
-                    <p>Add someone you trust to access your documents in emergencies.</p>
-                    <a href="{% url 'vault:add_nominee' %}" class="btn btn-primary btn-add">
-                        <i class="fas fa-user-plus"></i>
-                        Add First Nominee
-                    </a>
+                <div class="info-box" style="margin-bottom: 0; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); border-left-color: #6b7280;">
+                    <i class="fas fa-power-off" style="color: #4b5563;"></i>
+                    <div class="info-box-content">
+                        <h3 style="color: #374151;">System Disabled</h3>
+                        <p style="color: #4b5563;">Your emergency check-in system is currently turned off. Enable it below to ensure your nominees get access if you become unavailable.</p>
+                    </div>
                 </div>
                 {% endif %}
             </div>
             
-            <!-- Emergency Triggers -->
+            <!-- Configuration -->
             <div class="settings-card">
                 <div class="card-header-modern">
                     <div class="card-title-group">
-                        <i class="fas fa-bell"></i>
-                        <h2>Emergency Triggers</h2>
+                        <i class="fas fa-cog"></i>
+                        <h2>Configuration</h2>
                     </div>
+                    {% if emergency_settings.is_enabled %}
+                    <form method="POST" style="margin: 0;" onsubmit="return confirm('Are you sure you want to disable the emergency system?');">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="disable">
+                        <button type="submit" class="btn btn-danger" style="padding: 0.5rem 1rem; border-radius: 8px; border: none; font-weight: 600;">
+                            <i class="fas fa-power-off"></i> Disable System
+                        </button>
+                    </form>
+                    {% endif %}
                 </div>
                 
-                {% if triggers %}
-                <div class="table-responsive">
-                    <table class="modern-table">
-                        <thead>
-                            <tr>
-                                <th>Trigger Type</th>
-                                <th>Settings</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for trigger in triggers %}
-                            <tr>
-                                <td>
-                                    <i class="fas fa-clock" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
-                                    {{ trigger.get_trigger_type_display }}
-                                </td>
-                                <td>
-                                    {% if trigger.trigger_type == 'inactivity' %}
-                                    <i class="fas fa-calendar-alt" style="color: var(--text-tertiary); margin-right: 0.5rem;"></i>
-                                    {{ trigger.inactivity_days }} days
-                                    {% elif trigger.trigger_type == 'scheduled' %}
-                                    <i class="fas fa-calendar-check" style="color: var(--text-tertiary); margin-right: 0.5rem;"></i>
-                                    {{ trigger.scheduled_date|date:"M d, Y" }}
-                                    {% else %}
-                                    <i class="fas fa-hand-paper" style="color: var(--text-tertiary); margin-right: 0.5rem;"></i>
-                                    Manual
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if trigger.is_active %}
-                                    <span class="badge-modern badge-success">
-                                        <i class="fas fa-check-circle"></i>
-                                        Active
-                                    </span>
-                                    {% else %}
-                                    <span class="badge-modern badge-danger">
-                                        <i class="fas fa-times-circle"></i>
-                                        Inactive
-                                    </span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                {% else %}
-                <div class="empty-state">
-                    <i class="fas fa-bell-slash"></i>
-                    <h3>No Triggers Configured</h3>
-                    <p>Set up automatic triggers to grant emergency access when needed.</p>
-                </div>
-                {% endif %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="configure">
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem;">
+                        <!-- Switch -->
+                        <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="is_enabled" {% if emergency_settings.is_enabled %}checked{% endif %} style="width: 20px; height: 20px; accent-color: var(--primary-color);">
+                            <span style="font-weight: 600; font-size: 1.05rem; color: var(--text-color);">Enable Dead Man's Switch</span>
+                        </label>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                            <div>
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-secondary);">Check-in Interval (Days)</label>
+                                <select name="check_in_interval" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 2px solid var(--border-color); font-size: 1rem; color: var(--text-color);">
+                                    <option value="10" {% if emergency_settings.check_in_interval == 10 %}selected{% endif %}>10 Days</option>
+                                    <option value="15" {% if emergency_settings.check_in_interval == 15 %}selected{% endif %}>15 Days</option>
+                                    <option value="20" {% if emergency_settings.check_in_interval == 20 %}selected{% endif %}>20 Days</option>
+                                    <option value="30" {% if emergency_settings.check_in_interval == 30 %}selected{% endif %}>30 Days</option>
+                                    <option value="45" {% if emergency_settings.check_in_interval == 45 %}selected{% endif %}>45 Days</option>
+                                    <option value="60" {% if emergency_settings.check_in_interval == 60 %}selected{% endif %}>60 Days</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-secondary);">Grace Period (Days)</label>
+                                <select name="grace_period" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 2px solid var(--border-color); font-size: 1rem; color: var(--text-color);">
+                                    <option value="3" {% if emergency_settings.grace_period == 3 %}selected{% endif %}>3 Days</option>
+                                    <option value="5" {% if emergency_settings.grace_period == 5 %}selected{% endif %}>5 Days</option>
+                                    <option value="7" {% if emergency_settings.grace_period == 7 %}selected{% endif %}>7 Days</option>
+                                    <option value="10" {% if emergency_settings.grace_period == 10 %}selected{% endif %}>10 Days</option>
+                                    <option value="14" {% if emergency_settings.grace_period == 14 %}selected{% endif %}>14 Days</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="auto_trigger_emergency" {% if emergency_settings.auto_trigger_emergency %}checked{% endif %} style="width: 18px; height: 18px; accent-color: var(--primary-color);">
+                            <span style="color: var(--text-secondary);">Automatically trigger emergency access when check-in is missed</span>
+                        </label>
+
+                        <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="notify_nominees_on_missed" {% if emergency_settings.notify_nominees_on_missed %}checked{% endif %} style="width: 18px; height: 18px; accent-color: var(--primary-color);">
+                            <span style="color: var(--text-secondary);">Notify nominees when a check-in is missed</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; border-radius: 10px; font-size: 1.05rem;">
+                        <i class="fas fa-save"></i> Save Configuration
+                    </button>
+                </form>
             </div>
             
-            <!-- Emergency Instructions -->
+            <!-- Recent Check-ins -->
             <div class="settings-card">
                 <div class="card-header-modern">
                     <div class="card-title-group">
-                        <i class="fas fa-file-medical-alt"></i>
-                        <h2>Emergency Instructions</h2>
+                        <i class="fas fa-history"></i>
+                        <h2>Recent Check-ins</h2>
                     </div>
                 </div>
 
-                <div class="instructions-preview">
-                    <p>Add important instructions for your nominees to read during emergency access. This can include medical preferences, family guidance, and asset information.</p>
-                    <a href="{% url 'vault:emergency_instructions' %}" class="btn btn-primary btn-add">
-                        <i class="fas fa-edit"></i>
-                        Manage Instructions
-                    </a>
+                {% if recent_checkins %}
+                <div class="table-responsive">
+                    <table class="modern-table">
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Status</th>
+                                <th>IP Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for checkin in recent_checkins %}
+                            <tr>
+                                <td>
+                                    <i class="fas fa-calendar-check" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+                                    {{ checkin.check_in_time|date:"M d, Y, h:i a" }}
+                                </td>
+                                <td>
+                                    {% if checkin.status == 'on_time' %}
+                                    <span class="badge-modern badge-success"><i class="fas fa-check-circle"></i> On Time</span>
+                                    {% elif checkin.status == 'late' %}
+                                    <span class="badge-modern badge-warning"><i class="fas fa-clock"></i> Late</span>
+                                    {% elif checkin.status == 'missed' %}
+                                    <span class="badge-modern badge-danger"><i class="fas fa-times-circle"></i> Missed</span>
+                                    {% else %}
+                                    <span class="badge-modern badge-info"><i class="fas fa-robot"></i> Auto</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <i class="fas fa-network-wired" style="color: var(--text-tertiary); margin-right: 0.5rem;"></i>
+                                    {{ checkin.ip_address|default:"Unknown" }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>No Check-ins Yet</h3>
+                    <p>Your check-in history will appear here once you start using the system.</p>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>

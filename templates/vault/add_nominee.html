@@ -62,10 +62,11 @@
     .nominee-header {
                  
         padding: 3rem 2.5rem;
-        border-radius: 24px;
+        border-radius: 14px;
         margin-bottom: 2.5rem;
         font-weight: 600;
         color: rgb(240, 238, 238);
+        background:rgb(31, 30, 30);
         position: relative;
         overflow: hidden;
         box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.4);
@@ -475,6 +476,21 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="form-row" style="margin-top: 1.5rem;">
+                        <div class="form-group" style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                            <input type="checkbox" id="can_add_nominees" name="can_add_nominees" style="margin-top: 0.3rem; width: 1.1rem; height: 1.1rem; cursor: pointer; accent-color: var(--primary-color);">
+                            <div>
+                                <label for="can_add_nominees" style="margin-bottom: 0.25rem; font-size: 0.95rem;">
+                                    Allow this nominee to add other nominees
+                                </label>
+                                <div class="help-text" style="margin-top: 0;">
+                                    <i class="fas fa-info-circle"></i>
+                                    If enabled, this nominee can invite other people to access your vault on your behalf.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Features Info -->
@@ -534,11 +550,11 @@
             return false;
         }
         
-        // Phone validation (basic)
-        const phoneRegex = /^[\d\s\+\-\(\)]+$/;
-        if (!phoneRegex.test(phone)) {
+        // Phone validation (length check)
+        const phoneDigits = phone.replace(/\D/g, "");
+        if (phoneDigits.length < 10 || phoneDigits.length > 15) {
             e.preventDefault();
-            alert('Please enter a valid phone number');
+            alert('Please enter a valid phone number (10 to 15 digits)');
             document.getElementById('phone').focus();
             return false;
         }

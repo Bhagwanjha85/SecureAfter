@@ -1,311 +1,192 @@
-{% extends 'base.html' %} {% block title %}Login - SecureAfter{% endblock %} 
-{%block content %}
-<style>
-  .login-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 80vh;
-    padding: 2rem 1rem;
-  }
+{% extends 'base.html' %}
+{% load static %}
 
-  .login-container {
-    display: flex;
-    background: white;
-    border-radius: 24px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
-    width: 100%;
-    max-width: 1000px;
-    border: 1px solid var(--border-color);
-  }
+{% block title %}Login - SecureAfter{% endblock %}
 
-  /* Left Side - Visual */
-  .login-visual {
-    flex: 1;
-    background-image: url('https://img.freepik.com/free-photo/orange-fall-foliage-with-copy-space_23-2148239728.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;    
-    padding: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  
-
-  .visual-content {
-    position: relative;
-    z-index: 2;
-  }
-
-  .visual-icon {
-    font-size: 4rem;
-    margin-bottom: 2rem;
-    background: rgba(255, 255, 255, 0.2);
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .visual-title {
-    font-size: 1.75rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .visual-text {
-    font-size: 1.05rem;
-    opacity: 0.9;
-    line-height: 1.6;
-    max-width: 320px;
-    margin: 0 auto;
-    background: rgba(15, 15, 15, 0.411);
-    border-radius: 15px;
-    padding: 10px;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
-  }
-
-  /* Right Side - Form */
-  .login-form-side {
-    flex: 1;
-    padding: 3rem;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .auth-header {
-    margin-bottom: 2rem;
-  }
-
-  .auth-title {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.02em;
-  }
-
-  .auth-subtitle {
-    color: var(--text-secondary);
-    font-size: 1rem;
-  }
-
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-
-  .form-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--text-color);
-    font-size: 0.9rem;
-  }
-
-  .form-control {
-    width: 100%;
-    padding: 0.875rem 1.25rem;
-    border: 2px solid var(--border-color);
-    border-radius: 12px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background-color: #f8fafc;
-  }
-
-  .form-control:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-    background-color: white;
-  }
-
-  .btn-primary {
-    width: 100%;
-    padding: 1rem 1.5rem;
-    background: linear-gradient(135deg, var(--primary-color), #6366f1);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 1.05rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
-  }
-
-  .form-footer {
-    text-align: center;
-    margin-top: 2rem;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-  }
-
-  .form-footer a {
-    color: var(--primary-color);
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .form-footer a:hover {
-    text-decoration: underline;
-  }
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .login-container {
-      flex-direction: column;
-    }
-    .login-visual {
-      padding: 3rem 2rem;
-    }
-    .login-form-side {
-      padding: 2rem;
-    }
-    .visual-icon {
-      width: 100px;
-      height: 100px;
-      font-size: 3rem;
-    }
-  }
-</style>
-
-<div class="login-wrapper">
-  <div class="login-container">
-    <!-- Left Side: Visual -->
-    <div class="login-visual">
-      <div class="visual-content">
-        <div class="visual-icon">
-          <i class="fas fa-shield-alt"></i>
+{% block content %}
+<div class="auth-page-wrapper">
+    <div class="auth-card">
+        <a href="{% url 'home' %}" class="back-home-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        <div class="auth-header">
+            <i class="fas fa-shield-alt auth-icon"></i>
+            <h2>Welcome Back</h2>
+            <p>Enter your credentials to access your secure vault</p>
         </div>
-        <h2 class="visual-title">Secure Access</h2>
-        <p class="visual-text">
-          Your digital vault is protected with bank-grade encryption. Access
-          your documents securely from anywhere.
-        </p>
-      </div>
+
+        <form method="POST" action="{% url 'accounts:login' %}">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label class="form-label" for="username">Username, email or phone</label>
+                <input type="text" id="username" name="username" class="form-control" required placeholder="Enter your username, email or phone">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required placeholder="Enter your password">
+            </div>
+
+            <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                <input type="checkbox" id="remember_me" name="remember_me">
+                <label for="remember_me" style="color: var(--text-color-secondary); font-size: 0.9rem; margin: 0;">Remember me</label>
+            </div>
+
+            <button type="submit" class="btn-primary">Sign In</button>
+        </form>
+
+        <div class="auth-links">
+            <p>Don't have an account? <a href="{% url 'accounts:register' %}">Create Account</a></p>
+            <p><a href="{% url 'accounts:forgot_password' %}">Forgot your password?</a></p>
+        </div>
     </div>
-
-    <!-- Right Side: Form -->
-    <div class="login-form-side">
-      <div class="auth-header">
-        <h1 class="auth-title">Welcome Back</h1>
-        <p class="auth-subtitle">Please enter your details to sign in</p>
-      </div>
-
-      <form method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="username" class="form-label">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            class="form-control"
-            required
-            placeholder="Enter your username"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="password" class="form-label">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-control"
-            required
-            placeholder="Enter your password"
-          />
-        </div>
-
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-          "
-        >
-          <div style="display: flex; align-items: center">
-            <input
-              type="checkbox"
-              id="remember_me"
-              name="remember_me"
-              style="
-                width: 16px;
-                height: 16px;
-                margin-right: 0.5rem;
-                cursor: pointer;
-                accent-color: var(--primary-color);
-              "
-            />
-            <label
-              for="remember_me"
-              style="
-                margin-bottom: 0;
-                font-size: 0.9rem;
-                color: var(--text-secondary);
-                cursor: pointer;
-              "
-              >Remember Me</label
-            >
-          </div>
-          <a
-            href="{% url 'accounts:forgot_password' %}"
-            style="
-              color: var(--primary-color);
-              font-size: 0.9rem;
-              font-weight: 600;
-              text-decoration: none;
-            "
-            >Forgot Password?</a
-          >
-        </div>
-
-        <button type="submit" class="btn btn-primary">
-          <i class="fas fa-sign-in-alt" style="margin-right: 8px"></i> Sign In
-        </button>
-      </form>
-
-      <div class="form-footer">
-        Don't have an account?
-        <a href="{% url 'accounts:register' %}">Create Account</a>
-      </div>
-    </div>
-  </div>
 </div>
+
+<style>
+    :root {
+        --primary-blue: #2563eb;
+        --primary-blue-hover: #1d4ed8;
+        --primary-blue-light: #eff6ff;
+        --text-color-primary: #111827;
+        --text-color-secondary: #6b7280;
+        --border-color-soft: #e5e7eb;
+        --bg-professional: #f8fafc;
+    }
+
+    body {
+        background-color: var(--bg-professional);
+    }
+
+    .back-home-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-color-secondary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        transition: color 0.2s;
+    }
+
+    .back-home-link:hover {
+        color: var(--primary-blue);
+    }
+
+    .auth-page-wrapper {
+        min-height: calc(100vh - 120px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+    }
+
+    .auth-card {
+        background: white;
+        width: 100%;
+        max-width: 450px;
+        padding: 2.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-color-soft);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(37, 99, 235, 0.1);
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .auth-header h2 {
+        font-size: 1.875rem;
+        font-weight: 800;
+        color: var(--text-color-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .auth-header p {
+        color: var(--text-color-secondary);
+        font-size: 0.95rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-color-primary);
+        margin-bottom: 0.4rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--border-color-soft);
+        border-radius: 8px;
+        font-size: 1rem;
+        color: var(--text-color-primary);
+        background-color: #ffffff;
+        transition: all 0.2s ease;
+        box-sizing: border-box;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px var(--primary-blue-light);
+    }
+
+    .btn-primary {
+        display: inline-block;
+        width: 100%;
+        padding: 0.875rem 1.5rem;
+        background-color: var(--primary-blue);
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 1rem;
+        text-align: center;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+        margin-top: 0.5rem;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary-blue-hover);
+    }
+
+    .btn-primary:active {
+        transform: scale(0.98);
+    }
+
+    .auth-links {
+        margin-top: 1.5rem;
+        text-align: center;
+        color: var(--text-color-secondary);
+        font-size: 0.9rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .auth-links a {
+        color: var(--primary-blue);
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .auth-links a:hover {
+        color: var(--primary-blue-hover);
+        text-decoration: underline;
+    }
+
+    .auth-icon {
+        font-size: 2.5rem;
+        color: var(--primary-blue);
+        margin-bottom: 1rem;
+    }
+</style>
 {% endblock %}

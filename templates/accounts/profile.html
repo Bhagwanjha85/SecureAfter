@@ -62,7 +62,7 @@
     margin: 0 auto;
   }
   .profile-header {
-   
+    background:#2b2b2b;
     padding: 3rem 2.5rem;
     border-radius: 24px;
     margin-bottom: 2.5rem;
@@ -745,10 +745,7 @@
                 </p>
               </div>
             </div>
-            <span class="badge-modern badge-info"
-              ><i class="fas fa-heart"></i> {{ nominee.get_relationship_display
-              }}</span
-            >
+            <span class="badge-modern badge-info"><i class="fas fa-heart"></i> {{ nominee.get_relationship_display }}</span>
           </div>
           {% endfor %}
         </div>
@@ -970,10 +967,10 @@
       document.body.style.overflow = "hidden";
     };
 
-    function closeModal() {
+    window.closeModal = function () {
       document.getElementById("passwordModal").style.display = "none";
       document.body.style.overflow = "auto";
-    }
+    };
 
     window.openDeleteModal = function () {
       document.getElementById("deleteModal").style.display = "flex";
@@ -1043,6 +1040,35 @@
           e.preventDefault();
           alert("Password must be at least 8 characters long!");
           return false;
+        }
+      });
+    }
+
+    // Profile Form Validation (Phone & Emergency Contact)
+    const profileForm = document.getElementById("profileForm");
+    if (profileForm) {
+      profileForm.addEventListener("submit", function (e) {
+        const phone = document.getElementById("phone").value;
+        const emergencyContact = document.getElementById("emergency_contact").value;
+        
+        if (phone) {
+          const digits = phone.replace(/\D/g, "");
+          if (digits.length < 10 || digits.length > 15) {
+            e.preventDefault();
+            alert("Please enter a valid Phone Number (10 to 15 digits).");
+            document.getElementById("phone").focus();
+            return false;
+          }
+        }
+        
+        if (emergencyContact) {
+          const digits = emergencyContact.replace(/\D/g, "");
+          if (digits.length < 10 || digits.length > 15) {
+            e.preventDefault();
+            alert("Please enter a valid Emergency Contact number (10 to 15 digits).");
+            document.getElementById("emergency_contact").focus();
+            return false;
+          }
         }
       });
     }

@@ -1,0 +1,705 @@
+{% extends 'base.html' %}
+{% block title %}{{ document.title }} — SecureAfter{% endblock %}
+
+{% block extra_css %}
+<style>
+  :root {
+    --blue: #2d5277;
+    --blue-dark: #315293;
+    --blue-light: #eff6ff;
+    --blue-faint: #f0f4f9;
+    --text: #111827;
+    --text-2: #374151;
+    --text-3: #6b7280;
+    --border: #e5e7eb;
+    --bg: #f9fafb;
+    --white: #ffffff;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 32px rgba(0, 0, 0, 0.10);
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+    --red: #dc2626;
+    --red-bg: #fef2f2;
+  }
+
+  /* ── PAGE SHELL ── */
+  .dv-page {
+    background: var(--bg);
+    min-height: calc(100vh - 64px);
+    padding: 2.5rem 0 4rem;
+  }
+
+  .dv-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--text-3);
+    margin-bottom: 1.5rem;
+  }
+
+  .breadcrumb-row a {
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .breadcrumb-row a:hover {
+    text-decoration: underline;
+  }
+
+  .breadcrumb-row .sep {
+    font-size: 0.6rem;
+    color: #d1d5db;
+  }
+
+  /* ── DOCUMENT HERO CARD ── */
+  .doc-hero {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Colored top strip */
+  .doc-hero-strip {
+    height: 6px;
+    background: var(--blue);
+  }
+
+  .doc-hero-body {
+    padding: 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .doc-type-icon-lg {
+    width: 68px;
+    height: 68px;
+    border-radius: 16px;
+    background: var(--blue-light);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.85rem;
+    flex-shrink: 0;
+    border: 1px solid #bfdbfe;
+  }
+
+  .doc-hero-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .doc-hero-info h1 {
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin: 0 0 0.5rem;
+    word-break: break-word;
+  }
+
+  .doc-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .doc-meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-3);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.28rem 0.65rem;
+    border-radius: 6px;
+  }
+
+  .doc-meta-chip i {
+    color: var(--blue);
+    font-size: 0.72rem;
+  }
+
+  .access-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--blue);
+    background: var(--blue-light);
+    border: 1px solid #bfdbfe;
+    padding: 0.3rem 0.7rem;
+    border-radius: 99px;
+  }
+
+  /* ── OWNER BLOCK (right side) ── */
+  .doc-owner-block {
+    background: var(--blue-faint);
+    border: 1px solid #bfdbfe;
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    flex-shrink: 0;
+    min-width: 200px;
+  }
+
+  .doc-owner-block p {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--blue);
+    margin: 0 0 0.55rem;
+  }
+
+  .doc-owner-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .doc-owner-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--blue);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+
+  .doc-owner-row h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.1rem;
+  }
+
+  .doc-owner-row span {
+    font-size: 0.75rem;
+    color: var(--text-3);
+  }
+
+  /* ── METADATA GRID ── */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .meta-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem 1.25rem;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .meta-box:hover {
+    box-shadow: var(--shadow-md);
+    border-color: #bfdbfe;
+  }
+
+  .meta-box-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.73rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-3);
+    margin-bottom: 0.5rem;
+  }
+
+  .meta-box-label i {
+    color: var(--blue);
+  }
+
+  .meta-box-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+  }
+
+  /* ── DESCRIPTION CARD ── */
+  .desc-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .desc-card-header {
+    padding: 0.9rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--blue-faint);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--blue);
+  }
+
+  .desc-card-body {
+    padding: 1.4rem;
+    font-size: 0.9rem;
+    color: var(--text-2);
+    line-height: 1.7;
+  }
+
+  /* ── DOWNLOAD / RESTRICTED NOTICE ── */
+  .download-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .download-section h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-3);
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .download-section h3 i {
+    color: var(--blue);
+  }
+
+  .download-allowed {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .download-info {
+    flex: 1;
+  }
+
+  .download-info p {
+    font-size: 0.875rem;
+    color: var(--text-2);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .restricted-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: var(--red-bg);
+    border: 1px solid #fca5a5;
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+  }
+
+  .restricted-notice i {
+    color: var(--red);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .restricted-notice div p {
+    font-size: 0.875rem;
+    color: #7f1d1d;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .restricted-notice div strong {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--red);
+    margin-bottom: 0.2rem;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.6rem 1.3rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: var(--blue);
+    color: var(--white);
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn-primary:hover {
+    background: var(--blue-dark);
+    transform: translateY(-1px);
+    color: var(--white);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1.15rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: var(--white);
+    color: var(--text-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    transform: translateY(-1px);
+  }
+
+  .btn-disabled {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.6rem 1.3rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: #f3f4f6;
+    color: #9ca3af;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    cursor: not-allowed;
+    white-space: nowrap;
+  }
+
+  /* ── BOTTOM NAV ── */
+  .dv-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .doc-hero-body {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .doc-owner-block {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .meta-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .dv-footer {
+      flex-direction: column;
+    }
+
+    .dv-footer a,
+    .dv-footer button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .download-allowed {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .meta-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dv-page">
+  <div class="dv-inner">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-row">
+      <a href="{% url 'accounts:nominee_dashboard' %}"><i class="fas fa-home"></i> Dashboard</a>
+      <i class="fas fa-chevron-right sep"></i>
+      <a href="{% url 'accounts:nominee_documents' nominee.id %}">Shared Vault</a>
+      <i class="fas fa-chevron-right sep"></i>
+      <span>{{ document.title|truncatechars:30 }}</span>
+    </div>
+
+    <!-- Document Hero -->
+    <div class="doc-hero">
+      <div class="doc-hero-strip"></div>
+      <div class="doc-hero-body">
+
+        <!-- Icon + Title -->
+        <div class="doc-type-icon-lg">
+          {% if document.category == 'identity' %}<i class="fas fa-id-card"></i>
+          {% elif document.category == 'financial' %}<i class="fas fa-file-invoice-dollar"></i>
+          {% elif document.category == 'legal' %}<i class="fas fa-gavel"></i>
+          {% elif document.category == 'medical' %}<i class="fas fa-notes-medical"></i>
+          {% elif document.category == 'property' %}<i class="fas fa-home"></i>
+          {% else %}<i class="fas fa-file-alt"></i>{% endif %}
+        </div>
+
+        <div class="doc-hero-info">
+          <h1>{{ document.title }}</h1>
+          <div class="doc-meta-row">
+            <span class="doc-meta-chip"><i class="fas fa-tag"></i> {{ document.get_category_display }}</span>
+            {% with doc_date=document.created_at|date:"M d, Y" %}
+            <span class="doc-meta-chip"><i class="far fa-calendar-alt"></i> {{ doc_date }}</span>
+            {% endwith %}
+            <span class="doc-meta-chip"><i class="fas fa-user-circle"></i> {{ document.user.username }}</span>
+          </div>
+          <span class="access-badge">
+            <i class="fas fa-shield-alt"></i> {{ nominee.get_access_level_display }} Access
+          </span>
+        </div>
+
+        <!-- Owner Block -->
+        <div class="doc-owner-block">
+          <p><i class="fas fa-user-shield"></i> Vault Owner</p>
+          <div class="doc-owner-row">
+            <div class="doc-owner-avatar">{{ document.user.username|make_list|first }}</div>
+            <div>
+              <h4>{{ document.user.username }}</h4>
+              <span>{{ document.user.email }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Metadata Grid -->
+    <div class="meta-grid">
+      <div class="meta-box">
+        <div class="meta-box-label"><i class="fas fa-tag"></i> Category</div>
+        <p class="meta-box-value">{{ document.get_category_display }}</p>
+      </div>
+      <div class="meta-box">
+        <div class="meta-box-label"><i class="far fa-calendar-check"></i> Uploaded</div>
+        <p class="meta-box-value">{{ document.created_at|date:"M d, Y" }}</p>
+      </div>
+      <div class="meta-box">
+        <div class="meta-box-label"><i class="fas fa-file-code"></i> File Type</div>
+        <p class="meta-box-value">{{ document.file_type|default:"Unknown"|upper }}</p>
+      </div>
+      <div class="meta-box">
+        <div class="meta-box-label"><i class="fas fa-database"></i> File Size</div>
+        <p class="meta-box-value">{{ document.file_size|filesizeformat }}</p>
+      </div>
+    </div>
+
+    <!-- Preview Card -->
+    <div class="desc-card" style="margin-bottom:1.5rem;">
+      <div class="desc-card-header">
+        <i class="fas fa-eye"></i> Document Preview
+        <span id="previewBadge"
+          style="margin-left:auto; font-size:0.75rem; font-weight:700; padding:0.2rem 0.6rem; border-radius:99px; background:#eff6ff; color:#2d5277; border:1px solid #bfdbfe; display:none;"></span>
+      </div>
+      <div style="padding:0;">
+        <div id="previewArea"
+          style="border-radius:0 0 12px 12px; overflow:hidden; background:#f8fafc; border-top:1px solid #e5e7eb; min-height:300px; display:flex; align-items:center; justify-content:center;">
+          <div id="previewLoading" style="text-align:center; padding:3rem; color:#6b7280;">
+            <i class="fas fa-spinner fa-spin"
+              style="font-size:2rem; margin-bottom:1rem; display:block; color:#2d5277;"></i>
+            <p style="font-size:0.9rem; font-weight:600;">Loading preview…</p>
+          </div>
+        </div>
+        <div id="previewActions"
+          style="padding:1rem 1.4rem; border-top:1px solid #e5e7eb; display:none; gap:0.6rem; flex-wrap:wrap; align-items:center;">
+          <a id="previewFullscreen" href="#" target="_blank"
+            style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;font-size:0.85rem;font-weight:600;background:#2d5277;color:#fff;border-radius:8px;text-decoration:none;">
+            <i class="fas fa-expand-alt"></i> Full Screen
+          </a>
+          {% if can_download %}
+          <a href="{% url 'accounts:nominee_download_document' document.id %}"
+            style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;font-size:0.85rem;font-weight:600;background:#fff;color:#374151;border:1px solid #e5e7eb;border-radius:8px;text-decoration:none;">
+            <i class="fas fa-cloud-download-alt"></i> Download
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="desc-card">
+      <div class="desc-card-header">
+        <i class="fas fa-align-left"></i> Document Description
+      </div>
+      <div class="desc-card-body">
+        {{ document.description|default:"No additional description has been provided for this document." }}
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div class="download-section">
+      <h3><i class="fas fa-cloud-download-alt"></i> Download</h3>
+
+      {% if can_download %}
+      <div class="download-allowed">
+        <div class="download-info">
+          <p>Your access level permits you to download this document. The file will be downloaded securely.</p>
+        </div>
+        <a href="{% url 'accounts:nominee_download_document' document.id %}" class="btn-primary">
+          <i class="fas fa-cloud-download-alt"></i> Download Document
+        </a>
+      </div>
+      {% else %}
+      <div class="restricted-notice">
+        <i class="fas fa-lock"></i>
+        <div>
+          <strong>Download Restricted</strong>
+          <p>Your current access level does not permit downloading this document. Contact the vault owner or submit a
+            request for elevated access.</p>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Footer Navigation -->
+    <div class="dv-footer">
+      <a href="{% url 'accounts:nominee_documents' nominee.id %}" class="btn-outline">
+        <i class="fas fa-arrow-left"></i> Back to Documents
+      </a>
+      {% if not can_download %}
+      <a href="{% url 'accounts:request_vault_access' nominee.id %}" class="btn-primary">
+        <i class="fas fa-key"></i> Request Download Access
+      </a>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    const fileUrl = "{{ document.file.url }}";
+    const mimeType = "{{ document.file_type|default:'' }}".toLowerCase();
+    const area = document.getElementById('previewArea');
+    const badge = document.getElementById('previewBadge');
+    const actions = document.getElementById('previewActions');
+    const fsLink = document.getElementById('previewFullscreen');
+
+    function showBadge(label, color) {
+      badge.textContent = label;
+      badge.style.display = 'inline-block';
+      badge.style.background = color === 'blue' ? '#eff6ff' : color === 'green' ? '#f0fdf4' : '#f9fafb';
+      badge.style.color = color === 'blue' ? '#2d5277' : color === 'green' ? '#16a34a' : '#6b7280';
+      badge.style.borderColor = color === 'blue' ? '#bfdbfe' : color === 'green' ? '#bbf7d0' : '#e5e7eb';
+    }
+
+    function unavailable(iconClass, title, desc) {
+      area.style.minHeight = '220px';
+      area.innerHTML = `
+            <div style="text-align:center;padding:2.5rem 1.5rem;">
+                <div style="width:64px;height:64px;border-radius:16px;background:#f0f4f9;display:inline-flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+                    <i class="${iconClass}" style="font-size:1.75rem;color:#2d5277;"></i>
+                </div>
+                <p style="font-size:0.95rem;font-weight:700;color:#111827;margin:0 0 0.35rem;">${title}</p>
+                <p style="font-size:0.82rem;color:#6b7280;margin:0;">${desc}</p>
+            </div>`;
+      actions.style.display = 'flex';
+      fsLink.style.display = 'none';
+      showBadge('Preview Unavailable', 'gray');
+    }
+
+    if (mimeType.startsWith('image/')) {
+      area.style.minHeight = 'unset';
+      area.style.background = '#000';
+      area.innerHTML = `<img src="${fileUrl}" alt="Document Preview" style="max-width:100%;max-height:65vh;object-fit:contain;display:block;" />`;
+      fsLink.href = fileUrl;
+      actions.style.display = 'flex';
+      showBadge('Image Preview', 'green');
+
+    } else if (mimeType === 'application/pdf') {
+      area.style.minHeight = 'unset';
+      area.innerHTML = `<iframe src="${fileUrl}" style="width:100%;height:65vh;border:none;display:block;" title="PDF Preview"></iframe>`;
+      fsLink.href = fileUrl;
+      actions.style.display = 'flex';
+      showBadge('PDF Preview', 'blue');
+
+    } else if (mimeType === 'text/plain') {
+      showBadge('Text Preview', 'green');
+      fetch(fileUrl)
+        .then(r => r.text())
+        .then(text => {
+          area.style.minHeight = 'unset';
+          area.style.alignItems = 'flex-start';
+          area.innerHTML = `<pre style="margin:0;padding:1.25rem;font-family:'Courier New',monospace;font-size:0.85rem;color:#374151;white-space:pre-wrap;word-break:break-word;max-height:55vh;overflow-y:auto;width:100%;">${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>`;
+          actions.style.display = 'flex';
+          fsLink.href = fileUrl;
+        })
+        .catch(() => unavailable('fas fa-file-alt', 'Could Not Load', 'The text file could not be fetched for preview.'));
+
+    } else if (mimeType.includes('word') || mimeType.includes('officedocument')) {
+      unavailable('fas fa-file-word', 'Word Document', 'Word files cannot be previewed in the browser. Please download to open.');
+
+    } else if (mimeType === 'application/zip') {
+      unavailable('fas fa-file-archive', 'ZIP Archive', 'Archive files cannot be previewed. Please download to inspect the contents.');
+
+    } else {
+      unavailable('fas fa-file', 'Preview Unavailable', 'This file type cannot be previewed in the browser.');
+    }
+
+    const loading = document.getElementById('previewLoading');
+    if (loading) loading.remove();
+  })();
+</script>
+
+{% endblock %}

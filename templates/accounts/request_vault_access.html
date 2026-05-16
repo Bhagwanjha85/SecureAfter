@@ -1,0 +1,591 @@
+{% extends 'base.html' %}
+{% block title %}Request Vault Access — SecureAfter{% endblock %}
+
+{% block extra_css %}
+<style>
+  :root {
+    --blue: #2d5277;
+    --blue-dark: #315293;
+    --blue-light: #eff6ff;
+    --blue-faint: #f0f4f9;
+    --text: #111827;
+    --text-2: #374151;
+    --text-3: #6b7280;
+    --border: #e5e7eb;
+    --bg: #f9fafb;
+    --white: #ffffff;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 32px rgba(0, 0, 0, 0.10);
+    --amber: #b45309;
+    --amber-bg: #fffbeb;
+    --amber-border: #fcd34d;
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+  }
+
+  /* ── PAGE ── */
+  .rva-page {
+    background: var(--bg);
+    min-height: calc(100vh - 64px);
+    padding: 2.5rem 0 4rem;
+  }
+
+  .rva-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--text-3);
+    margin-bottom: 1.5rem;
+  }
+
+  .breadcrumb-row a {
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .breadcrumb-row a:hover {
+    text-decoration: underline;
+  }
+
+  .breadcrumb-row .sep {
+    font-size: 0.6rem;
+    color: #d1d5db;
+  }
+
+  /* ── PAGE HEADER ── */
+  .rva-header {
+    margin-bottom: 1.75rem;
+  }
+
+  .rva-header-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--blue);
+    background: var(--blue-light);
+    border: 1px solid #bfdbfe;
+    padding: 0.3rem 0.75rem;
+    border-radius: 99px;
+    margin-bottom: 0.75rem;
+  }
+
+  .rva-header h1 {
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin: 0 0 0.4rem;
+  }
+
+  .rva-header p {
+    color: var(--text-3);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ── VAULT OWNER CARD ── */
+  .owner-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+  }
+
+  .owner-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: var(--blue);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+
+  .owner-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .owner-info p {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-3);
+    margin: 0 0 0.2rem;
+  }
+
+  .owner-info h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .owner-info span {
+    font-size: 0.8rem;
+    color: var(--text-3);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .access-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--blue);
+    background: var(--blue-light);
+    border: 1px solid #bfdbfe;
+    padding: 0.3rem 0.7rem;
+    border-radius: 99px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* ── WARNING NOTICE ── */
+  .warning-notice {
+    background: var(--amber-bg);
+    border: 1px solid var(--amber-border);
+    border-left: 4px solid #f59e0b;
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .warning-notice i {
+    color: var(--amber);
+    font-size: 1.05rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .warning-notice div strong {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--amber);
+    margin-bottom: 0.25rem;
+  }
+
+  .warning-notice div p {
+    font-size: 0.85rem;
+    color: #78350f;
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* ── FORM CARD ── */
+  .form-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-card-header {
+    background: var(--blue-faint);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .form-card-body {
+    padding: 1.5rem 1.4rem;
+  }
+
+  /* ── FORM FIELDS ── */
+  .field-group {
+    margin-bottom: 1.35rem;
+  }
+
+  .field-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .field-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-2);
+    margin-bottom: 0.45rem;
+  }
+
+  .field-group label .req {
+    color: #ef4444;
+    margin-left: 2px;
+  }
+
+  .field-group select,
+  .field-group textarea {
+    width: 100%;
+    padding: 0.7rem 0.95rem;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .field-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.85rem center;
+    padding-right: 2.25rem;
+    cursor: pointer;
+  }
+
+  .field-group select:focus,
+  .field-group textarea:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(45, 82, 119, 0.12);
+  }
+
+  .field-group textarea {
+    min-height: 130px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  .field-hint {
+    margin-top: 0.4rem;
+    font-size: 0.78rem;
+    color: var(--text-3);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.3rem;
+    line-height: 1.5;
+  }
+
+  .field-hint i {
+    color: var(--blue);
+    font-size: 0.72rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── SUBMIT ROW ── */
+  .submit-row {
+    display: flex;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  /* ── WHAT HAPPENS NEXT CARD ── */
+  .next-steps-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .next-steps-header {
+    background: var(--green-bg);
+    border-bottom: 1px solid #bbf7d0;
+    padding: 0.9rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .next-steps-list {
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .next-step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .next-step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--blue-light);
+    color: var(--blue);
+    font-size: 0.78rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid #bfdbfe;
+    margin-top: 1px;
+  }
+
+  .next-step-text {
+    font-size: 0.875rem;
+    color: var(--text-2);
+    line-height: 1.55;
+    padding-top: 2px;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.6rem 1.3rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: var(--blue);
+    color: var(--white);
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .btn-primary:hover {
+    background: var(--blue-dark);
+    transform: translateY(-1px);
+    color: var(--white);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1.15rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: var(--white);
+    color: var(--text-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    white-space: nowrap;
+    justify-content: center;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    transform: translateY(-1px);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .owner-card {
+      flex-wrap: wrap;
+    }
+
+    .access-badge {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .submit-row {
+      flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-outline {
+      width: 100%;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="rva-page">
+  <div class="rva-inner">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-row">
+      <a href="{% url 'accounts:nominee_dashboard' %}"><i class="fas fa-home"></i> Dashboard</a>
+      <i class="fas fa-chevron-right sep"></i>
+      <a href="{% url 'accounts:nominee_documents' nominee.id %}">Shared Vault</a>
+      <i class="fas fa-chevron-right sep"></i>
+      <span>Request Access</span>
+    </div>
+
+    <!-- Page Header -->
+    <div class="rva-header">
+      <div class="rva-header-label">
+        <i class="fas fa-key"></i> Access Request
+      </div>
+      <h1>Request Vault Access</h1>
+      <p>Submit a formal access request to {{ nominee.user.username }}'s secure vault. The owner will be notified immediately.</p>
+    </div>
+
+    <!-- Vault Owner Info -->
+    <div class="owner-card">
+      <div class="owner-avatar">{{ nominee.user.username|make_list|first }}</div>
+      <div class="owner-info">
+        <p>Vault Owner</p>
+        <h3>{{ nominee.user.username }}</h3>
+        <span>{{ nominee.user.email }}</span>
+      </div>
+      <span class="access-badge">
+        <i class="fas fa-shield-alt"></i> {{ nominee.get_access_level_display }} Access
+      </span>
+    </div>
+
+    <!-- Warning -->
+    <div class="warning-notice">
+      <i class="fas fa-exclamation-triangle"></i>
+      <div>
+        <strong>Submit Genuine Requests Only</strong>
+        <p>This request will be sent directly to the vault owner. Only submit access requests based on real emergency circumstances. Fraudulent requests may result in account suspension.</p>
+      </div>
+    </div>
+
+    <!-- Request Form -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <i class="fas fa-paper-plane"></i> Request Details
+      </div>
+      <div class="form-card-body">
+        <form method="post">
+          {% csrf_token %}
+
+          <!-- Reason -->
+          <div class="field-group">
+            <label for="reason">
+              Reason for Request <span class="req">*</span>
+            </label>
+            <select name="reason" id="reason" required>
+              <option value="" disabled selected>Select the emergency reason…</option>
+              <option value="death">User Deceased</option>
+              <option value="medical">Medical Emergency</option>
+              <option value="accident">Accident or Injury</option>
+              <option value="unreachable">Unable to Reach Owner</option>
+              <option value="other">Other Circumstances</option>
+            </select>
+            <div class="field-hint">
+              <i class="fas fa-info-circle"></i>
+              Choose the reason that most accurately describes the situation.
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="field-group">
+            <label for="description">
+              Detailed Description <span class="req">*</span>
+            </label>
+            <textarea
+              name="description"
+              id="description"
+              placeholder="Provide specific details about the circumstances. E.g., the date of the event, the nature of the emergency, and why you require immediate access to the vault…"
+              required
+            ></textarea>
+            <div class="field-hint">
+              <i class="fas fa-info-circle"></i>
+              A detailed description helps the vault owner make an informed decision. Be as specific as possible.
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <div class="submit-row">
+            <a href="{% url 'accounts:nominee_dashboard' %}" class="btn-outline">
+              <i class="fas fa-times"></i> Cancel
+            </a>
+            <button type="submit" class="btn-primary">
+              <i class="fas fa-paper-plane"></i> Submit Access Request
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- What Happens Next -->
+    <div class="next-steps-card">
+      <div class="next-steps-header">
+        <i class="fas fa-list-ol"></i> What Happens After You Submit
+      </div>
+      <div class="next-steps-list">
+        <div class="next-step-item">
+          <div class="next-step-num">1</div>
+          <p class="next-step-text">The vault owner is immediately notified of your access request via email and their dashboard.</p>
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">2</div>
+          <p class="next-step-text">The owner reviews your request and can choose to approve or decline based on the reason provided.</p>
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">3</div>
+          <p class="next-step-text">If approved, you will gain access to the vault documents based on your assigned permission level.</p>
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">4</div>
+          <p class="next-step-text">If declined, you will receive a notification. You may resubmit with additional context if needed.</p>
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">5</div>
+          <p class="next-step-text">Requests that receive no response automatically expire after <strong>7 days</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
